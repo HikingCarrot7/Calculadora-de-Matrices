@@ -13,8 +13,13 @@ public class Matriz
 
         imprimirMatriz(miMatriz);
 
-        System.out.println(determinante(0, miMatriz));
+        imprimirMatriz(inversa(miMatriz));
 
+    }
+
+    public double[][] inversa(double[][] matriz)
+    {
+        return multiplicarPorEscalar(1 / determinante(0, matriz), adjunta(matriz));
     }
 
     public double determinante(int i, double[][] matriz)
@@ -42,7 +47,41 @@ public class Matriz
 
     }
 
-    private double[][] subMatriz(int fila, int columna, double[][] matriz)
+    public double[][] adjunta(double[][] matriz)
+    {
+        double[][] matrizCofactores = new double[matriz.length][matriz.length];
+
+        for (int i = 0; i < matriz.length; i++)
+            for (int j = 0; j < matriz.length; j++)
+                matrizCofactores[i][j] = Math.pow(-1, i + j) * determinante(0, subMatriz(i, j, matriz));
+
+        return transpuesta(matrizCofactores);
+
+    }
+
+    public double[][] transpuesta(double[][] matriz)
+    {
+        double[][] matrizTranspuesta = new double[matriz.length][matriz.length];
+
+        for (int i = 0; i < matriz.length; i++)
+            for (int j = 0; j < matriz.length; j++)
+                matrizTranspuesta[i][j] = matriz[j][i];
+
+        return matrizTranspuesta;
+
+    }
+
+    public double[][] multiplicarPorEscalar(double escalar, double[][] matriz)
+    {
+        for (double[] fila : matriz)
+            for (int j = 0; j < matriz.length; j++)
+                fila[j] *= escalar;
+
+        return matriz;
+
+    }
+
+    public double[][] subMatriz(int fila, int columna, double[][] matriz)
     {
 
         double[][] subMatriz = new double[matriz.length - 1][matriz.length - 1];
@@ -56,22 +95,7 @@ public class Matriz
 
     }
 
-    private void imprimirMatriz(double[][] matriz)
-    {
-        for (double[] fila : matriz)
-        {
-            for (double elemento : fila)
-                System.out.printf(elemento < 10 ? "[0%,.2f] " : "[%,.2f] ", elemento);
-
-            System.out.println("");
-
-        }
-
-        System.out.println("");
-
-    }
-
-    private double[][] rellenarMatriz(final int i)
+    public double[][] rellenarMatriz(final int i)
     {
         double[][] matrizRellenada = new double[i][i];
 
@@ -80,6 +104,21 @@ public class Matriz
                 fila[l] = (double) ((int) (Math.random() * 100));
 
         return matrizRellenada;
+
+    }
+
+    public void imprimirMatriz(double[][] matriz)
+    {
+        for (double[] fila : matriz)
+        {
+            for (double elemento : fila)
+                System.out.printf("%-15s", String.format("[%,.5f] ", elemento));
+
+            System.out.println("");
+
+        }
+
+        System.out.println("");
 
     }
 
