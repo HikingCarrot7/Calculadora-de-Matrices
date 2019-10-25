@@ -15,6 +15,8 @@ public class Matriz
 
         imprimirMatriz(inversa(miMatriz));
 
+        imprimirMatriz(productoMatrices(miMatriz, miMatriz));
+
     }
 
     public double[][] inversa(double[][] matriz)
@@ -85,19 +87,20 @@ public class Matriz
      *
      * @param matrizA matrix A as a 3x3 array of doubles
      * @param matrizB matrix B as a 3x3 array of doubles
+     *
      * @return matrix AB as a 3x3 array of doubles
      */
     public double[][] productoMatrices(double matrizA[][], double matrizB[][])
     {
-        double matrizProducto[][] = new double[3][3];
+        double matrizProducto[][] = new double[matrizA.length][matrizB[0].length];
 
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++)
+        for (int i = 0; i < matrizProducto.length; i++)
+            for (int j = 0; j < matrizProducto.length; j++)
             {
                 double sum = 0;
 
-                for (int k = 0; k < 10; k++)
-                    sum += matrizA[i][k] * matrizB[k][j];
+                for (int k = 0; k < matrizProducto.length; k++)
+                    sum += matrizA[j][k] * matrizB[k][i];
 
                 matrizProducto[i][j] = sum;
 
