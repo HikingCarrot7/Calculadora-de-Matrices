@@ -2,6 +2,7 @@ package com.sw.controller;
 
 import com.sw.model.Matriz;
 import com.sw.view.MatrixDesign;
+import com.sw.view.MatrixLayout;
 
 /**
  *
@@ -9,6 +10,8 @@ import com.sw.view.MatrixDesign;
  */
 public class DataManager
 {
+
+    private MatrixDesign matriz;
 
     public void actualizarCampo(MatrixDesign matriz, double[][] matrizRellenar)
     {
@@ -30,6 +33,18 @@ public class DataManager
 
     }
 
+    public void rellenarTodosLosCampos(MatrixDesign[] matrices)
+    {
+        Matriz calculosMatriz = new Matriz();
+        double[][] matrizEntrada = getMatrizCampo(matrices[0]);
+
+        actualizarCampo(matrices[1], calculosMatriz.sumaOtraMatriz(matrizEntrada, matrizEntrada));
+        actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, matrizEntrada));
+        actualizarCampo(matrices[3], calculosMatriz.multiplicarPorEscalar(2, matrizEntrada));
+        actualizarCampo(matrices[4], calculosMatriz.inversa(matrizEntrada));
+
+    }
+
     public boolean matrizRellenadaCorrectamente(MatrixDesign matriz)
     {
         int longitud = getLogitudCampo(matriz);
@@ -46,12 +61,6 @@ public class DataManager
 
     }
 
-    public void rellenarTodosLosCampos(MatrixDesign[] matrices)
-    {
-        Matriz matriz = new Matriz();
-
-    }
-
     public int getLogitudCampo(MatrixDesign matriz)
     {
 
@@ -62,6 +71,29 @@ public class DataManager
 
         return longitud;
 
+    }
+
+    public void guardarMatrizEntrada(MatrixLayout distribucion)
+    {
+        matriz = new MatrixDesign(9);
+
+        for (int i = 0; i < distribucion.getMatrices()[0].getLadoMatriz(); i++)
+            for (int j = 0; j < distribucion.getMatrices()[0].getLadoMatriz(); j++)
+                matriz.getEntradasMatriz()[i][j].setText(distribucion.getMatrices()[0].getEntradasMatriz()[i][j].getText());
+
+    }
+
+    public void reestablecerCampos(MatrixLayout distribucion)
+    {
+        for (int i = 0; i < distribucion.getMatrices()[0].getLadoMatriz(); i++)
+            for (int j = 0; j < distribucion.getMatrices()[0].getLadoMatriz(); j++)
+                distribucion.getMatrices()[0].getEntradasMatriz()[i][j].setText(matriz.getEntradasMatriz()[i][j].getText());
+
+    }
+
+    public boolean entradaValida(String text, String regex)
+    {
+        return text.matches(regex);
     }
 
 }

@@ -7,6 +7,18 @@ package com.sw.model;
 public class Matriz
 {
 
+    public double[][] sumaOtraMatriz(double[][] matrizA, double[][] matrizB)
+    {
+        double[][] matrizResultante = new double[matrizA.length][matrizA.length];
+
+        for (int i = 0; i < matrizResultante.length; i++)
+            for (int j = 0; j < matrizResultante.length; j++)
+                matrizResultante[i][j] = matrizA[i][j] + matrizB[i][j];
+
+        return matrizResultante;
+
+    }
+
     public double[][] inversa(double[][] matriz)
     {
         return multiplicarPorEscalar(1 / determinante(0, matriz), adjunta(matriz));

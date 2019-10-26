@@ -2,6 +2,8 @@ package com.sw.view;
 
 import com.sw.controller.ButtonActionManager;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +21,8 @@ public final class Interfaz extends JPanel
     private JButton definir, calcular;
     private JLabel info;
     private JTextField entradaLadoMatrices;
-    private MatrixLayout distribucion;
+    private ActionButton actionButton;
+    private volatile MatrixLayout distribucion;
 
     public Interfaz()
     {
@@ -30,7 +33,7 @@ public final class Interfaz extends JPanel
 
         addComponents();
 
-        buttonsActionPerformed(distribucion);
+        buttonsActionPerformed();
 
     }
 
@@ -87,26 +90,60 @@ public final class Interfaz extends JPanel
 
     }
 
-    public void buttonsActionPerformed(MatrixLayout distribucion)
+    public void buttonsActionPerformed()
     {
-        definir.addActionListener((e) ->
-        {
 
-            new ButtonActionManager().accionBotonDefinir(distribucion, this);
+        ButtonActionManager buttonActionManager = new ButtonActionManager();
 
-        });
+        actionButton = new ActionButton(distribucion, buttonActionManager, this);
 
-        calcular.addActionListener((e) ->
-        {
-            new ButtonActionManager().accionBotonCalcular(distribucion);
+        definir.addActionListener(actionButton);
 
-        });
+        calcular.addActionListener(actionButton);
 
     }
 
     public JTextField getEntradaLadoMatrices()
     {
         return entradaLadoMatrices;
+    }
+
+    public ActionButton getActionButton()
+    {
+        return actionButton;
+    }
+
+    public class ActionButton implements ActionListener
+    {
+
+        private MatrixLayout distribucion;
+        private ButtonActionManager buttonActionManager;
+        private Interfaz interfaz;
+
+        public ActionButton(MatrixLayout distribucion, ButtonActionManager buttonActionManager, Interfaz interfaz)
+        {
+            this.distribucion = distribucion;
+            this.buttonActionManager = buttonActionManager;
+            this.interfaz = interfaz;
+
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            if (e.getActionCommand().equals("Definir"))
+                buttonActionManager.accionBotonDefinir(distribucion, interfaz);
+
+            else
+                buttonActionManager.accionBotonCalcular(distribucion);
+
+        }
+
+        public void setDistribucion(MatrixLayout distribucion)
+        {
+            this.distribucion = distribucion;
+        }
+
     }
 
 }
