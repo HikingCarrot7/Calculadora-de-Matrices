@@ -3,6 +3,7 @@ package com.sw.view;
 import com.sw.controller.ActionButton;
 import com.sw.controller.ButtonActionManager;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,9 +18,9 @@ public final class Interfaz extends JPanel
 {
 
     private JPanel panel;
-    private JButton definir, calcular;
-    private JLabel info;
-    private JTextField entradaLadoMatrices;
+    private JButton definir, calcular, segundaMatriz;
+    private JLabel info, determinante, infoEscalar;
+    private JTextField entradaLadoMatrices, escalar;
     private ActionButton actionButton;
     private volatile MatrixLayout distribucion;
 
@@ -56,6 +57,8 @@ public final class Interfaz extends JPanel
     private void initComponents()
     {
 
+        Font fuente = new Font("Consolas", Font.PLAIN, 11);
+
         distribucion = new MatrixLayout(3);
         distribucion.setBounds(0, 0, 1160, 930);
 
@@ -65,24 +68,55 @@ public final class Interfaz extends JPanel
         panel.setBounds(20, 0, 550, 300);
 
         entradaLadoMatrices = new JTextField();
-        entradaLadoMatrices.setBounds(20, 220, 150, 30);
+        entradaLadoMatrices.setFont(fuente);
+        entradaLadoMatrices.setBounds(20, 170, 150, 30);
+
+        escalar = new JTextField();
+        escalar.setFont(fuente);
+        escalar.setBounds(20, 110, 150, 30);
 
         definir = new JButton();
-        definir.setBounds(190, 220, 90, 30);
+        definir.setFont(fuente);
+        definir.setBounds(190, 170, 90, 30);
         definir.setToolTipText("Define los lados para las matrices.");
         definir.setText("Definir");
 
         calcular = new JButton();
+        calcular.setFont(fuente);
         calcular.setBounds(20, 260, 500, 30);
+        calcular.setToolTipText("Hacer los cálculos");
         calcular.setText("Calcular");
+
+        segundaMatriz = new JButton();
+        segundaMatriz.setFont(fuente);
+        segundaMatriz.setBounds(20, 220, 500, 30);
+        segundaMatriz.setToolTipText("Establecer una segunda matriz para hacer los cálculos");
+        segundaMatriz.setText("Estable una segunda matriz para hacer los cálculos");
+
+        info = new JLabel("Lado de la matriz:");
+        info.setFont(fuente);
+        info.setBounds(20, 140, 150, 30);
+
+        determinante = new JLabel("Determinante:");
+        determinante.setFont(fuente);
+        determinante.setBounds(300, 170, 90, 30);
+
+        infoEscalar = new JLabel("Define un escalar:");
+        infoEscalar.setFont(fuente);
+        infoEscalar.setBounds(20, 80, 150, 30);
 
     }
 
     private void addComponents()
     {
         panel.add(entradaLadoMatrices);
+        panel.add(escalar);
         panel.add(definir);
         panel.add(calcular);
+        panel.add(segundaMatriz);
+        panel.add(info);
+        panel.add(infoEscalar);
+        panel.add(determinante);
 
         add(panel);
         add(distribucion);
@@ -110,6 +144,16 @@ public final class Interfaz extends JPanel
     public ActionButton getActionButton()
     {
         return actionButton;
+    }
+
+    public JLabel getDeterminante()
+    {
+        return determinante;
+    }
+
+    public JTextField getEscalar()
+    {
+        return escalar;
     }
 
 }
