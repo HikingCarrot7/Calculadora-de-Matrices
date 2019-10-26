@@ -44,6 +44,16 @@ public final class DistribucionMatrices extends JPanel
 
     }
 
+    public Matriz[] getMatrices()
+    {
+        return matrices;
+    }
+
+    public int getLadoMatrices()
+    {
+        return ladoMatrices;
+    }
+
     private class Diseno extends LayoutManagerAdapter
     {
 

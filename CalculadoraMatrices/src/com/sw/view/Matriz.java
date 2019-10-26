@@ -11,8 +11,14 @@ import javax.swing.JTextField;
 public final class Matriz extends javax.swing.JPanel
 {
 
+    private int ladoMatriz;
+
     public Matriz(int ladoMatriz)
     {
+
+        this.ladoMatriz = ladoMatriz;
+
+        setName("Hola");
 
         entradasMatriz = new JTextField[ladoMatriz][ladoMatriz];
 
@@ -32,20 +38,22 @@ public final class Matriz extends javax.swing.JPanel
     private void initComponents()
     {
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "foo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Consolas", 0, 14))); // NOI18N
-        setToolTipText("");
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, getName(), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Consolas", 0, 14))); // NOI18N
+        setToolTipText(getToolTipText());
         setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
+            .addGap(0, 396, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGap(0, 295, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleName(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void anadirEntradasMatriz()
@@ -58,6 +66,16 @@ public final class Matriz extends javax.swing.JPanel
 
             }
 
+    }
+
+    public JTextField[][] getEntradasMatriz()
+    {
+        return entradasMatriz;
+    }
+
+    public int getLadoMatriz()
+    {
+        return ladoMatriz;
     }
 
     private class Diseno extends LayoutManagerAdapter

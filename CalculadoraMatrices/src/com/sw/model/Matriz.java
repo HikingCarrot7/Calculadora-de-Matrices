@@ -7,18 +7,6 @@ package com.sw.model;
 public class Matriz
 {
 
-    public void pruebaMatriz()
-    {
-        double[][] miMatriz = rellenarMatriz(3);
-
-        imprimirMatriz(miMatriz);
-
-        imprimirMatriz(inversa(miMatriz));
-
-        imprimirMatriz(productoMatrices(miMatriz, miMatriz));
-
-    }
-
     public double[][] inversa(double[][] matriz)
     {
         return multiplicarPorEscalar(1 / determinante(0, matriz), adjunta(matriz));
@@ -158,11 +146,6 @@ public class Matriz
 
         System.out.println("");
 
-    }
-
-    public static void main(String[] args)
-    {
-        new Matriz().pruebaMatriz();
     }
 
 }

@@ -1,6 +1,9 @@
 package com.sw.view;
 
+import com.sw.controller.ButtonActionManager;
+import java.awt.Dimension;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -27,12 +30,30 @@ public final class Interfaz extends JPanel
 
         addComponents();
 
-        definirActionPerformed();
+        buttonsActionPerformed(distribucion);
+
+    }
+
+    public static void setUpWindow()
+    {
+
+        JFrame frame = new JFrame();
+        Interfaz interfaz = new Interfaz();
+
+        frame.setPreferredSize(new Dimension(1160, 930));
+        frame.setMinimumSize(new Dimension(1160, 930));
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setTitle("Calculadora de matrices");
+        frame.getContentPane().add(interfaz);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
     private void initComponents()
     {
+
         distribucion = new DistribucionMatrices(3);
         distribucion.setBounds(0, 0, 1160, 930);
 
@@ -66,18 +87,26 @@ public final class Interfaz extends JPanel
 
     }
 
-    private void definirActionPerformed()
+    public void buttonsActionPerformed(DistribucionMatrices distribucion)
     {
         definir.addActionListener((e) ->
         {
-            remove(distribucion);
-            distribucion = new DistribucionMatrices(Integer.parseInt(entradaLadoMatrices.getText()));
-            distribucion.setBounds(0, 0, 1160, 930);
-            add(distribucion);
-            updateUI();
+
+            new ButtonActionManager().accionBotonDefinir(distribucion, this);
 
         });
 
+        calcular.addActionListener((e) ->
+        {
+            new ButtonActionManager().accionBotonCalcular(distribucion);
+
+        });
+
+    }
+
+    public JTextField getEntradaLadoMatrices()
+    {
+        return entradaLadoMatrices;
     }
 
 }
