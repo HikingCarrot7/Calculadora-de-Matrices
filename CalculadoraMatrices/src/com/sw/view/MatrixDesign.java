@@ -8,17 +8,17 @@ import javax.swing.JTextField;
  *
  * @author Mohammed
  */
-public final class Matriz extends javax.swing.JPanel
+public final class MatrixDesign extends javax.swing.JPanel
 {
 
     private int ladoMatriz;
 
-    public Matriz(int ladoMatriz)
+    public MatrixDesign(int ladoMatriz, String title)
     {
 
         this.ladoMatriz = ladoMatriz;
 
-        setName("Hola");
+        setName(title);
 
         entradasMatriz = new JTextField[ladoMatriz][ladoMatriz];
 
@@ -53,7 +53,7 @@ public final class Matriz extends javax.swing.JPanel
             .addGap(0, 295, Short.MAX_VALUE)
         );
 
-        getAccessibleContext().setAccessibleName(null);
+        getAccessibleContext().setAccessibleName("null");
     }// </editor-fold>//GEN-END:initComponents
 
     private void anadirEntradasMatriz()

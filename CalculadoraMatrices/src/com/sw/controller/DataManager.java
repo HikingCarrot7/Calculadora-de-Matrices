@@ -1,6 +1,7 @@
 package com.sw.controller;
 
-import com.sw.view.Matriz;
+import com.sw.model.Matriz;
+import com.sw.view.MatrixDesign;
 
 /**
  *
@@ -9,7 +10,7 @@ import com.sw.view.Matriz;
 public class DataManager
 {
 
-    public void actualizarCampo(Matriz matriz, double[][] matrizRellenar)
+    public void actualizarCampo(MatrixDesign matriz, double[][] matrizRellenar)
     {
         for (int i = 0; i < matrizRellenar.length; i++)
             for (int j = 0; j < matrizRellenar[i].length; j++)
@@ -17,11 +18,9 @@ public class DataManager
 
     }
 
-    public double[][] getMatrizCampo(Matriz matriz)
+    public double[][] getMatrizCampo(MatrixDesign matriz)
     {
         double[][] matrizARetornar = new double[getLogitudCampo(matriz)][getLogitudCampo(matriz)];
-
-        System.out.println(this.getLogitudCampo(matriz));
 
         for (int i = 0; i < matrizARetornar.length; i++)
             for (int j = 0; j < matrizARetornar.length; j++)
@@ -31,7 +30,29 @@ public class DataManager
 
     }
 
-    public int getLogitudCampo(Matriz matriz)
+    public boolean matrizRellenadaCorrectamente(MatrixDesign matriz)
+    {
+        int longitud = getLogitudCampo(matriz);
+
+        if (longitud < 3)
+            return false;
+
+        for (int i = 0; i < longitud; i++)
+            for (int j = 0; j < longitud; j++)
+                if (matriz.getEntradasMatriz()[i][j].getText().equals(""))
+                    return false;
+
+        return true;
+
+    }
+
+    public void rellenarTodosLosCampos(MatrixDesign[] matrices)
+    {
+        Matriz matriz = new Matriz();
+
+    }
+
+    public int getLogitudCampo(MatrixDesign matriz)
     {
 
         int longitud = 0, j = 0;

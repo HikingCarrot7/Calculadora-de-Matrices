@@ -1,6 +1,7 @@
 package com.sw.controller;
 
-import com.sw.view.DistribucionMatrices;
+import com.sw.model.Matriz;
+import com.sw.view.MatrixLayout;
 import com.sw.view.Interfaz;
 
 /**
@@ -10,11 +11,11 @@ import com.sw.view.Interfaz;
 public class ButtonActionManager
 {
 
-    public void accionBotonDefinir(DistribucionMatrices distribucion, Interfaz interfaz)
+    public void accionBotonDefinir(MatrixLayout distribucion, Interfaz interfaz)
     {
 
         interfaz.remove(distribucion);
-        distribucion = new DistribucionMatrices(Integer.parseInt(interfaz.getEntradaLadoMatrices().getText()));
+        distribucion = new MatrixLayout(Integer.parseInt(interfaz.getEntradaLadoMatrices().getText()));
         distribucion.setBounds(0, 0, 1160, 930);
         interfaz.buttonsActionPerformed(distribucion);
         interfaz.add(distribucion);
@@ -24,15 +25,12 @@ public class ButtonActionManager
 
     }
 
-    public void accionBotonCalcular(DistribucionMatrices distribuciones)
+    public void accionBotonCalcular(MatrixLayout distribuciones)
     {
         DataManager dataManager = new DataManager();
 
-        int longitudMatrices = dataManager.getLogitudCampo(distribuciones.getMatrices()[0]);
-
-        double[][] matrizEntrada = new double[longitudMatrices][longitudMatrices];
-
-        dataManager.actualizarCampo(distribuciones.getMatrices()[1], matrizEntrada);
+        if (dataManager.matrizRellenadaCorrectamente(distribuciones.getMatrices()[0]))
+            dataManager.actualizarCampo(distribuciones.getMatrices()[1], new Matriz().inversa(dataManager.getMatrizCampo(distribuciones.getMatrices()[0])));
 
     }
 

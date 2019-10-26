@@ -8,13 +8,19 @@ import javax.swing.JPanel;
  *
  * @author Mohammed
  */
-public final class DistribucionMatrices extends JPanel
+public final class MatrixLayout extends JPanel
 {
 
-    private Matriz[] matrices;
+    private MatrixDesign[] matrices;
+    private String[] tituloMatrices =
+    {
+        "Inserte la matriz", "Suma con otra matriz", "Multiplicación con otra matriz", "Multiplicación por escalar", "Inversa de la matriz"
+
+    };
+
     private int ladoMatrices;
 
-    public DistribucionMatrices(int ladoMatrices)
+    public MatrixLayout(int ladoMatrices)
     {
 
         this.ladoMatrices = ladoMatrices;
@@ -27,7 +33,7 @@ public final class DistribucionMatrices extends JPanel
 
     private void initComponents()
     {
-        matrices = new Matriz[5];
+        matrices = new MatrixDesign[5];
     }
 
     private void addComponents()
@@ -37,14 +43,15 @@ public final class DistribucionMatrices extends JPanel
 
         for (int i = 0; i < matrices.length; i++)
         {
-            matrices[i] = new Matriz(ladoMatrices);
+
+            matrices[i] = new MatrixDesign(ladoMatrices, tituloMatrices[i]);
             add(matrices[i]);
 
         }
 
     }
 
-    public Matriz[] getMatrices()
+    public MatrixDesign[] getMatrices()
     {
         return matrices;
     }

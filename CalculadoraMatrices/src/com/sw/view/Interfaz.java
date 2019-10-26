@@ -19,7 +19,7 @@ public final class Interfaz extends JPanel
     private JButton definir, calcular;
     private JLabel info;
     private JTextField entradaLadoMatrices;
-    private DistribucionMatrices distribucion;
+    private MatrixLayout distribucion;
 
     public Interfaz()
     {
@@ -54,7 +54,7 @@ public final class Interfaz extends JPanel
     private void initComponents()
     {
 
-        distribucion = new DistribucionMatrices(3);
+        distribucion = new MatrixLayout(3);
         distribucion.setBounds(0, 0, 1160, 930);
 
         panel = new JPanel();
@@ -87,7 +87,7 @@ public final class Interfaz extends JPanel
 
     }
 
-    public void buttonsActionPerformed(DistribucionMatrices distribucion)
+    public void buttonsActionPerformed(MatrixLayout distribucion)
     {
         definir.addActionListener((e) ->
         {
