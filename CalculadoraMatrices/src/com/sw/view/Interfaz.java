@@ -1,9 +1,8 @@
 package com.sw.view;
 
+import com.sw.controller.ActionButton;
 import com.sw.controller.ButtonActionManager;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -111,39 +110,6 @@ public final class Interfaz extends JPanel
     public ActionButton getActionButton()
     {
         return actionButton;
-    }
-
-    public class ActionButton implements ActionListener
-    {
-
-        private MatrixLayout distribucion;
-        private ButtonActionManager buttonActionManager;
-        private Interfaz interfaz;
-
-        public ActionButton(MatrixLayout distribucion, ButtonActionManager buttonActionManager, Interfaz interfaz)
-        {
-            this.distribucion = distribucion;
-            this.buttonActionManager = buttonActionManager;
-            this.interfaz = interfaz;
-
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            if (e.getActionCommand().equals("Definir"))
-                buttonActionManager.accionBotonDefinir(distribucion, interfaz);
-
-            else
-                buttonActionManager.accionBotonCalcular(distribucion);
-
-        }
-
-        public void setDistribucion(MatrixLayout distribucion)
-        {
-            this.distribucion = distribucion;
-        }
-
     }
 
 }

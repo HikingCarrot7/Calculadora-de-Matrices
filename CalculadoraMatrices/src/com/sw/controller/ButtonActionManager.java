@@ -28,8 +28,6 @@ public class ButtonActionManager
             interfaz.add(distribucion);
             interfaz.updateUI();
 
-            System.gc();
-
         }
 
     }
