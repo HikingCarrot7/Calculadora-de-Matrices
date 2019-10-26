@@ -134,6 +134,11 @@ public final class Interfaz extends JPanel
 
         calcular.addActionListener(actionButton);
 
+        segundaMatriz.addActionListener((e) ->
+        {
+            buttonActionManager.accionBotonSegundaMatriz();
+        });
+
     }
 
     public JTextField getEntradaLadoMatrices()
