@@ -40,4 +40,9 @@ public class ActionButton implements ActionListener
         this.distribucion = distribucion;
     }
 
+    public MatrixLayout getDistribucion()
+    {
+        return distribucion;
+    }
+
 }

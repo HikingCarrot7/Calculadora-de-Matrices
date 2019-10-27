@@ -2,6 +2,7 @@ package com.sw.controller;
 
 import com.sw.view.Interfaz;
 import com.sw.view.MatrixLayout;
+import com.sw.view.SecondMatrix;
 
 /**
  *
@@ -22,7 +23,6 @@ public class ButtonActionManager
             interfaz.remove(distribucion);
             distribucion = new MatrixLayout(Integer.parseInt(interfaz.getEntradaLadoMatrices().getText()));
             distribucion.setBounds(0, 0, 1160, 930);
-
             dataManager.reestablecerCampos(distribucion);
             interfaz.getActionButton().setDistribucion(distribucion);
             interfaz.add(distribucion);
@@ -37,12 +37,28 @@ public class ButtonActionManager
         DataManager dataManager = new DataManager();
 
         if (dataManager.matrizRellenadaCorrectamente(distribuciones.getMatrices()[0]))
-            dataManager.rellenarTodosLosCampos(distribuciones.getMatrices());
+            dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), SecondMatrix.isValida());
 
     }
 
-    public void accionBotonSegundaMatriz()
+    public void accionBotonSegundaMatriz(ActionButton actionButton, Interfaz interfaz)
     {
+
+        SecondMatrix.setUpWindow(actionButton.getDistribucion().getLadoMatrices(), interfaz);
+
+        new DataManager().copiarMatrices(SecondMatrix.getMatriz(), SecondMatrix.getMatrizGuardada());
+
+    }
+
+    public void accionBotonListo(Interfaz interfaz)
+    {
+
+        DataManager dataManager = new DataManager();
+
+        dataManager.copiarMatrices(SecondMatrix.getMatrizGuardada(), SecondMatrix.getMatriz());
+
+        SecondMatrix.setValida(dataManager.matrizRellenadaCorrectamente(SecondMatrix.getMatrizGuardada())
+                && dataManager.getLongitudCampo(interfaz.getActionButton().getDistribucion().getMatrices()[0]) == dataManager.getLongitudCampo(SecondMatrix.getMatrizGuardada()));
 
     }
 

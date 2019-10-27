@@ -22,7 +22,7 @@ public final class Interfaz extends JPanel
     private JLabel info, determinante, infoEscalar;
     private JTextField entradaLadoMatrices, escalar;
     private ActionButton actionButton;
-    private volatile MatrixLayout distribucion;
+    private MatrixLayout distribucion;
 
     public Interfaz()
     {
@@ -136,7 +136,8 @@ public final class Interfaz extends JPanel
 
         segundaMatriz.addActionListener((e) ->
         {
-            buttonActionManager.accionBotonSegundaMatriz();
+            buttonActionManager.accionBotonSegundaMatriz(actionButton, this);
+
         });
 
     }

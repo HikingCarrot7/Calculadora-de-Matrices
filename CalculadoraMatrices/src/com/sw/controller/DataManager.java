@@ -3,6 +3,7 @@ package com.sw.controller;
 import com.sw.model.Matriz;
 import com.sw.view.MatrixDesign;
 import com.sw.view.MatrixLayout;
+import com.sw.view.SecondMatrix;
 
 /**
  *
@@ -23,7 +24,7 @@ public class DataManager
 
     public double[][] getMatrizCampo(MatrixDesign matriz)
     {
-        double[][] matrizARetornar = new double[getLogitudCampo(matriz)][getLogitudCampo(matriz)];
+        double[][] matrizARetornar = new double[getLongitudCampo(matriz)][getLongitudCampo(matriz)];
 
         for (int i = 0; i < matrizARetornar.length; i++)
             for (int j = 0; j < matrizARetornar.length; j++)
@@ -33,13 +34,26 @@ public class DataManager
 
     }
 
-    public void rellenarTodosLosCampos(MatrixDesign[] matrices)
+    public void copiarMatrices(MatrixDesign matriz1, MatrixDesign matriz2)
+    {
+        int longitudMenor = matriz1.getLadoMatriz();
+
+        if (longitudMenor > matriz2.getLadoMatriz())
+            longitudMenor = matriz2.getLadoMatriz();
+
+        for (int i = 0; i < longitudMenor; i++)
+            for (int j = 0; j < longitudMenor; j++)
+                matriz1.getEntradasMatriz()[i][j].setText(matriz2.getEntradasMatriz()[i][j].getText());
+
+    }
+
+    public void rellenarTodosLosCampos(MatrixDesign[] matrices, boolean segundaMatriz)
     {
         Matriz calculosMatriz = new Matriz();
         double[][] matrizEntrada = getMatrizCampo(matrices[0]);
 
-        actualizarCampo(matrices[1], calculosMatriz.sumaOtraMatriz(matrizEntrada, matrizEntrada));
-        actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, matrizEntrada));
+        actualizarCampo(matrices[1], calculosMatriz.sumaOtraMatriz(matrizEntrada, segundaMatriz ? getMatrizCampo(SecondMatrix.getMatrizGuardada()) : matrizEntrada));
+        actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, segundaMatriz ? getMatrizCampo(SecondMatrix.getMatrizGuardada()) : matrizEntrada));
         actualizarCampo(matrices[3], calculosMatriz.multiplicarPorEscalar(2, matrizEntrada));
         actualizarCampo(matrices[4], calculosMatriz.inversa(matrizEntrada));
 
@@ -47,7 +61,7 @@ public class DataManager
 
     public boolean matrizRellenadaCorrectamente(MatrixDesign matriz)
     {
-        int longitud = getLogitudCampo(matriz);
+        int longitud = getLongitudCampo(matriz);
 
         if (longitud < 3)
             return false;
@@ -61,7 +75,7 @@ public class DataManager
 
     }
 
-    public int getLogitudCampo(MatrixDesign matriz)
+    public int getLongitudCampo(MatrixDesign matriz)
     {
 
         int longitud = 0, j = 0;

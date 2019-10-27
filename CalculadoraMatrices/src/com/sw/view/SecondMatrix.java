@@ -1,0 +1,125 @@
+package com.sw.view;
+
+import com.sw.controller.ButtonActionManager;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+/**
+ *
+ * @author Mohammed
+ */
+public final class SecondMatrix extends JPanel
+{
+
+    private static MatrixDesign matrizGuardada, matriz;
+    private static JFrame frame;
+    private static boolean valida = false;
+    private Interfaz interfaz;
+
+    static
+    {
+
+        matrizGuardada = new MatrixDesign(9);
+
+    }
+
+    private JLabel info;
+    private JButton listo;
+
+    public SecondMatrix(int ladoMatriz, Interfaz interfaz)
+    {
+        this.interfaz = interfaz;
+
+        setLayout(null);
+
+        initComponents(ladoMatriz);
+
+        addComponents();
+
+        buttonActionPerformed();
+
+    }
+
+    public void initComponents(int ladoMatriz)
+    {
+
+        Font fuente = new Font("Consolas", Font.PLAIN, 11);
+
+        matriz = new MatrixDesign(ladoMatriz, "Establece la segunda matriz");
+        matriz.setBounds(10, 40, 570, 300);
+
+        listo = new JButton();
+        listo.setBounds(240, 345, 100, 25);
+        listo.setFont(fuente);
+        listo.setText("Listo!");
+        listo.setToolTipText("Si la matriz es válida, se tomará para hacer los cálculos.");
+
+        info = new JLabel("Si no establece una segunda matriz, los cálculos se harán con la de entrada.");
+        info.setBounds(10, 0, 570, 50);
+        info.setFont(fuente);
+
+    }
+
+    public void addComponents()
+    {
+        add(matriz);
+        add(info);
+        add(listo);
+
+    }
+
+    public void buttonActionPerformed()
+    {
+
+        listo.addActionListener((e) ->
+        {
+            new ButtonActionManager().accionBotonListo(interfaz);
+
+            frame.dispose();
+
+        });
+
+    }
+
+    public static boolean isValida()
+    {
+        return valida;
+    }
+
+    public static void setValida(boolean valida)
+    {
+        SecondMatrix.valida = valida;
+    }
+
+    public static MatrixDesign getMatrizGuardada()
+    {
+        return matrizGuardada;
+    }
+
+    public static MatrixDesign getMatriz()
+    {
+        return matriz;
+    }
+
+    public static void setUpWindow(int ladoMatriz, Interfaz interfaz)
+    {
+
+        frame = new JFrame();
+        SecondMatrix secondMatrix = new SecondMatrix(ladoMatriz, interfaz);
+
+        frame.setPreferredSize(new Dimension(600, 400));
+        frame.setMinimumSize(new Dimension(600, 400));
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setTitle("Segunda matriz");
+        frame.getContentPane().add(secondMatrix);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+    }
+
+}
