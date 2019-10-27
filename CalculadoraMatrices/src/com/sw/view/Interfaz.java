@@ -1,7 +1,7 @@
 package com.sw.view;
 
 import com.sw.controller.ActionButton;
-import com.sw.controller.ButtonActionManager;
+import com.sw.controller.ActionButtonManager;
 import com.sw.controller.DAO;
 import com.sw.controller.DataManager;
 import java.awt.Dimension;
@@ -145,9 +145,9 @@ public final class Interfaz extends JPanel
     public void buttonsActionPerformed()
     {
 
-        ButtonActionManager buttonActionManager = new ButtonActionManager();
+        ActionButtonManager actionButtonManager = new ActionButtonManager();
 
-        actionButton = new ActionButton(distribucion, buttonActionManager, this);
+        actionButton = new ActionButton(distribucion, actionButtonManager, this);
 
         definir.addActionListener(actionButton);
 
@@ -156,13 +156,13 @@ public final class Interfaz extends JPanel
         limpiar.addActionListener((e) ->
         {
 
-            buttonActionManager.accionBotonLimpiarTodosCampos(actionButton);
+            actionButtonManager.accionBotonLimpiarTodosCampos(actionButton);
 
         });
 
         segundaMatriz.addActionListener((e) ->
         {
-            buttonActionManager.accionBotonSegundaMatriz(actionButton, this);
+            actionButtonManager.accionBotonSegundaMatriz(actionButton, this);
 
         });
 

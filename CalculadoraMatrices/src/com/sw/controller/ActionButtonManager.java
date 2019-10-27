@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
  *
  * @author Mohammed
  */
-public class ButtonActionManager
+public class ActionButtonManager
 {
 
     public void accionBotonDefinir(MatrixLayout distribucion, Interfaz interfaz)

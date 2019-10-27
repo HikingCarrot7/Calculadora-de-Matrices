@@ -1,6 +1,6 @@
 package com.sw.view;
 
-import com.sw.controller.ButtonActionManager;
+import com.sw.controller.ActionButtonManager;
 import com.sw.controller.DAO;
 import com.sw.controller.DataManager;
 import java.awt.Dimension;
@@ -87,11 +87,11 @@ public final class SecondMatrix extends JPanel
     public void buttonActionPerformed()
     {
 
-        ButtonActionManager buttonActionManager = new ButtonActionManager();
+        ActionButtonManager actionButtonManager = new ActionButtonManager();
 
         listo.addActionListener((e) ->
         {
-            buttonActionManager.accionBotonListo(interfaz);
+            actionButtonManager.accionBotonListo(interfaz);
 
             frame.dispose();
 
@@ -99,7 +99,7 @@ public final class SecondMatrix extends JPanel
 
         limpiar.addActionListener((e) ->
         {
-            buttonActionManager.accionLimpiarUnCampo();
+            actionButtonManager.accionLimpiarUnCampo();
         });
 
     }

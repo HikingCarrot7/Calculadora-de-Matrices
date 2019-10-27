@@ -13,10 +13,10 @@ public class ActionButton implements ActionListener
 {
 
     private MatrixLayout distribucion;
-    private ButtonActionManager buttonActionManager;
+    private ActionButtonManager buttonActionManager;
     private Interfaz interfaz;
 
-    public ActionButton(MatrixLayout distribucion, ButtonActionManager buttonActionManager, Interfaz interfaz)
+    public ActionButton(MatrixLayout distribucion, ActionButtonManager buttonActionManager, Interfaz interfaz)
     {
         this.distribucion = distribucion;
         this.buttonActionManager = buttonActionManager;
