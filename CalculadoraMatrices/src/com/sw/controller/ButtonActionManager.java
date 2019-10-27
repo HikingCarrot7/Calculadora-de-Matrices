@@ -3,6 +3,7 @@ package com.sw.controller;
 import com.sw.view.Interfaz;
 import com.sw.view.MatrixLayout;
 import com.sw.view.SecondMatrix;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,12 +33,18 @@ public class ButtonActionManager
 
     }
 
-    public void accionBotonCalcular(MatrixLayout distribuciones)
+    public void accionBotonCalcular(MatrixLayout distribuciones, Interfaz interfaz)
     {
         DataManager dataManager = new DataManager();
 
-        if (dataManager.matrizRellenadaCorrectamente(distribuciones.getMatrices()[0]))
-            dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), SecondMatrix.isValida());
+        if (dataManager.matrizRellenadaCorrectamente(distribuciones.getMatrices()[0])
+                && dataManager.entradaValida(interfaz.getEscalar().getText(), "-?[0-9]+$"))
+        {
+            dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), Double.parseDouble(interfaz.getEscalar().getText()), SecondMatrix.isValida());
+            interfaz.getDeterminante().setText("Determinante: " + dataManager.getCalculosMatriz().determinante(0, dataManager.getMatrizCampo(distribuciones.getMatrices()[0])));
+
+        } else
+            JOptionPane.showMessageDialog(null, "Alguna entrada no es válida, revísalas", "Entrada no válida", JOptionPane.ERROR_MESSAGE);
 
     }
 
@@ -47,6 +54,8 @@ public class ButtonActionManager
         SecondMatrix.setUpWindow(actionButton.getDistribucion().getLadoMatrices(), interfaz);
 
         new DataManager().copiarMatrices(SecondMatrix.getMatriz(), SecondMatrix.getMatrizGuardada());
+
+        interfaz.getSegundaMatriz().setEnabled(false);
 
     }
 
@@ -59,6 +68,8 @@ public class ButtonActionManager
 
         SecondMatrix.setValida(dataManager.matrizRellenadaCorrectamente(SecondMatrix.getMatrizGuardada())
                 && dataManager.getLongitudCampo(interfaz.getActionButton().getDistribucion().getMatrices()[0]) == dataManager.getLongitudCampo(SecondMatrix.getMatrizGuardada()));
+
+        interfaz.getSegundaMatriz().setEnabled(true);
 
     }
 

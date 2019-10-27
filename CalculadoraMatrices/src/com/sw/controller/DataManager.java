@@ -13,6 +13,14 @@ public class DataManager
 {
 
     private MatrixDesign matriz;
+    private Matriz calculosMatriz;
+
+    public DataManager()
+    {
+        matriz = new MatrixDesign(9);
+        calculosMatriz = new Matriz();
+
+    }
 
     public void actualizarCampo(MatrixDesign matriz, double[][] matrizRellenar)
     {
@@ -47,15 +55,15 @@ public class DataManager
 
     }
 
-    public void rellenarTodosLosCampos(MatrixDesign[] matrices, boolean segundaMatriz)
+    public void rellenarTodosLosCampos(MatrixDesign[] matrices, double escalar, boolean segundaMatriz)
     {
-        Matriz calculosMatriz = new Matriz();
+
         double[][] matrizEntrada = getMatrizCampo(matrices[0]);
 
         actualizarCampo(matrices[1], calculosMatriz.sumaOtraMatriz(matrizEntrada, segundaMatriz ? getMatrizCampo(SecondMatrix.getMatrizGuardada()) : matrizEntrada));
         actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, segundaMatriz ? getMatrizCampo(SecondMatrix.getMatrizGuardada()) : matrizEntrada));
-        actualizarCampo(matrices[3], calculosMatriz.multiplicarPorEscalar(2, matrizEntrada));
         actualizarCampo(matrices[4], calculosMatriz.inversa(matrizEntrada));
+        actualizarCampo(matrices[3], calculosMatriz.multiplicarPorEscalar(escalar, matrizEntrada));
 
     }
 
@@ -89,7 +97,6 @@ public class DataManager
 
     public void guardarMatrizEntrada(MatrixLayout distribucion)
     {
-        matriz = new MatrixDesign(9);
 
         for (int i = 0; i < distribucion.getMatrices()[0].getLadoMatriz(); i++)
             for (int j = 0; j < distribucion.getMatrices()[0].getLadoMatriz(); j++)
@@ -108,6 +115,11 @@ public class DataManager
     public boolean entradaValida(String text, String regex)
     {
         return text.matches(regex);
+    }
+
+    public Matriz getCalculosMatriz()
+    {
+        return calculosMatriz;
     }
 
 }

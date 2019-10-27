@@ -3,6 +3,8 @@ package com.sw.view;
 import com.sw.controller.ButtonActionManager;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -58,7 +60,7 @@ public final class SecondMatrix extends JPanel
         listo.setText("Listo!");
         listo.setToolTipText("Si la matriz es válida, se tomará para hacer los cálculos.");
 
-        info = new JLabel("Si no establece una segunda matriz, los cálculos se harán con la de entrada.");
+        info = new JLabel("Si no establece una segunda matriz o no es válida, los cálculos se harán con la de entrada.");
         info.setBounds(10, 0, 570, 50);
         info.setFont(fuente);
 
@@ -118,6 +120,16 @@ public final class SecondMatrix extends JPanel
         frame.setTitle("Segunda matriz");
         frame.getContentPane().add(secondMatrix);
         frame.setVisible(true);
+        frame.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                interfaz.getSegundaMatriz().setEnabled(true);
+            }
+
+        });
+
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }

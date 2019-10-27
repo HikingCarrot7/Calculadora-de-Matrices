@@ -31,7 +31,7 @@ public class ActionButton implements ActionListener
             buttonActionManager.accionBotonDefinir(distribucion, interfaz);
 
         else
-            buttonActionManager.accionBotonCalcular(distribucion);
+            buttonActionManager.accionBotonCalcular(distribucion, interfaz);
 
     }
 

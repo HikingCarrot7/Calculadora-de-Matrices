@@ -2,6 +2,7 @@ package com.sw.view;
 
 import com.sw.controller.LayoutManagerAdapter;
 import java.awt.Container;
+import java.awt.Font;
 import javax.swing.JTextField;
 
 /**
@@ -67,6 +68,7 @@ public final class MatrixDesign extends javax.swing.JPanel
             for (int j = 0; j < entradasMatriz[0].length; j++)
             {
                 fila[j] = new JTextField();
+                fila[j].setFont(new Font("Consolas", Font.PLAIN, 10));
                 add(fila[j]);
 
             }

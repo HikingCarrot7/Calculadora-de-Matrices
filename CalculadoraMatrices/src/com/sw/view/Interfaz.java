@@ -19,7 +19,7 @@ public final class Interfaz extends JPanel
 
     private JPanel panel;
     private JButton definir, calcular, segundaMatriz;
-    private JLabel info, determinante, infoEscalar;
+    private JLabel info, determinante, infoEscalar, titulo;
     private JTextField entradaLadoMatrices, escalar;
     private ActionButton actionButton;
     private MatrixLayout distribucion;
@@ -72,6 +72,7 @@ public final class Interfaz extends JPanel
         entradaLadoMatrices.setBounds(20, 170, 150, 30);
 
         escalar = new JTextField();
+        escalar.setText("1");
         escalar.setFont(fuente);
         escalar.setBounds(20, 110, 150, 30);
 
@@ -91,15 +92,20 @@ public final class Interfaz extends JPanel
         segundaMatriz.setFont(fuente);
         segundaMatriz.setBounds(20, 220, 500, 30);
         segundaMatriz.setToolTipText("Establecer una segunda matriz para hacer los cálculos");
-        segundaMatriz.setText("Estable una segunda matriz para hacer los cálculos");
+        segundaMatriz.setText("Establece una segunda matriz para hacer los cálculos");
 
         info = new JLabel("Lado de la matriz:");
         info.setFont(fuente);
         info.setBounds(20, 140, 150, 30);
 
+        titulo = new JLabel("Calculadora de matrices");
+        titulo.setFont(new Font("Consolas", Font.BOLD, 35));
+        titulo.setToolTipText("Créditos: Voctor y Memo <3");
+        titulo.setBounds(50, 0, 500, 100);
+
         determinante = new JLabel("Determinante:");
         determinante.setFont(fuente);
-        determinante.setBounds(300, 170, 90, 30);
+        determinante.setBounds(300, 170, 200, 30);
 
         infoEscalar = new JLabel("Define un escalar:");
         infoEscalar.setFont(fuente);
@@ -114,6 +120,7 @@ public final class Interfaz extends JPanel
         panel.add(definir);
         panel.add(calcular);
         panel.add(segundaMatriz);
+        panel.add(titulo);
         panel.add(info);
         panel.add(infoEscalar);
         panel.add(determinante);
@@ -160,6 +167,11 @@ public final class Interfaz extends JPanel
     public JTextField getEscalar()
     {
         return escalar;
+    }
+
+    public JButton getSegundaMatriz()
+    {
+        return segundaMatriz;
     }
 
 }
