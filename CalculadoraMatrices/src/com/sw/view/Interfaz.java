@@ -23,7 +23,7 @@ public final class Interfaz extends JPanel
 
     private static ActionButton actionButton;
     private JPanel panel;
-    private JButton definir, calcular, segundaMatriz;
+    private JButton definir, calcular, segundaMatriz, limpiar;
     private JLabel info, determinante, infoEscalar, titulo;
     private JTextField entradaLadoMatrices, escalar;
     private MatrixLayout distribucion;
@@ -87,6 +87,12 @@ public final class Interfaz extends JPanel
         definir.setToolTipText("Define los lados para las matrices.");
         definir.setText("Definir");
 
+        limpiar = new JButton();
+        limpiar.setFont(fuente);
+        limpiar.setBounds(190, 110, 90, 30);
+        limpiar.setToolTipText("Limpia las entradas de la matriz");
+        limpiar.setText("Limpiar");
+
         calcular = new JButton();
         calcular.setFont(fuente);
         calcular.setBounds(20, 260, 500, 30);
@@ -124,6 +130,7 @@ public final class Interfaz extends JPanel
         panel.add(escalar);
         panel.add(definir);
         panel.add(calcular);
+        panel.add(limpiar);
         panel.add(segundaMatriz);
         panel.add(titulo);
         panel.add(info);
@@ -145,6 +152,13 @@ public final class Interfaz extends JPanel
         definir.addActionListener(actionButton);
 
         calcular.addActionListener(actionButton);
+
+        limpiar.addActionListener((e) ->
+        {
+
+            buttonActionManager.accionBotonLimpiarTodosCampos(actionButton);
+
+        });
 
         segundaMatriz.addActionListener((e) ->
         {

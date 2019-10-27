@@ -75,4 +75,14 @@ public class ButtonActionManager
 
     }
 
+    public void accionBotonLimpiarTodosCampos(ActionButton actionButton)
+    {
+        new DataManager().limpiarCampos(actionButton.getDistribucion().getMatrices());
+    }
+
+    public void accionLimpiarUnCampo()
+    {
+        new DataManager().limpiarUnCampo(SecondMatrix.getMatriz());
+    }
+
 }

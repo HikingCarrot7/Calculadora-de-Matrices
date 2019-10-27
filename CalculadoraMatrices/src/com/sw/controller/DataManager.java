@@ -112,6 +112,25 @@ public class DataManager
 
     }
 
+    public void limpiarCampos(MatrixDesign[] matrices)
+    {
+
+        for (MatrixDesign matrix : matrices)
+            for (int i = 0; i < matrices[0].getLadoMatriz(); i++)
+                for (int j = 0; j < matrices[0].getLadoMatriz(); j++)
+                    matrix.getEntradasMatriz()[i][j].setText("");
+
+    }
+
+    public void limpiarUnCampo(MatrixDesign matriz)
+    {
+
+        for (int i = 0; i < matriz.getLadoMatriz(); i++)
+            for (int j = 0; j < matriz.getLadoMatriz(); j++)
+                matriz.getEntradasMatriz()[i][j].setText("");
+
+    }
+
     public boolean entradaValida(String text, String regex)
     {
         return text.matches(regex);

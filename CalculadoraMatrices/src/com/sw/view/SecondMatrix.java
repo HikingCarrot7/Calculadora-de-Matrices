@@ -23,6 +23,8 @@ public final class SecondMatrix extends JPanel
     private static JFrame frame;
     private static boolean valida = false;
     private Interfaz interfaz;
+    private JLabel info;
+    private JButton listo, limpiar;
 
     static
     {
@@ -32,9 +34,6 @@ public final class SecondMatrix extends JPanel
         new DataManager().copiarMatrices(matrizGuardada, new DAO("res/Matriz2.txt").readFile());
 
     }
-
-    private JLabel info;
-    private JButton listo;
 
     public SecondMatrix(int ladoMatriz, Interfaz interfaz)
     {
@@ -59,10 +58,16 @@ public final class SecondMatrix extends JPanel
         matriz.setBounds(10, 40, 570, 300);
 
         listo = new JButton();
-        listo.setBounds(240, 345, 100, 25);
+        listo.setBounds(170, 345, 100, 25);
         listo.setFont(fuente);
         listo.setText("Listo!");
         listo.setToolTipText("Si la matriz es válida, se tomará para hacer los cálculos.");
+
+        limpiar = new JButton();
+        limpiar.setBounds(310, 345, 100, 25);
+        limpiar.setFont(fuente);
+        limpiar.setText("Limpiar");
+        limpiar.setToolTipText("Limpia esta matriz");
 
         info = new JLabel("Si no establece una segunda matriz o no es válida, los cálculos se harán con la de entrada.");
         info.setBounds(10, 0, 570, 50);
@@ -75,18 +80,26 @@ public final class SecondMatrix extends JPanel
         add(matriz);
         add(info);
         add(listo);
+        add(limpiar);
 
     }
 
     public void buttonActionPerformed()
     {
 
+        ButtonActionManager buttonActionManager = new ButtonActionManager();
+
         listo.addActionListener((e) ->
         {
-            new ButtonActionManager().accionBotonListo(interfaz);
+            buttonActionManager.accionBotonListo(interfaz);
 
             frame.dispose();
 
+        });
+
+        limpiar.addActionListener((e) ->
+        {
+            buttonActionManager.accionLimpiarUnCampo();
         });
 
     }

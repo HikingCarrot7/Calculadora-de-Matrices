@@ -65,16 +65,22 @@ public class DAO
 
         try
         {
+
             Scanner in = new Scanner(file);
             String fila = in.nextLine();
             StringTokenizer tokens = new StringTokenizer(fila, ",");
             matriz = new MatrixDesign(tokens.countTokens());
 
             while (tokens.hasMoreTokens())
-                matriz.getEntradasMatriz()[0][j++].setText(tokens.nextToken());
+            {
+                String temp = tokens.nextToken();
+                matriz.getEntradasMatriz()[0][j++].setText(temp.equals(" ") ? "" : temp);
+
+            }
 
             while (in.hasNext())
             {
+
                 i++;
                 j = 0;
 
