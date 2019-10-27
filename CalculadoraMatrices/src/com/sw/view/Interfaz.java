@@ -2,8 +2,12 @@ package com.sw.view;
 
 import com.sw.controller.ActionButton;
 import com.sw.controller.ButtonActionManager;
+import com.sw.controller.DAO;
+import com.sw.controller.DataManager;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,11 +21,11 @@ import javax.swing.JTextField;
 public final class Interfaz extends JPanel
 {
 
+    private static ActionButton actionButton;
     private JPanel panel;
     private JButton definir, calcular, segundaMatriz;
     private JLabel info, determinante, infoEscalar, titulo;
     private JTextField entradaLadoMatrices, escalar;
-    private ActionButton actionButton;
     private MatrixLayout distribucion;
 
     public Interfaz()
@@ -37,7 +41,7 @@ public final class Interfaz extends JPanel
 
     }
 
-    public static void setUpWindow()
+    public void setUpWindow()
     {
 
         JFrame frame = new JFrame();
@@ -50,6 +54,7 @@ public final class Interfaz extends JPanel
         frame.setTitle("Calculadora de matrices");
         frame.getContentPane().add(interfaz);
         frame.setVisible(true);
+        frame.addWindowListener(new WindowManager());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
@@ -59,7 +64,7 @@ public final class Interfaz extends JPanel
 
         Font fuente = new Font("Consolas", Font.PLAIN, 11);
 
-        distribucion = new MatrixLayout(3);
+        distribucion = new MatrixLayout(new DAO("res/Matriz1.txt").getLadoMatriz());
         distribucion.setBounds(0, 0, 1160, 930);
 
         panel = new JPanel();
@@ -147,6 +152,21 @@ public final class Interfaz extends JPanel
 
         });
 
+        new DataManager().copiarMatrices(distribucion.getMatrices()[0], new DAO("res/Matriz1.txt").readFile());
+
+    }
+
+    private class WindowManager extends WindowAdapter
+    {
+
+        @Override
+        public void windowClosing(WindowEvent e)
+        {
+
+            new DAO("res/Matriz1.txt").writeFile(actionButton.getDistribucion().getMatrices()[0]);
+
+        }
+
     }
 
     public JTextField getEntradaLadoMatrices()
@@ -154,7 +174,7 @@ public final class Interfaz extends JPanel
         return entradaLadoMatrices;
     }
 
-    public ActionButton getActionButton()
+    public static ActionButton getActionButton()
     {
         return actionButton;
     }

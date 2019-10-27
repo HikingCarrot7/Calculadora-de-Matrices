@@ -1,6 +1,8 @@
 package com.sw.view;
 
 import com.sw.controller.ButtonActionManager;
+import com.sw.controller.DAO;
+import com.sw.controller.DataManager;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -26,6 +28,8 @@ public final class SecondMatrix extends JPanel
     {
 
         matrizGuardada = new MatrixDesign(9);
+
+        new DataManager().copiarMatrices(matrizGuardada, new DAO("res/Matriz2.txt").readFile());
 
     }
 
@@ -126,6 +130,9 @@ public final class SecondMatrix extends JPanel
             public void windowClosing(WindowEvent e)
             {
                 interfaz.getSegundaMatriz().setEnabled(true);
+
+                new DAO("res/Matriz2.txt").writeFile(matrizGuardada);
+
             }
 
         });

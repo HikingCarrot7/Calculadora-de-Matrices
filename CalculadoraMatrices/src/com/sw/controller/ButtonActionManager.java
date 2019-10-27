@@ -25,7 +25,7 @@ public class ButtonActionManager
             distribucion = new MatrixLayout(Integer.parseInt(interfaz.getEntradaLadoMatrices().getText()));
             distribucion.setBounds(0, 0, 1160, 930);
             dataManager.reestablecerCampos(distribucion);
-            interfaz.getActionButton().setDistribucion(distribucion);
+            Interfaz.getActionButton().setDistribucion(distribucion);
             interfaz.add(distribucion);
             interfaz.updateUI();
 
@@ -67,9 +67,11 @@ public class ButtonActionManager
         dataManager.copiarMatrices(SecondMatrix.getMatrizGuardada(), SecondMatrix.getMatriz());
 
         SecondMatrix.setValida(dataManager.matrizRellenadaCorrectamente(SecondMatrix.getMatrizGuardada())
-                && dataManager.getLongitudCampo(interfaz.getActionButton().getDistribucion().getMatrices()[0]) == dataManager.getLongitudCampo(SecondMatrix.getMatrizGuardada()));
+                && dataManager.getLongitudCampo(Interfaz.getActionButton().getDistribucion().getMatrices()[0]) == dataManager.getLongitudCampo(SecondMatrix.getMatrizGuardada()));
 
         interfaz.getSegundaMatriz().setEnabled(true);
+
+        new DAO("res/Matriz2.txt").writeFile(SecondMatrix.getMatrizGuardada());
 
     }
 
