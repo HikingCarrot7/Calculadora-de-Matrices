@@ -64,10 +64,13 @@ public class ActionButtonManager
 
         DataManager dataManager = new DataManager();
 
+        dataManager.recortarSegundaMatriz(SecondMatrix.getMatrizGuardada(), Interfaz.getActionButton().getDistribucion().getLadoMatrices());
+
         dataManager.copiarMatrices(SecondMatrix.getMatrizGuardada(), SecondMatrix.getMatriz());
 
         SecondMatrix.setValida(dataManager.matrizRellenadaCorrectamente(SecondMatrix.getMatrizGuardada())
-                && dataManager.getLongitudCampo(Interfaz.getActionButton().getDistribucion().getMatrices()[0]) == dataManager.getLongitudCampo(SecondMatrix.getMatrizGuardada()));
+                && dataManager.getLongitudCampo(Interfaz.getActionButton().getDistribucion().getMatrices()[0])
+                == dataManager.getLongitudCampo(SecondMatrix.getMatrizGuardada()));
 
         interfaz.getSegundaMatriz().setEnabled(true);
 
