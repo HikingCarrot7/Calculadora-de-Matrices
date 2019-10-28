@@ -7,15 +7,15 @@ package com.sw.model;
 public class Matriz
 {
 
-    public void pruebaMatriz()
+    public double[][] sumaOtraMatriz(double[][] matrizA, double[][] matrizB)
     {
-        double[][] miMatriz = rellenarMatriz(3);
+        double[][] matrizResultante = new double[matrizA.length][matrizA.length];
 
-        imprimirMatriz(miMatriz);
+        for (int i = 0; i < matrizResultante.length; i++)
+            for (int j = 0; j < matrizResultante.length; j++)
+                matrizResultante[i][j] = matrizA[i][j] + matrizB[i][j];
 
-        imprimirMatriz(inversa(miMatriz));
-
-        imprimirMatriz(productoMatrices(miMatriz, miMatriz));
+        return matrizResultante;
 
     }
 
@@ -149,6 +149,7 @@ public class Matriz
     {
         for (double[] fila : matriz)
         {
+
             for (double elemento : fila)
                 System.out.printf("%-15s", String.format("[%,.5f] ", elemento));
 
@@ -160,9 +161,25 @@ public class Matriz
 
     }
 
-    public static void main(String[] args)
+    public double[][] SumaMatrices(double[][] Matriz1, double[][] Matriz2)
     {
-        new Matriz().pruebaMatriz();
+        double[][] Matriz3 = new double[Matriz1.length][Matriz2.length];
+
+        for (int i = 0; i < Matriz3.length; i++)
+            for (int t = 0; t < Matriz3.length; t++)
+                Matriz3[i][t] = Matriz1[i][t] + Matriz2[i][t];
+
+        return Matriz3;
+    }
+
+    public double[][] MultiplicacionMatrizporEscalar(double[][] Matriz1, double C)
+    {
+        for (int i = 0; i < Matriz1.length; i++)
+            for (int t = 0; t < Matriz1.length; t++)
+                Matriz1[i][t] = (Matriz1[i][t]) * (C);
+
+        return Matriz1;
+
     }
 
 }
