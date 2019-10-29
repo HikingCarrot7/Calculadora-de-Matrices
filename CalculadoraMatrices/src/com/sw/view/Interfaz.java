@@ -20,17 +20,18 @@ import javax.swing.JTextField;
  *
  * @author Muhammad
  */
-public final class Interfaz extends JPanel {
+public final class Interfaz extends JPanel
+{
 
     private static ActionButton actionButton;
-    private JScrollPane scrollPane;
     private JPanel panelEntrada;
     private JButton definir, calcular, segundaMatriz, limpiar;
     private JLabel info, determinante, infoEscalar, titulo;
     private JTextField entradaLadoMatrices, escalar;
     private MatrixLayout distribucion;
 
-    public Interfaz() {
+    public Interfaz()
+    {
 
         setLayout(null);
 
@@ -42,7 +43,8 @@ public final class Interfaz extends JPanel {
 
     }
 
-    public void setUpWindow() {
+    public void setUpWindow()
+    {
 
         JFrame frame = new JFrame();
         Interfaz panelComponentes = new Interfaz();
@@ -66,7 +68,8 @@ public final class Interfaz extends JPanel {
 
     }
 
-    private void initComponents() {
+    private void initComponents()
+    {
 
         Font fuente = new Font("Consolas", Font.PLAIN, 11);
 
@@ -129,7 +132,8 @@ public final class Interfaz extends JPanel {
 
     }
 
-    private void addComponents() {
+    private void addComponents()
+    {
 
         panelEntrada.add(entradaLadoMatrices);
         panelEntrada.add(escalar);
@@ -147,7 +151,8 @@ public final class Interfaz extends JPanel {
 
     }
 
-    public void buttonsActionPerformed() {
+    public void buttonsActionPerformed()
+    {
 
         ActionButtonManager actionButtonManager = new ActionButtonManager();
 
@@ -157,15 +162,15 @@ public final class Interfaz extends JPanel {
 
         calcular.addActionListener(actionButton);
 
-        limpiar.addActionListener((e)
-                -> {
+        limpiar.addActionListener((e) ->
+        {
 
             actionButtonManager.accionBotonLimpiarTodosCampos(actionButton);
 
         });
 
-        segundaMatriz.addActionListener((e)
-                -> {
+        segundaMatriz.addActionListener((e) ->
+        {
             actionButtonManager.accionBotonSegundaMatriz(actionButton, this);
 
         });
@@ -174,10 +179,12 @@ public final class Interfaz extends JPanel {
 
     }
 
-    private class WindowManager extends WindowAdapter {
+    private class WindowManager extends WindowAdapter
+    {
 
         @Override
-        public void windowClosing(WindowEvent e) {
+        public void windowClosing(WindowEvent e)
+        {
 
             new DAO("res/Matriz1.txt").writeFile(actionButton.getDistribucion().getMatrices()[0]);
 
@@ -185,23 +192,28 @@ public final class Interfaz extends JPanel {
 
     }
 
-    public JTextField getEntradaLadoMatrices() {
+    public JTextField getEntradaLadoMatrices()
+    {
         return entradaLadoMatrices;
     }
 
-    public static ActionButton getActionButton() {
+    public static ActionButton getActionButton()
+    {
         return actionButton;
     }
 
-    public JLabel getDeterminante() {
+    public JLabel getDeterminante()
+    {
         return determinante;
     }
 
-    public JTextField getEscalar() {
+    public JTextField getEscalar()
+    {
         return escalar;
     }
 
-    public JButton getSegundaMatriz() {
+    public JButton getSegundaMatriz()
+    {
         return segundaMatriz;
     }
 
