@@ -4,6 +4,7 @@ import com.sw.controller.ActionButton;
 import com.sw.controller.ActionButtonManager;
 import com.sw.controller.DAO;
 import com.sw.controller.DataManager;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 /**
@@ -22,7 +24,8 @@ public final class Interfaz extends JPanel
 {
 
     private static ActionButton actionButton;
-    private JPanel panel;
+    private JScrollPane scrollPane;
+    private JPanel panelEntrada;
     private JButton definir, calcular, segundaMatriz, limpiar;
     private JLabel info, determinante, infoEscalar, titulo;
     private JTextField entradaLadoMatrices, escalar;
@@ -45,14 +48,21 @@ public final class Interfaz extends JPanel
     {
 
         JFrame frame = new JFrame();
-        Interfaz interfaz = new Interfaz();
+        Interfaz panelComponentes = new Interfaz();
 
-        frame.setPreferredSize(new Dimension(1160, 930));
-        frame.setMinimumSize(new Dimension(1160, 930));
+        panelComponentes.setPreferredSize(new Dimension(1160, 930));
+        JScrollPane interfaz = new JScrollPane(panelComponentes);
+        interfaz.setWheelScrollingEnabled(true);
+        interfaz.getVerticalScrollBar().setUnitIncrement(10);
+
+        frame.setLayout(new BorderLayout());
+        frame.setPreferredSize(new Dimension(1185, 700));
+        frame.setMinimumSize(new Dimension(1185, 700));
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setTitle("Calculadora de matrices");
-        frame.getContentPane().add(interfaz);
+        frame.add(interfaz, BorderLayout.CENTER);
+        frame.pack();
         frame.setVisible(true);
         frame.addWindowListener(new WindowManager());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,10 +77,9 @@ public final class Interfaz extends JPanel
         distribucion = new MatrixLayout(new DAO("res/Matriz1.txt").getLadoMatriz());
         distribucion.setBounds(0, 0, 1160, 930);
 
-        panel = new JPanel();
-        panel.setLayout(null);
-
-        panel.setBounds(20, 0, 550, 300);
+        panelEntrada = new JPanel();
+        panelEntrada.setLayout(null);
+        panelEntrada.setBounds(20, 0, 550, 300);
 
         entradaLadoMatrices = new JTextField();
         entradaLadoMatrices.setFont(fuente);
@@ -126,18 +135,19 @@ public final class Interfaz extends JPanel
 
     private void addComponents()
     {
-        panel.add(entradaLadoMatrices);
-        panel.add(escalar);
-        panel.add(definir);
-        panel.add(calcular);
-        panel.add(limpiar);
-        panel.add(segundaMatriz);
-        panel.add(titulo);
-        panel.add(info);
-        panel.add(infoEscalar);
-        panel.add(determinante);
 
-        add(panel);
+        panelEntrada.add(entradaLadoMatrices);
+        panelEntrada.add(escalar);
+        panelEntrada.add(definir);
+        panelEntrada.add(calcular);
+        panelEntrada.add(limpiar);
+        panelEntrada.add(segundaMatriz);
+        panelEntrada.add(titulo);
+        panelEntrada.add(info);
+        panelEntrada.add(infoEscalar);
+        panelEntrada.add(determinante);
+
+        add(panelEntrada);
         add(distribucion);
 
     }
