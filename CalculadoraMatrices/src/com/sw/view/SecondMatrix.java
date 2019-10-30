@@ -29,9 +29,14 @@ public final class SecondMatrix extends JPanel
     static
     {
 
-        matrizGuardada = new MatrixDesign(9);
+        DataManager dataManager = new DataManager();
+        DAO dao = new DAO("res/Matriz2.txt");
 
-        new DataManager().copiarMatrices(matrizGuardada, new DAO("res/Matriz2.txt").readFile());
+        matrizGuardada = new MatrixDesign(9);
+        dataManager.copiarMatrices(matrizGuardada, dao.readFile());
+
+        matriz = new MatrixDesign(dao.getLadoMatriz());
+        dataManager.copiarMatrices(matriz, matrizGuardada);
 
     }
 

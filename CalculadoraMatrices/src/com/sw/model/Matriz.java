@@ -162,7 +162,7 @@ public class Matriz
 
     }
 
-    public double[][] SumaMatrices(double[][] Matriz1, double[][] Matriz2)
+    public double[][] sumaMatrices(double[][] Matriz1, double[][] Matriz2)
     {
         double[][] Matriz3 = new double[Matriz1.length][Matriz2.length];
 
@@ -173,7 +173,7 @@ public class Matriz
         return Matriz3;
     }
 
-    public double[][] MultiplicacionMatrizporEscalar(double[][] Matriz1, double C)
+    public double[][] multiplicacionMatrizporEscalar(double[][] Matriz1, double C)
     {
         for (int i = 0; i < Matriz1.length; i++)
             for (int t = 0; t < Matriz1.length; t++)
