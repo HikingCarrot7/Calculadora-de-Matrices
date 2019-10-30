@@ -1,18 +1,18 @@
 package com.sw.controller;
 
-import com.sw.view.Interfaz;
+import com.sw.view.InterfazPrincipal;
 import com.sw.view.MatrixLayout;
-import com.sw.view.SecondMatrix;
+import com.sw.view.InterfazSegundaMatriz;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Mohammed
+ *  
  */
 public class ActionButtonManager
 {
 
-    public void accionBotonDefinir(MatrixLayout distribucion, Interfaz interfaz)
+    public void accionBotonDefinir(MatrixLayout distribucion, InterfazPrincipal interfaz)
     {
         DataManager dataManager = new DataManager();
 
@@ -25,7 +25,7 @@ public class ActionButtonManager
             distribucion = new MatrixLayout(Integer.parseInt(interfaz.getEntradaLadoMatrices().getText()));
             distribucion.setBounds(0, 0, 1160, 930);
             dataManager.reestablecerCampos(distribucion);
-            Interfaz.getActionButton().setDistribucion(distribucion);
+            InterfazPrincipal.getActionButton().setDistribucion(distribucion);
             interfaz.add(distribucion);
             interfaz.updateUI();
 
@@ -33,19 +33,19 @@ public class ActionButtonManager
 
     }
 
-    public void accionBotonCalcular(MatrixLayout distribuciones, Interfaz interfaz)
+    public void accionBotonCalcular(MatrixLayout distribuciones, InterfazPrincipal interfaz)
     {
         DataManager dataManager = new DataManager();
 
         if (dataManager.matrizRellenadaCorrectamente(distribuciones.getMatrices()[0])
-                && dataManager.entradaValida(interfaz.getEscalar().getText(), dataManager.getDoubleValido()))
+                && dataManager.entradaValida(interfaz.getEscalar().getText(), dataManager.getEntradaDoubleValido()))
         {
 
-            if (SecondMatrix.isValida())
+            if (InterfazSegundaMatriz.isValida())
             {
 
-                dataManager.recortarMatriz(SecondMatrix.getMatriz(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
-                dataManager.recortarMatriz(SecondMatrix.getMatrizGuardada(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
+                dataManager.recortarMatriz(InterfazSegundaMatriz.getMatriz(), InterfazPrincipal.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
+                dataManager.recortarMatriz(InterfazSegundaMatriz.getMatrizGuardada(), InterfazPrincipal.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
 
             }
 
@@ -57,32 +57,32 @@ public class ActionButtonManager
 
     }
 
-    public void accionBotonSegundaMatriz(ActionButton actionButton, Interfaz interfaz)
+    public void accionBotonSegundaMatriz(ActionButton actionButton, InterfazPrincipal interfaz)
     {
 
-        SecondMatrix.setUpWindow(actionButton.getDistribucion().getLadoMatrices(), interfaz);
+        InterfazSegundaMatriz.setUpWindow(actionButton.getDistribucion().getLadoMatrices(), interfaz);
 
-        new DataManager().copiarMatrices(SecondMatrix.getMatriz(), SecondMatrix.getMatrizGuardada());
+        new DataManager().copiarMatrices(InterfazSegundaMatriz.getMatriz(), InterfazSegundaMatriz.getMatrizGuardada());
 
         interfaz.getSegundaMatriz().setEnabled(false);
 
     }
 
-    public void accionBotonListo(Interfaz interfaz)
+    public void accionBotonListo(InterfazPrincipal interfaz)
     {
 
         DataManager dataManager = new DataManager();
 
-        dataManager.recortarMatriz(SecondMatrix.getMatriz(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
-        dataManager.recortarMatriz(SecondMatrix.getMatrizGuardada(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
+        dataManager.recortarMatriz(InterfazSegundaMatriz.getMatriz(), InterfazPrincipal.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
+        dataManager.recortarMatriz(InterfazSegundaMatriz.getMatrizGuardada(), InterfazPrincipal.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
 
-        dataManager.copiarMatrices(SecondMatrix.getMatrizGuardada(), SecondMatrix.getMatriz());
+        dataManager.copiarMatrices(InterfazSegundaMatriz.getMatrizGuardada(), InterfazSegundaMatriz.getMatriz());
 
-        SecondMatrix.setValida(dataManager.segundaMatrizValida());
+        InterfazSegundaMatriz.setValida(dataManager.segundaMatrizValida());
 
         interfaz.getSegundaMatriz().setEnabled(true);
 
-        new DAO("res/Matriz2.txt").writeFile(SecondMatrix.getMatrizGuardada());
+        new DAO("res/Matriz2.txt").writeFile(InterfazSegundaMatriz.getMatrizGuardada());
 
     }
 
@@ -93,7 +93,7 @@ public class ActionButtonManager
 
     public void accionLimpiarUnCampo()
     {
-        new DataManager().limpiarUnCampo(SecondMatrix.getMatriz());
+        new DataManager().limpiarUnCampo(InterfazSegundaMatriz.getMatriz());
     }
 
 }

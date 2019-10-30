@@ -20,7 +20,7 @@ import javax.swing.JTextField;
  *
  * @author Muhammad
  */
-public final class Interfaz extends JPanel
+public final class InterfazPrincipal extends JPanel
 {
 
     private static ActionButton actionButton;
@@ -30,7 +30,7 @@ public final class Interfaz extends JPanel
     private JTextField entradaLadoMatrices, escalar;
     private MatrixLayout distribucion;
 
-    public Interfaz()
+    public InterfazPrincipal()
     {
 
         setLayout(null);
@@ -47,7 +47,7 @@ public final class Interfaz extends JPanel
     {
 
         JFrame frame = new JFrame();
-        Interfaz panelComponentes = new Interfaz();
+        InterfazPrincipal panelComponentes = new InterfazPrincipal();
 
         panelComponentes.setPreferredSize(new Dimension(1160, 930));
         JScrollPane interfaz = new JScrollPane(panelComponentes);

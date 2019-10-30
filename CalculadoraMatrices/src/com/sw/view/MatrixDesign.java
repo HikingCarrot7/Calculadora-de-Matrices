@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Mohammed
+ *  
  */
 public final class MatrixDesign extends javax.swing.JPanel
 {

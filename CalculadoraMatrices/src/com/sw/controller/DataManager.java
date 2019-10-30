@@ -1,14 +1,14 @@
 package com.sw.controller;
 
 import com.sw.model.Matriz;
-import com.sw.view.Interfaz;
+import com.sw.view.InterfazPrincipal;
+import com.sw.view.InterfazSegundaMatriz;
 import com.sw.view.MatrixDesign;
 import com.sw.view.MatrixLayout;
-import com.sw.view.SecondMatrix;
 
 /**
  *
- * @author Mohammed
+ *
  */
 public class DataManager
 {
@@ -61,8 +61,8 @@ public class DataManager
 
         double[][] matrizEntrada = getMatrizCampo(matrices[0]);
 
-        actualizarCampo(matrices[1], calculosMatriz.sumaOtraMatriz(matrizEntrada, segundaMatrizValida ? getMatrizCampo(SecondMatrix.getMatriz()) : matrizEntrada));
-        actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, segundaMatrizValida ? getMatrizCampo(SecondMatrix.getMatriz()) : matrizEntrada));
+        actualizarCampo(matrices[1], calculosMatriz.sumaOtraMatriz(matrizEntrada, segundaMatrizValida ? getMatrizCampo(InterfazSegundaMatriz.getMatriz()) : matrizEntrada));
+        actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, segundaMatrizValida ? getMatrizCampo(InterfazSegundaMatriz.getMatriz()) : matrizEntrada));
         actualizarCampo(matrices[4], calculosMatriz.inversa(matrizEntrada));
         actualizarCampo(matrices[3], calculosMatriz.multiplicarPorEscalar(escalar, matrizEntrada));
 
@@ -78,7 +78,7 @@ public class DataManager
         for (int i = 0; i < longitud; i++)
             for (int j = 0; j < longitud; j++)
                 if (matriz.getEntradasMatriz()[i][j].getText().equals("")
-                        || !entradaValida(matriz.getEntradasMatriz()[i][j].getText(), getDoubleValido()))
+                        || !entradaValida(matriz.getEntradasMatriz()[i][j].getText(), getEntradaDoubleValido()))
                     return false;
 
         return true;
@@ -144,13 +144,13 @@ public class DataManager
 
     public boolean segundaMatrizValida()
     {
-        return matrizRellenadaCorrectamente(SecondMatrix.getMatrizGuardada())
-                && getLongitudCampo(Interfaz.getActionButton().getDistribucion().getMatrices()[0])
-                == getLongitudCampo(SecondMatrix.getMatrizGuardada());
+        return matrizRellenadaCorrectamente(InterfazSegundaMatriz.getMatrizGuardada())
+                && getLongitudCampo(InterfazPrincipal.getActionButton().getDistribucion().getMatrices()[0])
+                == getLongitudCampo(InterfazSegundaMatriz.getMatrizGuardada());
 
     }
 
-    public String getDoubleValido()
+    public String getEntradaDoubleValido()
     {
         return "^-?[0-9]+(.?[0-9]+)*$";
     }
