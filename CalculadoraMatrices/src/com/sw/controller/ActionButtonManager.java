@@ -38,9 +38,18 @@ public class ActionButtonManager
         DataManager dataManager = new DataManager();
 
         if (dataManager.matrizRellenadaCorrectamente(distribuciones.getMatrices()[0])
-                && dataManager.entradaValida(interfaz.getEscalar().getText(), "-?[0-9]+$"))
+                && dataManager.entradaValida(interfaz.getEscalar().getText(), dataManager.getDoubleValido()))
         {
-            dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), Double.parseDouble(interfaz.getEscalar().getText()), SecondMatrix.isValida());
+
+            if (SecondMatrix.isValida())
+            {
+
+                dataManager.recortarMatriz(SecondMatrix.getMatriz(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
+                dataManager.recortarMatriz(SecondMatrix.getMatrizGuardada(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
+
+            }
+
+            dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), Double.parseDouble(interfaz.getEscalar().getText()), dataManager.segundaMatrizValida());
             interfaz.getDeterminante().setText("Determinante: " + dataManager.getCalculosMatriz().determinante(0, dataManager.getMatrizCampo(distribuciones.getMatrices()[0])));
 
         } else
@@ -64,13 +73,12 @@ public class ActionButtonManager
 
         DataManager dataManager = new DataManager();
 
-        dataManager.recortarSegundaMatriz(SecondMatrix.getMatrizGuardada(), Interfaz.getActionButton().getDistribucion().getLadoMatrices());
+        dataManager.recortarMatriz(SecondMatrix.getMatriz(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
+        dataManager.recortarMatriz(SecondMatrix.getMatrizGuardada(), Interfaz.getActionButton().getDistribucion().getMatrices()[0].getLadoMatriz());
 
         dataManager.copiarMatrices(SecondMatrix.getMatrizGuardada(), SecondMatrix.getMatriz());
 
-        SecondMatrix.setValida(dataManager.matrizRellenadaCorrectamente(SecondMatrix.getMatrizGuardada())
-                && dataManager.getLongitudCampo(Interfaz.getActionButton().getDistribucion().getMatrices()[0])
-                == dataManager.getLongitudCampo(SecondMatrix.getMatrizGuardada()));
+        SecondMatrix.setValida(dataManager.segundaMatrizValida());
 
         interfaz.getSegundaMatriz().setEnabled(true);
 

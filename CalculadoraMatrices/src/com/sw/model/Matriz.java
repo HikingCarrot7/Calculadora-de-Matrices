@@ -92,7 +92,8 @@ public class Matriz
      */
     public double[][] productoMatrices(double matrizA[][], double matrizB[][])
     {
-        double matrizProducto[][] = new double[matrizA.length][matrizB[0].length];
+
+        double matrizProducto[][] = new double[matrizB.length][matrizB.length];
 
         for (int i = 0; i < matrizProducto.length; i++)
             for (int j = 0; j < matrizProducto.length; j++)
