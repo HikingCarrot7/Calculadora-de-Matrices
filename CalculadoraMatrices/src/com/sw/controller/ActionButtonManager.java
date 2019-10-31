@@ -1,21 +1,24 @@
 package com.sw.controller;
 
 import com.sw.view.InterfazPrincipal;
-import com.sw.view.MatrixLayout;
 import com.sw.view.InterfazSegundaMatriz;
 import javax.swing.JOptionPane;
 
+import com.sw.view.MatrixLayout;
+
 /**
  *
- *  
+ *
  */
-public class ActionButtonManager {
+public class ActionButtonManager
+{
 
     public void accionBotonDefinir(MatrixLayout distribucion, InterfazPrincipal interfaz)
     {
         DataManager dataManager = new DataManager();
 
-        if (dataManager.entradaValida(interfaz.getEntradaLadoMatrices().getText(), "^[3-9]$")) {
+        if (dataManager.entradaValida(interfaz.getEntradaLadoMatrices().getText(), "^[3-9]$"))
+        {
 
             dataManager.guardarMatrizEntrada(distribucion);
 
@@ -50,11 +53,8 @@ public class ActionButtonManager {
             dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), Double.parseDouble(interfaz.getEscalar().getText()), dataManager.segundaMatrizValida());
             interfaz.getDeterminante().setText("Determinante: " + dataManager.getCalculosMatriz().determinante(0, dataManager.getMatrizCampo(distribuciones.getMatrices()[0])));
 
-        } else {
+        } else
             JOptionPane.showMessageDialog(null, "Alguna entrada no es válida, revísalas", "Entrada no válida", JOptionPane.ERROR_MESSAGE);
-        }
-
-        throw new ArrayIndexOutOfBoundsException();
 
     }
 
@@ -87,7 +87,8 @@ public class ActionButtonManager {
 
     }
 
-    public void accionBotonLimpiarTodosCampos(ActionButton actionButton) {
+    public void accionBotonLimpiarTodosCampos(ActionButton actionButton)
+    {
         new DataManager().limpiarCampos(actionButton.getDistribucion().getMatrices());
     }
 

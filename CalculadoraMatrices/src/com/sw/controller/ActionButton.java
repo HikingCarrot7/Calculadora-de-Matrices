@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- *  
+ *
  */
 public class ActionButton implements ActionListener
 {

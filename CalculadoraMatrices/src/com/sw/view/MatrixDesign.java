@@ -7,13 +7,15 @@ import javax.swing.JTextField;
 
 /**
  *
- *  
+ *
  */
-public final class MatrixDesign extends javax.swing.JPanel {
+public final class MatrixDesign extends javax.swing.JPanel
+{
 
     private int ladoMatriz;
 
-    public MatrixDesign(int ladoMatriz, String title) {
+    public MatrixDesign(int ladoMatriz, String title)
+    {
 
         this.ladoMatriz = ladoMatriz;
 
@@ -29,7 +31,8 @@ public final class MatrixDesign extends javax.swing.JPanel {
 
     }
 
-    public MatrixDesign(int ladoMatriz) {
+    public MatrixDesign(int ladoMatriz)
+    {
         this(ladoMatriz, null);
     }
 
@@ -60,45 +63,53 @@ public final class MatrixDesign extends javax.swing.JPanel {
         getAccessibleContext().setAccessibleName("null");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void anadirEntradasMatriz() {
-        for (JTextField[] fila : entradasMatriz) {
-            for (int j = 0; j < entradasMatriz[0].length; j++) {
+    private void anadirEntradasMatriz()
+    {
+        for (JTextField[] fila : entradasMatriz)
+            for (int j = 0; j < entradasMatriz[0].length; j++)
+            {
                 fila[j] = new JTextField();
                 fila[j].setFont(new Font("Consolas", Font.PLAIN, 10));
                 add(fila[j]);
 
             }
-        }
 
     }
 
-    public JTextField[][] getEntradasMatriz() {
+    public JTextField[][] getEntradasMatriz()
+    {
         return entradasMatriz;
     }
 
-    public int getLadoMatriz() {
+    public int getLadoMatriz()
+    {
         return ladoMatriz;
     }
 
-    private class Diseno extends LayoutManagerAdapter {
+    private class Diseno extends LayoutManagerAdapter
+    {
 
         private int ladoMatriz;
 
-        public Diseno(int ladoMatriz) {
+        public Diseno(int ladoMatriz)
+        {
             this.ladoMatriz = ladoMatriz;
         }
 
         @Override
-        public void layoutContainer(Container parent) {
+        public void layoutContainer(Container parent)
+        {
             int x = 25, y = 25;
 
-            for (int i = 0; i < parent.getComponentCount(); i++) {
+            for (int i = 0; i < parent.getComponentCount(); i++)
+            {
 
                 parent.getComponent(i).setBounds(x, y, 50, 25);
 
                 x += 55;
 
-                if ((i + 1) % ladoMatriz == 0) {
+                if ((i + 1) % ladoMatriz == 0)
+                {
 
                     y += 30;
                     x = 25;

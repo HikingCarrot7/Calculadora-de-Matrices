@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 /**
  *
- *  
+ *
  */
 public final class InterfazSegundaMatriz extends JPanel
 {
