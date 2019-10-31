@@ -1,22 +1,22 @@
 package com.sw.controller;
 
-import com.sw.view.Interfaz;
+import com.sw.view.InterfazPrincipal;
 import com.sw.view.MatrixLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
  *
- * @author Mohammed
+ *  
  */
 public class ActionButton implements ActionListener
 {
 
     private MatrixLayout distribucion;
     private ActionButtonManager buttonActionManager;
-    private Interfaz interfaz;
+    private InterfazPrincipal interfaz;
 
-    public ActionButton(MatrixLayout distribucion, ActionButtonManager buttonActionManager, Interfaz interfaz)
+    public ActionButton(MatrixLayout distribucion, ActionButtonManager buttonActionManager, InterfazPrincipal interfaz)
     {
         this.distribucion = distribucion;
         this.buttonActionManager = buttonActionManager;

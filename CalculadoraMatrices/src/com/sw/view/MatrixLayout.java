@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Mohammed
+ *  
  */
 public final class MatrixLayout extends JPanel {
 
