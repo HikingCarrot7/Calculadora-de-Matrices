@@ -9,15 +9,12 @@ import javax.swing.JOptionPane;
  *
  * @author Mohammed
  */
-public class ActionButtonManager
-{
+public class ActionButtonManager {
 
-    public void accionBotonDefinir(MatrixLayout distribucion, Interfaz interfaz)
-    {
+    public void accionBotonDefinir(MatrixLayout distribucion, Interfaz interfaz) {
         DataManager dataManager = new DataManager();
 
-        if (dataManager.entradaValida(interfaz.getEntradaLadoMatrices().getText(), "^[3-9]$"))
-        {
+        if (dataManager.entradaValida(interfaz.getEntradaLadoMatrices().getText(), "^[3-9]$")) {
 
             dataManager.guardarMatrizEntrada(distribucion);
 
@@ -33,23 +30,23 @@ public class ActionButtonManager
 
     }
 
-    public void accionBotonCalcular(MatrixLayout distribuciones, Interfaz interfaz)
-    {
+    public void accionBotonCalcular(MatrixLayout distribuciones, Interfaz interfaz) {
         DataManager dataManager = new DataManager();
 
         if (dataManager.matrizRellenadaCorrectamente(distribuciones.getMatrices()[0])
-                && dataManager.entradaValida(interfaz.getEscalar().getText(), "-?[0-9]+$"))
-        {
+                && dataManager.entradaValida(interfaz.getEscalar().getText(), "-?[0-9]+$")) {
             dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), Double.parseDouble(interfaz.getEscalar().getText()), SecondMatrix.isValida());
             interfaz.getDeterminante().setText("Determinante: " + dataManager.getCalculosMatriz().determinante(0, dataManager.getMatrizCampo(distribuciones.getMatrices()[0])));
 
-        } else
+        } else {
             JOptionPane.showMessageDialog(null, "Alguna entrada no es válida, revísalas", "Entrada no válida", JOptionPane.ERROR_MESSAGE);
+        }
+
+        throw new ArrayIndexOutOfBoundsException();
 
     }
 
-    public void accionBotonSegundaMatriz(ActionButton actionButton, Interfaz interfaz)
-    {
+    public void accionBotonSegundaMatriz(ActionButton actionButton, Interfaz interfaz) {
 
         SecondMatrix.setUpWindow(actionButton.getDistribucion().getLadoMatrices(), interfaz);
 
@@ -59,8 +56,7 @@ public class ActionButtonManager
 
     }
 
-    public void accionBotonListo(Interfaz interfaz)
-    {
+    public void accionBotonListo(Interfaz interfaz) {
 
         DataManager dataManager = new DataManager();
 
@@ -78,13 +74,11 @@ public class ActionButtonManager
 
     }
 
-    public void accionBotonLimpiarTodosCampos(ActionButton actionButton)
-    {
+    public void accionBotonLimpiarTodosCampos(ActionButton actionButton) {
         new DataManager().limpiarCampos(actionButton.getDistribucion().getMatrices());
     }
 
-    public void accionLimpiarUnCampo()
-    {
+    public void accionLimpiarUnCampo() {
         new DataManager().limpiarUnCampo(SecondMatrix.getMatriz());
     }
 

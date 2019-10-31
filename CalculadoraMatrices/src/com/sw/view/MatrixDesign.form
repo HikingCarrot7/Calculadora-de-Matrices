@@ -4,7 +4,7 @@
   <Properties>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-        <TitledBorder title="">
+        <TitledBorder justification="3" position="5" title="">
           <Connection PropertyName="titleX" component="Form" name="name" type="property"/>
           <Font PropertyName="font" name="Consolas" size="14" style="0"/>
         </TitledBorder>
