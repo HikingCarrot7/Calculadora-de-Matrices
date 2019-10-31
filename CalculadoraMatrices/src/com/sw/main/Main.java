@@ -1,11 +1,13 @@
 package com.sw.main;
 
-import com.sw.view.Interfaz;
+import com.sw.view.InterfazPrincipal;
 import javax.swing.SwingUtilities;
 
 /**
+ * @author Guillermo Canto Dzul
+ * @author Ricardo Nicolás Canul Ibarra
+ * @author Victor Cauich Dávalos
  *
- * @author Mohammed
  */
 public class Main
 {
@@ -13,7 +15,7 @@ public class Main
     public static void main(String[] args)
     {
 
-        SwingUtilities.invokeLater(new Interfaz()::setUpWindow);
+        SwingUtilities.invokeLater(new InterfazPrincipal()::setUpWindow);
 
     }
 

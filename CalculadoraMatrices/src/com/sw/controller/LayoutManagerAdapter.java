@@ -7,7 +7,7 @@ import java.awt.LayoutManager;
 
 /**
  *
- * @author Mohammed
+ *
  */
 public class LayoutManagerAdapter implements LayoutManager
 {

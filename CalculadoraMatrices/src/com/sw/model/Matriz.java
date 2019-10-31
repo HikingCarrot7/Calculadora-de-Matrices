@@ -2,7 +2,7 @@ package com.sw.model;
 
 /**
  *
- * @author Mohammed
+ *
  */
 public class Matriz
 {
@@ -92,7 +92,8 @@ public class Matriz
      */
     public double[][] productoMatrices(double matrizA[][], double matrizB[][])
     {
-        double matrizProducto[][] = new double[matrizA.length][matrizB[0].length];
+
+        double matrizProducto[][] = new double[matrizB.length][matrizB.length];
 
         for (int i = 0; i < matrizProducto.length; i++)
             for (int j = 0; j < matrizProducto.length; j++)
@@ -124,6 +125,14 @@ public class Matriz
 
     }
 
+    /**
+     * @deprecated
+     *
+     * @param i El tamaño de la matriz a rellenar y retornar.
+     *
+     * @return La matriz rellenada.
+     *
+     */
     public double[][] rellenarMatriz(final int i)
     {
         double[][] matrizRellenada = new double[i][i];
@@ -137,6 +146,9 @@ public class Matriz
     }
 
     /**
+     *
+     * @deprecated
+     *
      * Imprime una matriz de 3x3 con forma: <br>
      *
      * x x x   <br>
@@ -158,27 +170,6 @@ public class Matriz
         }
 
         System.out.println("");
-
-    }
-
-    public double[][] SumaMatrices(double[][] Matriz1, double[][] Matriz2)
-    {
-        double[][] Matriz3 = new double[Matriz1.length][Matriz2.length];
-
-        for (int i = 0; i < Matriz3.length; i++)
-            for (int t = 0; t < Matriz3.length; t++)
-                Matriz3[i][t] = Matriz1[i][t] + Matriz2[i][t];
-
-        return Matriz3;
-    }
-
-    public double[][] MultiplicacionMatrizporEscalar(double[][] Matriz1, double C)
-    {
-        for (int i = 0; i < Matriz1.length; i++)
-            for (int t = 0; t < Matriz1.length; t++)
-                Matriz1[i][t] = (Matriz1[i][t]) * (C);
-
-        return Matriz1;
 
     }
 
