@@ -14,28 +14,33 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Mohammed
+ *
  */
-public final class SecondMatrix extends JPanel
+public final class InterfazSegundaMatriz extends JPanel
 {
 
     private static MatrixDesign matrizGuardada, matriz;
     private static JFrame frame;
     private static boolean valida = false;
-    private Interfaz interfaz;
+    private InterfazPrincipal interfaz;
     private JLabel info;
     private JButton listo, limpiar;
 
     static
     {
 
-        matrizGuardada = new MatrixDesign(9);
+        DataManager dataManager = new DataManager();
+        DAO dao = new DAO("res/Matriz2.txt");
 
-        new DataManager().copiarMatrices(matrizGuardada, new DAO("res/Matriz2.txt").readFile());
+        matrizGuardada = new MatrixDesign(9);
+        dataManager.copiarMatrices(matrizGuardada, dao.readFile());
+
+        matriz = new MatrixDesign(dao.getLadoMatriz());
+        dataManager.copiarMatrices(matriz, matrizGuardada);
 
     }
 
-    public SecondMatrix(int ladoMatriz, Interfaz interfaz)
+    public InterfazSegundaMatriz(int ladoMatriz, InterfazPrincipal interfaz)
     {
         this.interfaz = interfaz;
 
@@ -111,7 +116,7 @@ public final class SecondMatrix extends JPanel
 
     public static void setValida(boolean valida)
     {
-        SecondMatrix.valida = valida;
+        InterfazSegundaMatriz.valida = valida;
     }
 
     public static MatrixDesign getMatrizGuardada()
@@ -124,11 +129,11 @@ public final class SecondMatrix extends JPanel
         return matriz;
     }
 
-    public static void setUpWindow(int ladoMatriz, Interfaz interfaz)
+    public static void setUpWindow(int ladoMatriz, InterfazPrincipal interfaz)
     {
 
         frame = new JFrame();
-        SecondMatrix secondMatrix = new SecondMatrix(ladoMatriz, interfaz);
+        InterfazSegundaMatriz secondMatrix = new InterfazSegundaMatriz(ladoMatriz, interfaz);
 
         frame.setPreferredSize(new Dimension(600, 400));
         frame.setMinimumSize(new Dimension(600, 400));

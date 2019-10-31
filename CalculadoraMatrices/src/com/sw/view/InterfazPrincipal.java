@@ -18,20 +18,19 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author Mohammed
+ * @author Muhammad
  */
-public final class Interfaz extends JPanel
+public final class InterfazPrincipal extends JPanel
 {
 
     private static ActionButton actionButton;
-    private JScrollPane scrollPane;
     private JPanel panelEntrada;
     private JButton definir, calcular, segundaMatriz, limpiar;
     private JLabel info, determinante, infoEscalar, titulo;
     private JTextField entradaLadoMatrices, escalar;
     private MatrixLayout distribucion;
 
-    public Interfaz()
+    public InterfazPrincipal()
     {
 
         setLayout(null);
@@ -48,7 +47,7 @@ public final class Interfaz extends JPanel
     {
 
         JFrame frame = new JFrame();
-        Interfaz panelComponentes = new Interfaz();
+        InterfazPrincipal panelComponentes = new InterfazPrincipal();
 
         panelComponentes.setPreferredSize(new Dimension(1160, 930));
         JScrollPane interfaz = new JScrollPane(panelComponentes);
@@ -114,7 +113,7 @@ public final class Interfaz extends JPanel
         segundaMatriz.setToolTipText("Establecer una segunda matriz para hacer los cálculos");
         segundaMatriz.setText("Establece una segunda matriz para hacer los cálculos");
 
-        info = new JLabel("Lado de la matriz:");
+        info = new JLabel("Orden de la matriz:");
         info.setFont(fuente);
         info.setBounds(20, 140, 150, 30);
 
