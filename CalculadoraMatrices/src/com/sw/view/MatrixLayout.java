@@ -6,17 +6,23 @@ import javax.swing.JPanel;
 
 /**
  *
- *  
+ *
  */
 public final class MatrixLayout extends JPanel
 {
 
     private MatrixDesign[] matrices;
-    private String[] tituloMatrices =
-    {
-        "Inserte la matriz", "Suma con otra matriz", "Multiplicación con otra matriz", "Multiplicación por escalar", "Inversa de la matriz"
 
-    };
+    private String[] tituloMatrices
+            =
+            {
+                String.format("20s", "Hola"),
+                "Suma con otra matriz",
+                "Multiplicación con otra matriz",
+                "Multiplicación por escalar",
+                "Inversa de la matriz"
+
+            };
 
     private int ladoMatrices;
 

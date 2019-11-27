@@ -1,13 +1,14 @@
 package com.sw.controller;
 
 import com.sw.view.InterfazPrincipal;
-import com.sw.view.MatrixLayout;
 import com.sw.view.InterfazSegundaMatriz;
 import javax.swing.JOptionPane;
 
+import com.sw.view.MatrixLayout;
+
 /**
  *
- *  
+ *
  */
 public class ActionButtonManager
 {
