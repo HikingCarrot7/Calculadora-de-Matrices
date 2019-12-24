@@ -1,14 +1,11 @@
 package com.sw.model;
 
-/**
- *
- *
- */
 public class Matriz
 {
 
-    public double[][] sumaOtraMatriz(double[][] matrizA, double[][] matrizB)
+    public double[][] sumarMatrices(double[][] matrizA, double[][] matrizB)
     {
+
         double[][] matrizResultante = new double[matrizA.length][matrizA.length];
 
         for (int i = 0; i < matrizResultante.length; i++)
@@ -19,12 +16,12 @@ public class Matriz
 
     }
 
-    public double[][] inversa(double[][] matriz)
+    public double[][] getInversa(double[][] matriz)
     {
-        return multiplicarPorEscalar(1 / determinante(0, matriz), adjunta(matriz));
+        return multiplicarPorEscalar(1 / getDeterminante(0, matriz), getAdjunta(matriz));
     }
 
-    public double determinante(int i, double[][] matriz)
+    public double getDeterminante(int i, double[][] matriz)
     {
 
         if (matriz.length == 2)
@@ -37,9 +34,9 @@ public class Matriz
 
             for (int j = 0; j < matriz.length; j++)
             {
-                double[][] subMatriz = subMatriz(i, j, matriz);
+                double[][] subMatriz = getSubMatriz(i, j, matriz);
 
-                deter += Math.pow(-1, i + j) * matriz[i][j] * determinante(i, subMatriz);
+                deter += Math.pow(-1, i + j) * matriz[i][j] * getDeterminante(i, subMatriz);
 
             }
 
@@ -49,19 +46,33 @@ public class Matriz
 
     }
 
-    public double[][] adjunta(double[][] matriz)
+    public double[][] getSubMatriz(int fila, int columna, double[][] matriz)
+    {
+
+        double[][] subMatriz = new double[matriz.length - 1][matriz.length - 1];
+
+        for (int i = 0, k = 0; i < matriz.length; i++)
+            for (int j = 0, l = 0; i != fila && j < matriz.length; j++)
+                if (j != columna)
+                    subMatriz[l == subMatriz.length - 1 ? k++ : k][l++] = matriz[i][j];
+
+        return subMatriz;
+
+    }
+
+    public double[][] getAdjunta(double[][] matriz)
     {
         double[][] matrizCofactores = new double[matriz.length][matriz.length];
 
         for (int i = 0; i < matriz.length; i++)
             for (int j = 0; j < matriz.length; j++)
-                matrizCofactores[i][j] = Math.pow(-1, i + j) * determinante(0, subMatriz(i, j, matriz));
+                matrizCofactores[i][j] = Math.pow(-1, i + j) * getDeterminante(0, getSubMatriz(i, j, matriz));
 
-        return transpuesta(matrizCofactores);
+        return getTranspuesta(matrizCofactores);
 
     }
 
-    public double[][] transpuesta(double[][] matriz)
+    public double[][] getTranspuesta(double[][] matriz)
     {
         double[][] matrizTranspuesta = new double[matriz.length][matriz.length];
 
@@ -108,20 +119,6 @@ public class Matriz
             }
 
         return matrizProducto;
-
-    }
-
-    public double[][] subMatriz(int fila, int columna, double[][] matriz)
-    {
-
-        double[][] subMatriz = new double[matriz.length - 1][matriz.length - 1];
-
-        for (int i = 0, k = 0; i < matriz.length; i++)
-            for (int j = 0, l = 0; i != fila && j < matriz.length; j++)
-                if (j != columna)
-                    subMatriz[l == subMatriz.length - 1 ? k++ : k][l++] = matriz[i][j];
-
-        return subMatriz;
 
     }
 

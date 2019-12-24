@@ -61,9 +61,9 @@ public class DataManager
 
         double[][] matrizEntrada = getMatrizCampo(matrices[0]);
 
-        actualizarCampo(matrices[1], calculosMatriz.sumaOtraMatriz(matrizEntrada, segundaMatrizValida ? getMatrizCampo(InterfazSegundaMatriz.getMatriz()) : matrizEntrada));
+        actualizarCampo(matrices[1], calculosMatriz.sumarMatrices(matrizEntrada, segundaMatrizValida ? getMatrizCampo(InterfazSegundaMatriz.getMatriz()) : matrizEntrada));
         actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, segundaMatrizValida ? getMatrizCampo(InterfazSegundaMatriz.getMatriz()) : matrizEntrada));
-        actualizarCampo(matrices[4], calculosMatriz.inversa(matrizEntrada));
+        actualizarCampo(matrices[4], calculosMatriz.getInversa(matrizEntrada));
         actualizarCampo(matrices[3], calculosMatriz.multiplicarPorEscalar(escalar, matrizEntrada));
 
     }

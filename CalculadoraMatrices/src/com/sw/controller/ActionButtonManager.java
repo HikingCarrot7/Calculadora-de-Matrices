@@ -51,7 +51,7 @@ public class ActionButtonManager
             }
 
             dataManager.rellenarTodosLosCampos(distribuciones.getMatrices(), Double.parseDouble(interfaz.getEscalar().getText()), dataManager.segundaMatrizValida());
-            interfaz.getDeterminante().setText("Determinante: " + dataManager.getCalculosMatriz().determinante(0, dataManager.getMatrizCampo(distribuciones.getMatrices()[0])));
+            interfaz.getDeterminante().setText("Determinante: " + dataManager.getCalculosMatriz().getDeterminante(0, dataManager.getMatrizCampo(distribuciones.getMatrices()[0])));
 
         } else
             JOptionPane.showMessageDialog(null, "Alguna entrada no es válida, revísalas", "Entrada no válida", JOptionPane.ERROR_MESSAGE);
