@@ -152,9 +152,9 @@ public class VistaPrincipalController
         return (int) vistaPrincipal.getSpOrdenMatriz().getValue();
     }
 
-    private int getEscalar()
+    private double getEscalar()
     {
-        return (int) vistaPrincipal.getSpEscalar().getValue();
+        return (double) vistaPrincipal.getSpEscalar().getValue();
     }
 
     private int getOrdenActualMatriz()

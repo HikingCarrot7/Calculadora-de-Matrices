@@ -226,7 +226,7 @@ public class VistaPrincipal extends javax.swing.JFrame
         gridBagConstraints.insets = new Insets(1, 1, 1, 1);
         jPanel1.add(spOrdenMatriz, gridBagConstraints);
 
-        spEscalar.setModel(new SpinnerNumberModel(1, 1, null, 1));
+        spEscalar.setModel(new SpinnerNumberModel(1.0d, null, null, 1.0d));
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
