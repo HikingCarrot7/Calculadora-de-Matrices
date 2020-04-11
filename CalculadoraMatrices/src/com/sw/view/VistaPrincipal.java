@@ -9,7 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -81,7 +81,7 @@ public class VistaPrincipal extends javax.swing.JFrame
         btnLimpiar = new JButton();
         btnSetSegundaMatriz = new JButton();
         ckbHabilitarSegundaMatriz = new JCheckBox();
-        jPanel10 = new JPanel();
+        filler1 = new Box.Filler(new Dimension(10, 10), new Dimension(10, 10), new Dimension(10, 10));
         jLabel4 = new JLabel();
         txtDeterminante = new JTextField();
         spOrdenMatriz = new JSpinner();
@@ -171,22 +171,12 @@ public class VistaPrincipal extends javax.swing.JFrame
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         jPanel9.add(ckbHabilitarSegundaMatriz, gridBagConstraints);
-
-        GroupLayout jPanel10Layout = new GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(jPanel10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(jPanel10Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 0.1;
-        jPanel9.add(jPanel10, gridBagConstraints);
+        jPanel9.add(filler1, gridBagConstraints);
 
         jPanel7.add(jPanel9, BorderLayout.CENTER);
 
@@ -331,12 +321,12 @@ public class VistaPrincipal extends javax.swing.JFrame
     private JButton btnLimpiar;
     private JButton btnSetSegundaMatriz;
     private JCheckBox ckbHabilitarSegundaMatriz;
+    private Box.Filler filler1;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JLabel jLabel3;
     private JLabel jLabel4;
     private JPanel jPanel1;
-    private JPanel jPanel10;
     private JPanel jPanel7;
     private JPanel jPanel8;
     private JPanel jPanel9;
