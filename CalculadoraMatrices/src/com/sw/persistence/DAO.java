@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Nicolás
  */
-public class DAO2
+public class DAO
 {
 
     public static final String RUTA_MATRIZ_PRIMARIA = "res//Matriz1.txt";
@@ -23,7 +23,7 @@ public class DAO2
 
     private File file;
 
-    public DAO2(String ruta)
+    public DAO(String ruta)
     {
         file = new File(ruta);
 

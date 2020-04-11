@@ -7,13 +7,13 @@ import javax.swing.JTextField;
  *
  * @author Nicolás
  */
-public class DataManager2
+public class DataManager
 {
 
     private final String DOUBLE_REGEX = "^-?[0-9]+(.?[0-9]+)*$";
-    private static DataManager2 instance;
+    private static DataManager instance;
 
-    private DataManager2()
+    private DataManager()
     {
 
     }
@@ -60,12 +60,7 @@ public class DataManager2
 
     public int getLongitudMatrizEntrada(VistaMatriz vistaMatriz)
     {
-        int longitud = 0, j = 0;
-
-        while (j < getOrden(vistaMatriz) && !vistaMatriz.getEntradas()[0][j++].getText().isEmpty())
-            ++longitud;
-
-        return longitud;
+        return getLongitudMatrizEntrada(getEntradasTxt(vistaMatriz));
     }
 
     public int getLongitudMatrizEntrada(String[][] matriz)
@@ -92,19 +87,6 @@ public class DataManager2
         return matriz;
     }
 
-    public double[][] getEntradas(String[][] matrizTxt)
-    {
-
-        int longitud = getLongitudMatrizEntrada(matrizTxt);
-        double[][] matriz = new double[longitud][longitud];
-
-        for (int i = 0; i < matriz.length; i++)
-            for (int j = 0; j < matriz[i].length; j++)
-                matriz[i][j] = Double.parseDouble(matrizTxt[i][j]);
-
-        return matriz;
-    }
-
     public String[][] getEntradasTxt(VistaMatriz vistaMatriz)
     {
         JTextField[][] entradas = vistaMatriz.getEntradas();
@@ -113,6 +95,18 @@ public class DataManager2
         for (int i = 0; i < matriz.length; i++)
             for (int j = 0; j < matriz[i].length; j++)
                 matriz[i][j] = entradas[i][j].getText();
+
+        return matriz;
+    }
+
+    public double[][] getEntradas(String[][] matrizTxt)
+    {
+        int longitud = getLongitudMatrizEntrada(matrizTxt);
+        double[][] matriz = new double[longitud][longitud];
+
+        for (int i = 0; i < matriz.length; i++)
+            for (int j = 0; j < matriz[i].length; j++)
+                matriz[i][j] = Double.parseDouble(matrizTxt[i][j]);
 
         return matriz;
     }
@@ -128,18 +122,13 @@ public class DataManager2
 
     public void setEntradas(VistaMatriz vistaMatriz, String[][] matriz)
     {
-        try
-        {
-            JTextField[][] entradas = vistaMatriz.getEntradas();
+        JTextField[][] entradas = vistaMatriz.getEntradas();
 
-            for (int i = 0; i < matriz.length; i++)
-                for (int j = 0; j < matriz[i].length; j++)
-                    entradas[i][j].setText(matriz[i][j]);
+        int ordenMatrizMenor = getOrdenMatrizMenor(matriz, getEntradasTxt(vistaMatriz));
 
-        } catch (IndexOutOfBoundsException e)
-        {
-
-        }
+        for (int i = 0; i < ordenMatrizMenor; i++)
+            for (int j = 0; j < ordenMatrizMenor; j++)
+                entradas[i][j].setText(matriz[i][j]);
     }
 
     public void setEntradas(String text, VistaMatriz... vistaMatrices)
@@ -148,20 +137,11 @@ public class DataManager2
             setEntradas(text, vistaMatriz.getEntradas());
     }
 
-    private void setEntradas(String text, JTextField[][] entradas)
+    public void setEntradas(String text, JTextField[][] entradas)
     {
         for (JTextField[] row : entradas)
             for (JTextField jTextField : row)
                 jTextField.setText(text);
-    }
-
-    public void recortarMatriz(VistaMatriz vistaMatriz, int columna)
-    {
-        JTextField[][] entradas = vistaMatriz.getEntradas();
-
-        for (int i = 0; i < entradas.length; i++)
-            for (int j = i >= columna ? 0 : columna; j < entradas[i].length; j++)
-                entradas[i][j].setText("");
     }
 
     public int getOrden(VistaMatriz vistaMatriz)
@@ -174,15 +154,25 @@ public class DataManager2
         return matriz.length;
     }
 
+    public int getOrdenMatrizMenor(String[][] matriz1, String[][] matriz2)
+    {
+        int ordenMatrizMenor = matriz1.length;
+
+        if (ordenMatrizMenor > matriz2.length)
+            ordenMatrizMenor = matriz2.length;
+
+        return ordenMatrizMenor;
+    }
+
     private boolean entradaValida(String text, String regex)
     {
         return text.matches(regex);
     }
 
-    public synchronized static DataManager2 getInstance()
+    public synchronized static DataManager getInstance()
     {
         if (instance == null)
-            instance = new DataManager2();
+            instance = new DataManager();
 
         return instance;
     }

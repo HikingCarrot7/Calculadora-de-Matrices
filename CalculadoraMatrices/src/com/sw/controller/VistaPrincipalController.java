@@ -1,7 +1,7 @@
 package com.sw.controller;
 
 import com.sw.model.MatrixLogic;
-import com.sw.persistence.DAO2;
+import com.sw.persistence.DAO;
 import com.sw.view.DibujadorMatrices;
 import com.sw.view.VistaMatriz;
 import com.sw.view.VistaPrincipal;
@@ -30,25 +30,25 @@ public class VistaPrincipalController
 
     static
     {
-        DAO2 dao = new DAO2(DAO2.RUTA_MATRIZ_PRIMARIA);
+        DAO dao = new DAO(DAO.RUTA_MATRIZ_PRIMARIA);
         ORDEN_INICIAL_MATRIZ = dao.getOrdenMatriz();
     }
 
     private final VistaPrincipal vistaPrincipal;
     private final DibujadorMatrices dibujadorMatrices;
-    private final DataManager2 dataManager;
+    private final DataManager dataManager;
     private final MatrixLogic matrixLogic;
 
-    private final DAO2 daoMatrizPrimaria;
-    private final DAO2 daoMatrizSecundaria;
+    private final DAO daoMatrizPrimaria;
+    private final DAO daoMatrizSecundaria;
 
     public VistaPrincipalController(final VistaPrincipal vistaPrincipal)
     {
         this.vistaPrincipal = vistaPrincipal;
         this.dibujadorMatrices = new DibujadorMatrices(ORDEN_INICIAL_MATRIZ, getPanelesSoporteMatrices());
-        this.daoMatrizPrimaria = new DAO2(DAO2.RUTA_MATRIZ_PRIMARIA);
-        this.daoMatrizSecundaria = new DAO2(DAO2.RUTA_MATRIZ_SECUNDARIA);
-        this.dataManager = DataManager2.getInstance();
+        this.daoMatrizPrimaria = new DAO(DAO.RUTA_MATRIZ_PRIMARIA);
+        this.daoMatrizSecundaria = new DAO(DAO.RUTA_MATRIZ_SECUNDARIA);
+        this.dataManager = DataManager.getInstance();
         this.matrixLogic = MatrixLogic.getInstance();
         initComponents();
     }

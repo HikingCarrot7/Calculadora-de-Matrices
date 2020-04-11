@@ -1,6 +1,6 @@
 package com.sw.controller;
 
-import com.sw.persistence.DAO2;
+import com.sw.persistence.DAO;
 import com.sw.view.DibujadorMatrices;
 import com.sw.view.VistaMatriz;
 import com.sw.view.VistaSegundaMatriz;
@@ -19,15 +19,15 @@ public class VistaSegundaMatrizController
 
     private final VistaSegundaMatriz vistaSegundaMatriz;
     private final DibujadorMatrices dibujadorMatrices;
-    private final DataManager2 dataManager;
-    private final DAO2 daoMatrizSecundaria;
+    private final DataManager dataManager;
+    private final DAO daoMatrizSecundaria;
 
     public VistaSegundaMatrizController(final VistaSegundaMatriz vistaSegundaMatriz, final int ordenMatriz)
     {
         this.vistaSegundaMatriz = vistaSegundaMatriz;
         this.dibujadorMatrices = new DibujadorMatrices(ordenMatriz, vistaSegundaMatriz.getPanelMatriz());
-        this.dataManager = DataManager2.getInstance();
-        this.daoMatrizSecundaria = new DAO2(DAO2.RUTA_MATRIZ_SECUNDARIA);
+        this.dataManager = DataManager.getInstance();
+        this.daoMatrizSecundaria = new DAO(DAO.RUTA_MATRIZ_SECUNDARIA);
         initComponents();
     }
 
