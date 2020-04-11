@@ -1,11 +1,21 @@
 package com.sw.model;
 
-public class Matriz
+/**
+ *
+ * @author Andueza
+ */
+public class MatrixLogic
 {
+
+    private static MatrixLogic instance;
+
+    private MatrixLogic()
+    {
+
+    }
 
     public double[][] sumarMatrices(double[][] matrizA, double[][] matrizB)
     {
-
         double[][] matrizResultante = new double[matrizA.length][matrizA.length];
 
         for (int i = 0; i < matrizResultante.length; i++)
@@ -13,7 +23,6 @@ public class Matriz
                 matrizResultante[i][j] = matrizA[i][j] + matrizB[i][j];
 
         return matrizResultante;
-
     }
 
     public double[][] getInversa(double[][] matriz)
@@ -21,34 +30,31 @@ public class Matriz
         return multiplicarPorEscalar(1 / getDeterminante(0, matriz), getAdjunta(matriz));
     }
 
+    public double getDeterminante(double[][] matriz)
+    {
+        return getDeterminante(0, matriz);
+    }
+
     public double getDeterminante(int i, double[][] matriz)
     {
-
         if (matriz.length == 2)
             return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
-
         else
         {
-
             double deter = 0;
 
             for (int j = 0; j < matriz.length; j++)
             {
                 double[][] subMatriz = getSubMatriz(i, j, matriz);
-
                 deter += Math.pow(-1, i + j) * matriz[i][j] * getDeterminante(i, subMatriz);
-
             }
 
             return deter;
-
         }
-
     }
 
     public double[][] getSubMatriz(int fila, int columna, double[][] matriz)
     {
-
         double[][] subMatriz = new double[matriz.length - 1][matriz.length - 1];
 
         for (int i = 0, k = 0; i < matriz.length; i++)
@@ -57,7 +63,6 @@ public class Matriz
                     subMatriz[l == subMatriz.length - 1 ? k++ : k][l++] = matriz[i][j];
 
         return subMatriz;
-
     }
 
     public double[][] getAdjunta(double[][] matriz)
@@ -69,7 +74,6 @@ public class Matriz
                 matrizCofactores[i][j] = Math.pow(-1, i + j) * getDeterminante(0, getSubMatriz(i, j, matriz));
 
         return getTranspuesta(matrizCofactores);
-
     }
 
     public double[][] getTranspuesta(double[][] matriz)
@@ -81,7 +85,6 @@ public class Matriz
                 matrizTranspuesta[i][j] = matriz[j][i];
 
         return matrizTranspuesta;
-
     }
 
     public double[][] multiplicarPorEscalar(double escalar, double[][] matriz)
@@ -91,7 +94,6 @@ public class Matriz
                 fila[j] *= escalar;
 
         return matriz;
-
     }
 
     /**
@@ -103,7 +105,6 @@ public class Matriz
      */
     public double[][] productoMatrices(double matrizA[][], double matrizB[][])
     {
-
         double matrizProducto[][] = new double[matrizB.length][matrizB.length];
 
         for (int i = 0; i < matrizProducto.length; i++)
@@ -115,59 +116,17 @@ public class Matriz
                     sum += matrizA[j][k] * matrizB[k][i];
 
                 matrizProducto[i][j] = sum;
-
             }
 
         return matrizProducto;
-
     }
 
-    /**
-     * @deprecated
-     *
-     * @param i El tamaño de la matriz a rellenar y retornar.
-     *
-     * @return La matriz rellenada.
-     *
-     */
-    public double[][] rellenarMatriz(final int i)
+    public synchronized static MatrixLogic getInstance()
     {
-        double[][] matrizRellenada = new double[i][i];
+        if (instance == null)
+            instance = new MatrixLogic();
 
-        for (double[] fila : matrizRellenada)
-            for (int l = 0; l < matrizRellenada.length; l++)
-                fila[l] = (double) ((int) (Math.random() * 100));
-
-        return matrizRellenada;
-
-    }
-
-    /**
-     *
-     * @deprecated
-     *
-     * Imprime una matriz de 3x3 con forma: <br>
-     *
-     * x x x   <br>
-     * x x x   <br>
-     * x x x   <br>
-     *
-     * @param matriz array 2d de doubles
-     */
-    public void imprimirMatriz(double[][] matriz)
-    {
-        for (double[] fila : matriz)
-        {
-
-            for (double elemento : fila)
-                System.out.printf("%-15s", String.format("[%,.5f] ", elemento));
-
-            System.out.println("");
-
-        }
-
-        System.out.println("");
-
+        return instance;
     }
 
 }
