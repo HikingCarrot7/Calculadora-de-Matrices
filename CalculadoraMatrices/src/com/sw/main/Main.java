@@ -1,22 +1,25 @@
 package com.sw.main;
 
-import com.sw.view.InterfazPrincipal;
-import javax.swing.SwingUtilities;
+import com.sw.controller.VistaPrincipalController;
+import com.sw.view.VistaPrincipal;
+import java.awt.EventQueue;
 
 /**
- * @author Guillermo Canto Dzul
- * @author Ricardo Nicolás Canul Ibarra
- * @author Victor Cauich Dávalos
  *
+ * @author Nicolás
  */
 public class Main
 {
 
     public static void main(String[] args)
     {
-
-        SwingUtilities.invokeLater(new InterfazPrincipal()::setUpWindow);
-
+        EventQueue.invokeLater(() ->
+        {
+            VistaPrincipal vista = new VistaPrincipal();
+            vista.setVisible(true);
+            vista.setLocationRelativeTo(null);
+            new VistaPrincipalController(vista);
+        });
     }
 
 }

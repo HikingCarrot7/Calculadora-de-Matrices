@@ -1,168 +1,179 @@
 package com.sw.controller;
 
-import com.sw.model.Matriz;
-import com.sw.view.InterfazPrincipal;
-import com.sw.view.InterfazSegundaMatriz;
-import com.sw.view.MatrixDesign;
-import com.sw.view.MatrixLayout;
+import com.sw.view.VistaMatriz;
+import javax.swing.JTextField;
 
 /**
  *
- *
+ * @author Nicolás
  */
 public class DataManager
 {
 
-    private MatrixDesign matriz;
-    private Matriz calculosMatriz;
+    private final String DOUBLE_REGEX = "^-?[0-9]+(.?[0-9]+)*$";
+    private static DataManager instance;
 
-    public DataManager()
+    private DataManager()
     {
-        matriz = new MatrixDesign(9);
-        calculosMatriz = new Matriz();
 
     }
 
-    public void actualizarCampo(MatrixDesign matriz, double[][] matrizRellenar)
+    public boolean matrizValida(VistaMatriz vistaMatriz)
     {
-        for (int i = 0; i < matrizRellenar.length; i++)
-            for (int j = 0; j < matrizRellenar[i].length; j++)
-                matriz.getEntradasMatriz()[i][j].setText(String.format("%.2f", matrizRellenar[i][j]));
+        int longitud = getLongitudMatrizEntrada(vistaMatriz);
 
+        if (longitud < 3)
+            return false;
+
+        JTextField[][] entradas = vistaMatriz.getEntradas();
+
+        for (int i = 0; i < longitud; i++)
+            for (int j = 0; j < longitud; j++)
+            {
+                String entradaTxt = entradas[i][j].getText();
+
+                if (entradaTxt.isEmpty() || !entradaValida(entradaTxt, DOUBLE_REGEX))
+                    return false;
+            }
+
+        return true;
     }
 
-    public double[][] getMatrizCampo(MatrixDesign matriz)
+    public boolean matrizValida(String[][] matriz)
     {
-        double[][] matrizARetornar = new double[getLongitudCampo(matriz)][getLongitudCampo(matriz)];
-
-        for (int i = 0; i < matrizARetornar.length; i++)
-            for (int j = 0; j < matrizARetornar.length; j++)
-                matrizARetornar[i][j] = Double.parseDouble(matriz.getEntradasMatriz()[i][j].getText());
-
-        return matrizARetornar;
-
-    }
-
-    public void copiarMatrices(MatrixDesign matriz1, MatrixDesign matriz2)
-    {
-        int longitudMenor = matriz1.getLadoMatriz();
-
-        if (longitudMenor > matriz2.getLadoMatriz())
-            longitudMenor = matriz2.getLadoMatriz();
-
-        for (int i = 0; i < longitudMenor; i++)
-            for (int j = 0; j < longitudMenor; j++)
-                matriz1.getEntradasMatriz()[i][j].setText(matriz2.getEntradasMatriz()[i][j].getText());
-
-    }
-
-    public void rellenarTodosLosCampos(MatrixDesign[] matrices, double escalar, boolean segundaMatrizValida)
-    {
-
-        double[][] matrizEntrada = getMatrizCampo(matrices[0]);
-
-        actualizarCampo(matrices[1], calculosMatriz.sumarMatrices(matrizEntrada, segundaMatrizValida ? getMatrizCampo(InterfazSegundaMatriz.getMatriz()) : matrizEntrada));
-        actualizarCampo(matrices[2], calculosMatriz.productoMatrices(matrizEntrada, segundaMatrizValida ? getMatrizCampo(InterfazSegundaMatriz.getMatriz()) : matrizEntrada));
-        actualizarCampo(matrices[4], calculosMatriz.getInversa(matrizEntrada));
-        actualizarCampo(matrices[3], calculosMatriz.multiplicarPorEscalar(escalar, matrizEntrada));
-
-    }
-
-    public boolean matrizRellenadaCorrectamente(MatrixDesign matriz)
-    {
-        int longitud = getLongitudCampo(matriz);
+        int longitud = getLongitudMatrizEntrada(matriz);
 
         if (longitud < 3)
             return false;
 
         for (int i = 0; i < longitud; i++)
             for (int j = 0; j < longitud; j++)
-                if (matriz.getEntradasMatriz()[i][j].getText().equals("")
-                        || !entradaValida(matriz.getEntradasMatriz()[i][j].getText(), getEntradaDoubleValido()))
+            {
+                String entradaTxt = matriz[i][j];
+
+                if (entradaTxt.isEmpty() || !entradaValida(entradaTxt, DOUBLE_REGEX))
                     return false;
+            }
 
         return true;
-
     }
 
-    public int getLongitudCampo(MatrixDesign matriz)
+    public int getLongitudMatrizEntrada(VistaMatriz vistaMatriz)
     {
+        return getLongitudMatrizEntrada(getEntradasTxt(vistaMatriz));
+    }
 
+    public int getLongitudMatrizEntrada(String[][] matriz)
+    {
         int longitud = 0, j = 0;
 
-        while (j < matriz.getLadoMatriz() && !matriz.getEntradasMatriz()[0][j++].getText().equals(""))
+        while (j < getOrden(matriz) && !matriz[0][j++].isEmpty())
             ++longitud;
 
         return longitud;
-
     }
 
-    public void guardarMatrizEntrada(MatrixLayout distribucion)
+    public double[][] getEntradas(VistaMatriz vistaMatriz)
     {
+        JTextField[][] entradas = vistaMatriz.getEntradas();
 
-        for (int i = 0; i < distribucion.getMatrices()[0].getLadoMatriz(); i++)
-            for (int j = 0; j < distribucion.getMatrices()[0].getLadoMatriz(); j++)
-                matriz.getEntradasMatriz()[i][j].setText(distribucion.getMatrices()[0].getEntradasMatriz()[i][j].getText());
+        int longitud = getLongitudMatrizEntrada(vistaMatriz);
+        double[][] matriz = new double[longitud][longitud];
 
+        for (int i = 0; i < matriz.length; i++)
+            for (int j = 0; j < matriz[i].length; j++)
+                matriz[i][j] = Double.parseDouble(entradas[i][j].getText());
+
+        return matriz;
     }
 
-    public void reestablecerCampos(MatrixLayout distribucion)
+    public String[][] getEntradasTxt(VistaMatriz vistaMatriz)
     {
-        for (int i = 0; i < distribucion.getMatrices()[0].getLadoMatriz(); i++)
-            for (int j = 0; j < distribucion.getMatrices()[0].getLadoMatriz(); j++)
-                distribucion.getMatrices()[0].getEntradasMatriz()[i][j].setText(matriz.getEntradasMatriz()[i][j].getText());
+        JTextField[][] entradas = vistaMatriz.getEntradas();
+        String[][] matriz = new String[entradas.length][entradas.length];
 
+        for (int i = 0; i < matriz.length; i++)
+            for (int j = 0; j < matriz[i].length; j++)
+                matriz[i][j] = entradas[i][j].getText();
+
+        return matriz;
     }
 
-    public void limpiarCampos(MatrixDesign[] matrices)
+    public double[][] getEntradas(String[][] matrizTxt)
     {
+        int longitud = getLongitudMatrizEntrada(matrizTxt);
+        double[][] matriz = new double[longitud][longitud];
 
-        for (MatrixDesign matrix : matrices)
-            for (int i = 0; i < matrices[0].getLadoMatriz(); i++)
-                for (int j = 0; j < matrices[0].getLadoMatriz(); j++)
-                    matrix.getEntradasMatriz()[i][j].setText("");
+        for (int i = 0; i < matriz.length; i++)
+            for (int j = 0; j < matriz[i].length; j++)
+                matriz[i][j] = Double.parseDouble(matrizTxt[i][j]);
 
+        return matriz;
     }
 
-    public void limpiarUnCampo(MatrixDesign matriz)
+    public void setEntradas(VistaMatriz vistaMatriz, double[][] matriz)
     {
+        JTextField[][] entradas = vistaMatriz.getEntradas();
 
-        for (int i = 0; i < matriz.getLadoMatriz(); i++)
-            for (int j = 0; j < matriz.getLadoMatriz(); j++)
-                matriz.getEntradasMatriz()[i][j].setText("");
-
+        for (int i = 0; i < matriz.length; i++)
+            for (int j = 0; j < matriz[i].length; j++)
+                entradas[i][j].setText(String.format("%,.2f", matriz[i][j]));
     }
 
-    public void recortarMatriz(MatrixDesign matriz, int columna)
+    public void setEntradas(VistaMatriz vistaMatriz, String[][] matriz)
     {
+        JTextField[][] entradas = vistaMatriz.getEntradas();
 
-        for (int i = 0; i < matriz.getLadoMatriz(); i++)
-            for (int j = i >= columna ? 0 : columna; j < matriz.getLadoMatriz(); j++)
-                matriz.getEntradasMatriz()[i][j].setText("");
+        int ordenMatrizMenor = getOrdenMatrizMenor(matriz, getEntradasTxt(vistaMatriz));
 
+        for (int i = 0; i < ordenMatrizMenor; i++)
+            for (int j = 0; j < ordenMatrizMenor; j++)
+                entradas[i][j].setText(matriz[i][j]);
     }
 
-    public boolean segundaMatrizValida()
+    public void setEntradas(String text, VistaMatriz... vistaMatrices)
     {
-        return matrizRellenadaCorrectamente(InterfazSegundaMatriz.getMatrizGuardada())
-                && getLongitudCampo(InterfazPrincipal.getActionButton().getDistribucion().getMatrices()[0])
-                == getLongitudCampo(InterfazSegundaMatriz.getMatrizGuardada());
-
+        for (VistaMatriz vistaMatriz : vistaMatrices)
+            setEntradas(text, vistaMatriz.getEntradas());
     }
 
-    public String getEntradaDoubleValido()
+    public void setEntradas(String text, JTextField[][] entradas)
     {
-        return "^-?[0-9]+(.?[0-9]+)*$";
+        for (JTextField[] row : entradas)
+            for (JTextField jTextField : row)
+                jTextField.setText(text);
     }
 
-    public boolean entradaValida(String text, String regex)
+    public int getOrden(VistaMatriz vistaMatriz)
+    {
+        return vistaMatriz.getEntradas().length;
+    }
+
+    public int getOrden(String[][] matriz)
+    {
+        return matriz.length;
+    }
+
+    public int getOrdenMatrizMenor(String[][] matriz1, String[][] matriz2)
+    {
+        int ordenMatrizMenor = matriz1.length;
+
+        if (ordenMatrizMenor > matriz2.length)
+            ordenMatrizMenor = matriz2.length;
+
+        return ordenMatrizMenor;
+    }
+
+    private boolean entradaValida(String text, String regex)
     {
         return text.matches(regex);
     }
 
-    public Matriz getCalculosMatriz()
+    public synchronized static DataManager getInstance()
     {
-        return calculosMatriz;
-    }
+        if (instance == null)
+            instance = new DataManager();
 
+        return instance;
+    }
 }

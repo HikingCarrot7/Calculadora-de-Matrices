@@ -1,6 +1,10 @@
 /CalculadoraMatrices/nbproject/private/
 /CalculadoraMatrices/build/
 /CalculadoraMatrices/dist/
+/CalculadoraMatrices/res/
 /PruebaTablas/nbproject/private/
 /PruebaTablas/build/
 /PruebaTablas/dist/
+.idea/
+out/
+*.iml
