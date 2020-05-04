@@ -67,184 +67,184 @@ public class VistaPrincipal extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents()
     {
-        GridBagConstraints gridBagConstraints;
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new JPanel();
-        jLabel1 = new JLabel();
-        jLabel2 = new JLabel();
-        btnDefinirOrden = new JButton();
-        jLabel3 = new JLabel();
-        jPanel7 = new JPanel();
-        jPanel8 = new JPanel();
-        btnCalcular = new JButton();
-        jPanel9 = new JPanel();
-        btnLimpiar = new JButton();
-        btnSetSegundaMatriz = new JButton();
-        ckbHabilitarSegundaMatriz = new JCheckBox();
-        filler1 = new Box.Filler(new Dimension(10, 10), new Dimension(10, 10), new Dimension(10, 10));
-        jLabel4 = new JLabel();
-        txtDeterminante = new JTextField();
-        spOrdenMatriz = new JSpinner();
-        spEscalar = new JSpinner();
-        panelMatriz = new JPanel();
-        panelSumaOtraMatriz = new JPanel();
-        panelMultiOtraMatriz = new JPanel();
-        panelMultiEscalar = new JPanel();
-        panelInversaMatriz = new JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnDefinirOrden = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        btnCalcular = new javax.swing.JButton();
+        jPanel9 = new javax.swing.JPanel();
+        btnLimpiar = new javax.swing.JButton();
+        btnSetSegundaMatriz = new javax.swing.JButton();
+        ckbHabilitarSegundaMatriz = new javax.swing.JCheckBox();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
+        jLabel4 = new javax.swing.JLabel();
+        txtDeterminante = new javax.swing.JTextField();
+        spOrdenMatriz = new javax.swing.JSpinner();
+        spEscalar = new javax.swing.JSpinner();
+        panelMatriz = new javax.swing.JPanel();
+        panelSumaOtraMatriz = new javax.swing.JPanel();
+        panelMultiOtraMatriz = new javax.swing.JPanel();
+        panelMultiEscalar = new javax.swing.JPanel();
+        panelInversaMatriz = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(800, 710));
-        setPreferredSize(new Dimension(800, 710));
-        getContentPane().setLayout(new GridLayout(3, 2));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 710));
+        setPreferredSize(new java.awt.Dimension(800, 710));
+        getContentPane().setLayout(new java.awt.GridLayout(3, 2));
 
-        jPanel1.setBorder(BorderFactory.createTitledBorder("Entrada"));
-        jPanel1.setLayout(new GridBagLayout());
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Entrada"));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new Font("Tahoma", 0, 16)); // NOI18N
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Calculadora de matrices");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        jLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("Orden de la matriz:");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         jPanel1.add(jLabel2, gridBagConstraints);
 
         btnDefinirOrden.setText("Definir");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         jPanel1.add(btnDefinirOrden, gridBagConstraints);
 
-        jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Define un escalar:");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jPanel7.setLayout(new BorderLayout());
+        jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jPanel8.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        jPanel8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         btnCalcular.setText("Calcular");
         jPanel8.add(btnCalcular);
 
-        jPanel7.add(jPanel8, BorderLayout.SOUTH);
+        jPanel7.add(jPanel8, java.awt.BorderLayout.SOUTH);
 
-        jPanel9.setLayout(new GridBagLayout());
+        jPanel9.setLayout(new java.awt.GridBagLayout());
 
         btnLimpiar.setText("Limpiar todos los campos");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new Insets(0, 1, 1, 1);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(0, 1, 1, 1);
         jPanel9.add(btnLimpiar, gridBagConstraints);
 
         btnSetSegundaMatriz.setText("Establecer una segunda matriz");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new Insets(5, 1, 0, 1);
+        gridBagConstraints.insets = new java.awt.Insets(5, 1, 0, 1);
         jPanel9.add(btnSetSegundaMatriz, gridBagConstraints);
 
         ckbHabilitarSegundaMatriz.setSelected(true);
         ckbHabilitarSegundaMatriz.setText("Habilitar segunda matriz");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel9.add(ckbHabilitarSegundaMatriz, gridBagConstraints);
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weighty = 0.1;
         jPanel9.add(filler1, gridBagConstraints);
 
-        jPanel7.add(jPanel9, BorderLayout.CENTER);
+        jPanel7.add(jPanel9, java.awt.BorderLayout.CENTER);
 
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         jPanel1.add(jPanel7, gridBagConstraints);
 
-        jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Determinante:");
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         jPanel1.add(jLabel4, gridBagConstraints);
 
         txtDeterminante.setEditable(false);
-        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         jPanel1.add(txtDeterminante, gridBagConstraints);
 
-        spOrdenMatriz.setModel(new SpinnerNumberModel(3, 3, 10, 1));
-        gridBagConstraints = new GridBagConstraints();
+        spOrdenMatriz.setModel(new javax.swing.SpinnerNumberModel(3, 3, 10, 1));
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         jPanel1.add(spOrdenMatriz, gridBagConstraints);
 
-        spEscalar.setModel(new SpinnerNumberModel(1.0d, null, null, 1.0d));
-        gridBagConstraints = new GridBagConstraints();
+        spEscalar.setModel(new javax.swing.SpinnerNumberModel(1.0d, null, null, 1.0d));
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new Insets(1, 1, 1, 1);
+        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
         jPanel1.add(spEscalar, gridBagConstraints);
 
         getContentPane().add(jPanel1);
 
-        panelMatriz.setBorder(BorderFactory.createTitledBorder("Matriz"));
-        panelMatriz.setLayout(new BorderLayout());
+        panelMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Matriz"));
+        panelMatriz.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panelMatriz);
 
-        panelSumaOtraMatriz.setBorder(BorderFactory.createTitledBorder("Suma con otra matriz"));
-        panelSumaOtraMatriz.setLayout(new BorderLayout());
+        panelSumaOtraMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Suma con otra matriz"));
+        panelSumaOtraMatriz.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panelSumaOtraMatriz);
 
-        panelMultiOtraMatriz.setBorder(BorderFactory.createTitledBorder("Multiplicación con otra matriz"));
-        panelMultiOtraMatriz.setLayout(new BorderLayout());
+        panelMultiOtraMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación con otra matriz"));
+        panelMultiOtraMatriz.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panelMultiOtraMatriz);
 
-        panelMultiEscalar.setBorder(BorderFactory.createTitledBorder("Multiplicación por escalar"));
-        panelMultiEscalar.setLayout(new BorderLayout());
+        panelMultiEscalar.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación por escalar"));
+        panelMultiEscalar.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panelMultiEscalar);
 
-        panelInversaMatriz.setBorder(BorderFactory.createTitledBorder("Inversa de la matriz"));
-        panelInversaMatriz.setLayout(new BorderLayout());
+        panelInversaMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Inversa de la matriz"));
+        panelInversaMatriz.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panelInversaMatriz);
 
         pack();
@@ -316,27 +316,27 @@ public class VistaPrincipal extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton btnCalcular;
-    private JButton btnDefinirOrden;
-    private JButton btnLimpiar;
-    private JButton btnSetSegundaMatriz;
-    private JCheckBox ckbHabilitarSegundaMatriz;
-    private Box.Filler filler1;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JPanel jPanel1;
-    private JPanel jPanel7;
-    private JPanel jPanel8;
-    private JPanel jPanel9;
-    private JPanel panelInversaMatriz;
-    private JPanel panelMatriz;
-    private JPanel panelMultiEscalar;
-    private JPanel panelMultiOtraMatriz;
-    private JPanel panelSumaOtraMatriz;
-    private JSpinner spEscalar;
-    private JSpinner spOrdenMatriz;
-    private JTextField txtDeterminante;
+    private javax.swing.JButton btnCalcular;
+    private javax.swing.JButton btnDefinirOrden;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnSetSegundaMatriz;
+    private javax.swing.JCheckBox ckbHabilitarSegundaMatriz;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel panelInversaMatriz;
+    private javax.swing.JPanel panelMatriz;
+    private javax.swing.JPanel panelMultiEscalar;
+    private javax.swing.JPanel panelMultiOtraMatriz;
+    private javax.swing.JPanel panelSumaOtraMatriz;
+    private javax.swing.JSpinner spEscalar;
+    private javax.swing.JSpinner spOrdenMatriz;
+    private javax.swing.JTextField txtDeterminante;
     // End of variables declaration//GEN-END:variables
 }
