@@ -1,11 +1,10 @@
-package com.sw.view;
+package com.cherrysoft.view;
 
-import com.sw.view.components.MatrixGridPanelParent;
+import com.cherrysoft.view.components.MatrixGridPanelParent;
 
 import java.awt.Window;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 

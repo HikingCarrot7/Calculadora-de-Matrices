@@ -1,4 +1,4 @@
-package com.sw.view.utils;
+package com.cherrysoft.view.utils;
 
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;

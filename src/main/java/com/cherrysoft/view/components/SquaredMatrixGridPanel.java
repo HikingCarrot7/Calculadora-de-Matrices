@@ -1,6 +1,6 @@
-package com.sw.view.components;
+package com.cherrysoft.view.components;
 
-import com.sw.view.utils.DoubleFormatterFactory;
+import com.cherrysoft.view.utils.DoubleFormatterFactory;
 
 import javax.swing.*;
 import java.awt.*;

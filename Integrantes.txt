@@ -1,12 +1,9 @@
 /**
  * @author Guillermo Canto Dzul
- * @author Ricardo Nicol·s Canul Ibarra
- * @author Victor Cauich D·valos
- *
+ * @author Ricardo Nicol√°s Canul Ibarra
+ * @author Victor Cauich D√°valos
  */
 
-
 Repositorio:
-
 
 https://github.com/HikingCarrot7/Calculadora-de-Matrices/tree/master/CalculadoraMatrices

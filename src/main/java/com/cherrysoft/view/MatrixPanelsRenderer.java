@@ -1,7 +1,7 @@
-package com.sw.view;
+package com.cherrysoft.view;
 
-import com.sw.view.components.SquaredMatrixGridPanel;
-import com.sw.view.components.MatrixGridPanelParent;
+import com.cherrysoft.view.components.SquaredMatrixGridPanel;
+import com.cherrysoft.view.components.MatrixGridPanelParent;
 
 public class MatrixPanelsRenderer {
   private final SquaredMatrixGridPanel[] matrixPanels;

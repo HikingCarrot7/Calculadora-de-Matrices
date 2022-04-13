@@ -1,6 +1,6 @@
-package com.sw.view;
+package com.cherrysoft.view;
 
-import com.sw.view.components.MatrixGridPanelParent;
+import com.cherrysoft.view.components.MatrixGridPanelParent;
 
 import javax.swing.*;
 

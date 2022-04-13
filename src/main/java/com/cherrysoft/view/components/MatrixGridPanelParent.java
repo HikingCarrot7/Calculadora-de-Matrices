@@ -1,4 +1,4 @@
-package com.sw.view.components;
+package com.cherrysoft.view.components;
 
 import javax.swing.*;
 import java.awt.*;

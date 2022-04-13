@@ -1,9 +1,9 @@
-package com.sw.controller;
+package com.cherrysoft.controller;
 
-import com.sw.persistence.DAO;
-import com.sw.view.MatrixPanelsRenderer;
-import com.sw.view.components.SquaredMatrixGridPanel;
-import com.sw.view.VistaSegundaMatriz;
+import com.cherrysoft.persistence.DAO;
+import com.cherrysoft.view.MatrixPanelsRenderer;
+import com.cherrysoft.view.components.SquaredMatrixGridPanel;
+import com.cherrysoft.view.VistaSegundaMatriz;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;

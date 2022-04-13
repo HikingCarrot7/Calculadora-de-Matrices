@@ -1,6 +1,6 @@
-package com.sw.controller;
+package com.cherrysoft.controller;
 
-import com.sw.view.components.SquaredMatrixGridPanel;
+import com.cherrysoft.view.components.SquaredMatrixGridPanel;
 
 import javax.swing.*;
 

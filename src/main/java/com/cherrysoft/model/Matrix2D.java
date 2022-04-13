@@ -1,4 +1,4 @@
-package com.sw.model;
+package com.cherrysoft.model;
 
 public class Matrix2D {
   private static Matrix2D instance;

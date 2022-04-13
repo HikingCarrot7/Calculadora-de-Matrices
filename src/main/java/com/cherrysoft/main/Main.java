@@ -1,7 +1,7 @@
-package com.sw.main;
+package com.cherrysoft.main;
 
-import com.sw.controller.VistaPrincipalController;
-import com.sw.view.VistaPrincipal;
+import com.cherrysoft.controller.VistaPrincipalController;
+import com.cherrysoft.view.VistaPrincipal;
 
 import java.awt.*;
 
