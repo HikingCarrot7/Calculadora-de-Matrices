@@ -7,9 +7,6 @@ import java.util.Formatter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-/**
- * @author Nicolás
- */
 public class DAO {
   public static final String RUTA_MATRIZ_PRIMARIA = "res//Matriz1.txt";
   public static final String RUTA_MATRIZ_SECUNDARIA = "res//Matriz2.txt";

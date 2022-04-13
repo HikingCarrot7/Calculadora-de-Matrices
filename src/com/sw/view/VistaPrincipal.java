@@ -1,26 +1,8 @@
 package com.sw.view;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
+import com.sw.view.components.MatrixGridPanelParent;
+
+import javax.swing.*;
 
 /**
  * @author Nicolás
@@ -78,11 +60,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
     txtDeterminante = new javax.swing.JTextField();
     spOrdenMatriz = new javax.swing.JSpinner();
     spEscalar = new javax.swing.JSpinner();
-    panelMatriz = new javax.swing.JPanel();
-    panelSumaOtraMatriz = new javax.swing.JPanel();
-    panelMultiOtraMatriz = new javax.swing.JPanel();
-    panelMultiEscalar = new javax.swing.JPanel();
-    panelInversaMatriz = new javax.swing.JPanel();
+    inputMatrixPanel = new MatrixGridPanelParent();
+    matrixSumResultPanel = new MatrixGridPanelParent();
+    matrixMultipliedByMatrixResultPanel = new MatrixGridPanelParent();
+    matrixMultipliedByScalarResultPanel = new MatrixGridPanelParent();
+    matrixInverseResultPanel = new MatrixGridPanelParent();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(800, 710));
@@ -219,25 +201,25 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     getContentPane().add(jPanel1);
 
-    panelMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Matriz"));
-    panelMatriz.setLayout(new java.awt.BorderLayout());
-    getContentPane().add(panelMatriz);
+    inputMatrixPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Matriz"));
+    inputMatrixPanel.setLayout(new java.awt.BorderLayout());
+    getContentPane().add(inputMatrixPanel);
 
-    panelSumaOtraMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Suma con otra matriz"));
-    panelSumaOtraMatriz.setLayout(new java.awt.BorderLayout());
-    getContentPane().add(panelSumaOtraMatriz);
+    matrixSumResultPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Suma con otra matriz"));
+    matrixSumResultPanel.setLayout(new java.awt.BorderLayout());
+    getContentPane().add(matrixSumResultPanel);
 
-    panelMultiOtraMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación con otra matriz"));
-    panelMultiOtraMatriz.setLayout(new java.awt.BorderLayout());
-    getContentPane().add(panelMultiOtraMatriz);
+    matrixMultipliedByMatrixResultPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación con otra matriz"));
+    matrixMultipliedByMatrixResultPanel.setLayout(new java.awt.BorderLayout());
+    getContentPane().add(matrixMultipliedByMatrixResultPanel);
 
-    panelMultiEscalar.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación por escalar"));
-    panelMultiEscalar.setLayout(new java.awt.BorderLayout());
-    getContentPane().add(panelMultiEscalar);
+    matrixMultipliedByScalarResultPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación por escalar"));
+    matrixMultipliedByScalarResultPanel.setLayout(new java.awt.BorderLayout());
+    getContentPane().add(matrixMultipliedByScalarResultPanel);
 
-    panelInversaMatriz.setBorder(javax.swing.BorderFactory.createTitledBorder("Inversa de la matriz"));
-    panelInversaMatriz.setLayout(new java.awt.BorderLayout());
-    getContentPane().add(panelInversaMatriz);
+    matrixInverseResultPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Inversa de la matriz"));
+    matrixInverseResultPanel.setLayout(new java.awt.BorderLayout());
+    getContentPane().add(matrixInverseResultPanel);
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
@@ -258,24 +240,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
     return btnSetSegundaMatriz;
   }
 
-  public JPanel getPanelInversaMatriz() {
-    return panelInversaMatriz;
+  public MatrixGridPanelParent getMatrixInverseResultPanel() {
+    return matrixInverseResultPanel;
   }
 
-  public JPanel getPanelMatriz() {
-    return panelMatriz;
+  public MatrixGridPanelParent getInputMatrixPanel() {
+    return inputMatrixPanel;
   }
 
-  public JPanel getPanelMultiEscalar() {
-    return panelMultiEscalar;
+  public MatrixGridPanelParent getMatrixMultipliedByScalarResultPanel() {
+    return matrixMultipliedByScalarResultPanel;
   }
 
-  public JPanel getPanelMultiOtraMatriz() {
-    return panelMultiOtraMatriz;
+  public MatrixGridPanelParent getMatrixMultipliedByMatrixResultPanel() {
+    return matrixMultipliedByMatrixResultPanel;
   }
 
-  public JPanel getPanelSumaOtraMatriz() {
-    return panelSumaOtraMatriz;
+  public MatrixGridPanelParent getMatrixSumResultPanel() {
+    return matrixSumResultPanel;
   }
 
   public JSpinner getSpEscalar() {
@@ -309,11 +291,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
   private javax.swing.JPanel jPanel7;
   private javax.swing.JPanel jPanel8;
   private javax.swing.JPanel jPanel9;
-  private javax.swing.JPanel panelInversaMatriz;
-  private javax.swing.JPanel panelMatriz;
-  private javax.swing.JPanel panelMultiEscalar;
-  private javax.swing.JPanel panelMultiOtraMatriz;
-  private javax.swing.JPanel panelSumaOtraMatriz;
+  private MatrixGridPanelParent matrixInverseResultPanel;
+  private MatrixGridPanelParent inputMatrixPanel;
+  private MatrixGridPanelParent matrixMultipliedByScalarResultPanel;
+  private MatrixGridPanelParent matrixMultipliedByMatrixResultPanel;
+  private MatrixGridPanelParent matrixSumResultPanel;
   private javax.swing.JSpinner spEscalar;
   private javax.swing.JSpinner spOrdenMatriz;
   private javax.swing.JTextField txtDeterminante;

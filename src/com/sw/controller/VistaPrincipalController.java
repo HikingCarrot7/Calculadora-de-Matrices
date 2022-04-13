@@ -1,18 +1,17 @@
 package com.sw.controller;
 
-import com.sw.model.MatrixLogic;
+import com.sw.model.Matrix2D;
 import com.sw.persistence.DAO;
-import com.sw.view.DibujadorMatrices;
-import com.sw.view.VistaMatriz;
+import com.sw.view.MatrixPanelsRenderer;
+import com.sw.view.components.SquaredMatrixGridPanel;
 import com.sw.view.VistaPrincipal;
 import com.sw.view.VistaSegundaMatriz;
+import com.sw.view.components.MatrixGridPanelParent;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Arrays;
 
 /**
  * @author Nicolás
@@ -32,20 +31,20 @@ public class VistaPrincipalController {
   }
 
   private final VistaPrincipal vistaPrincipal;
-  private final DibujadorMatrices dibujadorMatrices;
+  private final MatrixPanelsRenderer matrixPanelsRenderer;
   private final DataManager dataManager;
-  private final MatrixLogic matrixLogic;
+  private final Matrix2D matrix2D;
 
   private final DAO daoMatrizPrimaria;
   private final DAO daoMatrizSecundaria;
 
   public VistaPrincipalController(final VistaPrincipal vistaPrincipal) {
     this.vistaPrincipal = vistaPrincipal;
-    this.dibujadorMatrices = new DibujadorMatrices(ORDEN_INICIAL_MATRIZ, getPanelesSoporteMatrices());
+    this.matrixPanelsRenderer = new MatrixPanelsRenderer(ORDEN_INICIAL_MATRIZ, getPanelesSoporteMatrices());
     this.daoMatrizPrimaria = new DAO(DAO.RUTA_MATRIZ_PRIMARIA);
     this.daoMatrizSecundaria = new DAO(DAO.RUTA_MATRIZ_SECUNDARIA);
     this.dataManager = DataManager.getInstance();
-    this.matrixLogic = MatrixLogic.getInstance();
+    this.matrix2D = Matrix2D.getInstance();
     initComponents();
   }
 
@@ -69,7 +68,7 @@ public class VistaPrincipalController {
 
   private void accionBtnDefinirOrden(ActionEvent e) {
     guardarMatrizPrimaria();
-    dibujadorMatrices.dibujarMatrices(getOrdenMatriz());
+    matrixPanelsRenderer.updateMatrixGridPanels(getOrdenMatriz());
     rellenarMatrizPrimaria(daoMatrizPrimaria.getMatriz());
   }
 
@@ -99,11 +98,11 @@ public class VistaPrincipalController {
   private void rellenarVistasMatrices() {
     double[][] matrizPrimaria = dataManager.getEntradas(getVistaMatrizEntrada());
     double[][] matrizSecundaria = getMatrizSecundaria();
-    dataManager.setEntradas(getVistaMatrizSumaOtraMatriz(), matrixLogic.sumarMatrices(matrizPrimaria, matrizSecundaria));
-    dataManager.setEntradas(getVistaMatrizMultiOtraMatriz(), matrixLogic.productoMatrices(matrizPrimaria, matrizSecundaria));
-    dataManager.setEntradas(getVistaMatrizMultiEscalar(), matrixLogic.multiplicarPorEscalar(getEscalar(), matrizPrimaria));
-    dataManager.setEntradas(getVistaMatrizInversa(), matrixLogic.getInversa(matrizPrimaria));
-    vistaPrincipal.getTxtDeterminante().setText(String.format("%,.2f", matrixLogic.getDeterminante(matrizPrimaria)));
+    dataManager.setEntradas(getVistaMatrizSumaOtraMatriz(), matrix2D.matrixAddition(matrizPrimaria, matrizSecundaria));
+    dataManager.setEntradas(getVistaMatrizMultiOtraMatriz(), matrix2D.calculateDotProduct(matrizPrimaria, matrizSecundaria));
+    dataManager.setEntradas(getVistaMatrizMultiEscalar(), matrix2D.multipliedByScalar(getEscalar(), matrizPrimaria));
+    dataManager.setEntradas(getVistaMatrizInversa(), matrix2D.inverse(matrizPrimaria));
+    vistaPrincipal.getTxtDeterminante().setText(String.format("%,.2f", matrix2D.calculateDeterminant(matrizPrimaria)));
   }
 
   private void rellenarMatrizPrimaria(String[][] datos) {
@@ -132,7 +131,7 @@ public class VistaPrincipalController {
   }
 
   private int getOrdenActualMatriz() {
-    return dataManager.getOrden(dibujadorMatrices.getVistaMatrices()[INDEX_MATRIZ_ENTRADA]);
+    return dataManager.getOrden(matrixPanelsRenderer.getMatrixPanels()[INDEX_MATRIZ_ENTRADA]);
   }
 
   private double[][] getMatrizSecundaria() {
@@ -143,37 +142,37 @@ public class VistaPrincipalController {
     return dataManager.getEntradas(getVistaMatrizEntrada());
   }
 
-  private VistaMatriz getVistaMatrizEntrada() {
-    return dibujadorMatrices.getVistaMatrices()[INDEX_MATRIZ_ENTRADA];
+  private SquaredMatrixGridPanel getVistaMatrizEntrada() {
+    return matrixPanelsRenderer.getMatrixPanels()[INDEX_MATRIZ_ENTRADA];
   }
 
-  private VistaMatriz getVistaMatrizSumaOtraMatriz() {
-    return dibujadorMatrices.getVistaMatrices()[INDEX_SUMA_OTRA_MATRIZ];
+  private SquaredMatrixGridPanel getVistaMatrizSumaOtraMatriz() {
+    return matrixPanelsRenderer.getMatrixPanels()[INDEX_SUMA_OTRA_MATRIZ];
   }
 
-  private VistaMatriz getVistaMatrizMultiOtraMatriz() {
-    return dibujadorMatrices.getVistaMatrices()[INDEX_MULTI_OTRA_MATRIZ];
+  private SquaredMatrixGridPanel getVistaMatrizMultiOtraMatriz() {
+    return matrixPanelsRenderer.getMatrixPanels()[INDEX_MULTI_OTRA_MATRIZ];
   }
 
-  private VistaMatriz getVistaMatrizMultiEscalar() {
-    return dibujadorMatrices.getVistaMatrices()[INDEX_MULTI_ESCALAR];
+  private SquaredMatrixGridPanel getVistaMatrizMultiEscalar() {
+    return matrixPanelsRenderer.getMatrixPanels()[INDEX_MULTI_ESCALAR];
   }
 
-  private VistaMatriz getVistaMatrizInversa() {
-    return dibujadorMatrices.getVistaMatrices()[INDEX_INVERSA_MATRIZ];
+  private SquaredMatrixGridPanel getVistaMatrizInversa() {
+    return matrixPanelsRenderer.getMatrixPanels()[INDEX_INVERSA_MATRIZ];
   }
 
   private boolean isHabilitarSegundaMatriz() {
     return vistaPrincipal.getCkbHabilitarSegundaMatriz().isSelected();
   }
 
-  private JPanel[] getPanelesSoporteMatrices() {
-    return new JPanel[]{
-        vistaPrincipal.getPanelMatriz(),
-        vistaPrincipal.getPanelSumaOtraMatriz(),
-        vistaPrincipal.getPanelMultiOtraMatriz(),
-        vistaPrincipal.getPanelMultiEscalar(),
-        vistaPrincipal.getPanelInversaMatriz()
+  private MatrixGridPanelParent[] getPanelesSoporteMatrices() {
+    return new MatrixGridPanelParent[]{
+        vistaPrincipal.getInputMatrixPanel(),
+        vistaPrincipal.getMatrixSumResultPanel(),
+        vistaPrincipal.getMatrixMultipliedByMatrixResultPanel(),
+        vistaPrincipal.getMatrixMultipliedByScalarResultPanel(),
+        vistaPrincipal.getMatrixInverseResultPanel()
     };
   }
 

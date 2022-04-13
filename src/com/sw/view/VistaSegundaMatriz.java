@@ -1,5 +1,7 @@
 package com.sw.view;
 
+import com.sw.view.components.MatrixGridPanelParent;
+
 import java.awt.Window;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -47,7 +49,7 @@ public class VistaSegundaMatriz extends JDialog {
     jPanel1 = new javax.swing.JPanel();
     btnListo = new javax.swing.JButton();
     btnLimpiar = new javax.swing.JButton();
-    panelMatriz = new javax.swing.JPanel();
+    panelMatriz = new MatrixGridPanelParent();
     jPanel3 = new javax.swing.JPanel();
     jLabel1 = new javax.swing.JLabel();
 
@@ -88,7 +90,7 @@ public class VistaSegundaMatriz extends JDialog {
     return btnListo;
   }
 
-  public JPanel getPanelMatriz() {
+  public MatrixGridPanelParent getPanelMatriz() {
     return panelMatriz;
   }
 
@@ -98,6 +100,6 @@ public class VistaSegundaMatriz extends JDialog {
   private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel3;
-  private javax.swing.JPanel panelMatriz;
+  private MatrixGridPanelParent panelMatriz;
   // End of variables declaration//GEN-END:variables
 }

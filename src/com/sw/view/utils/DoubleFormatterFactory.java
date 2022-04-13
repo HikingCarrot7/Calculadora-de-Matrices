@@ -1,12 +1,9 @@
-package com.sw.controller;
+package com.sw.view.utils;
 
 import java.text.ParseException;
 import javax.swing.JFormattedTextField;
 
-/**
- * @author Nicolás
- */
-public class MyFormatterFactory extends JFormattedTextField.AbstractFormatterFactory {
+public class DoubleFormatterFactory extends JFormattedTextField.AbstractFormatterFactory {
 
   @Override
   public JFormattedTextField.AbstractFormatter getFormatter(JFormattedTextField tf) {

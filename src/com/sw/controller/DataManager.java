@@ -1,6 +1,6 @@
 package com.sw.controller;
 
-import com.sw.view.VistaMatriz;
+import com.sw.view.components.SquaredMatrixGridPanel;
 
 import javax.swing.*;
 
@@ -15,11 +15,11 @@ public class DataManager {
 
   }
 
-  public boolean matrizValida(VistaMatriz vistaMatriz) {
+  public boolean matrizValida(SquaredMatrixGridPanel vistaMatriz) {
     int longitud = getLongitudMatrizEntrada(vistaMatriz);
     if (longitud < 3)
       return false;
-    JTextField[][] entradas = vistaMatriz.getEntradas();
+    JTextField[][] entradas = vistaMatriz.getInputFields();
     for (int i = 0; i < longitud; i++)
       for (int j = 0; j < longitud; j++) {
         String entradaTxt = entradas[i][j].getText();
@@ -42,7 +42,7 @@ public class DataManager {
     return true;
   }
 
-  public int getLongitudMatrizEntrada(VistaMatriz vistaMatriz) {
+  public int getLongitudMatrizEntrada(SquaredMatrixGridPanel vistaMatriz) {
     return getLongitudMatrizEntrada(getEntradasTxt(vistaMatriz));
   }
 
@@ -53,8 +53,8 @@ public class DataManager {
     return longitud;
   }
 
-  public double[][] getEntradas(VistaMatriz vistaMatriz) {
-    JTextField[][] entradas = vistaMatriz.getEntradas();
+  public double[][] getEntradas(SquaredMatrixGridPanel vistaMatriz) {
+    JTextField[][] entradas = vistaMatriz.getInputFields();
     int longitud = getLongitudMatrizEntrada(vistaMatriz);
     double[][] matriz = new double[longitud][longitud];
     for (int i = 0; i < matriz.length; i++)
@@ -63,8 +63,8 @@ public class DataManager {
     return matriz;
   }
 
-  public String[][] getEntradasTxt(VistaMatriz vistaMatriz) {
-    JTextField[][] entradas = vistaMatriz.getEntradas();
+  public String[][] getEntradasTxt(SquaredMatrixGridPanel vistaMatriz) {
+    JTextField[][] entradas = vistaMatriz.getInputFields();
     String[][] matriz = new String[entradas.length][entradas.length];
     for (int i = 0; i < matriz.length; i++)
       for (int j = 0; j < matriz[i].length; j++)
@@ -81,24 +81,24 @@ public class DataManager {
     return matriz;
   }
 
-  public void setEntradas(VistaMatriz vistaMatriz, double[][] matriz) {
-    JTextField[][] entradas = vistaMatriz.getEntradas();
+  public void setEntradas(SquaredMatrixGridPanel vistaMatriz, double[][] matriz) {
+    JTextField[][] entradas = vistaMatriz.getInputFields();
     for (int i = 0; i < matriz.length; i++)
       for (int j = 0; j < matriz[i].length; j++)
         entradas[i][j].setText(String.format("%,.2f", matriz[i][j]));
   }
 
-  public void setEntradas(VistaMatriz vistaMatriz, String[][] matriz) {
-    JTextField[][] entradas = vistaMatriz.getEntradas();
+  public void setEntradas(SquaredMatrixGridPanel vistaMatriz, String[][] matriz) {
+    JTextField[][] entradas = vistaMatriz.getInputFields();
     int ordenMatrizMenor = getOrdenMatrizMenor(matriz, getEntradasTxt(vistaMatriz));
     for (int i = 0; i < ordenMatrizMenor; i++)
       for (int j = 0; j < ordenMatrizMenor; j++)
         entradas[i][j].setText(matriz[i][j]);
   }
 
-  public void setEntradas(String text, VistaMatriz... vistaMatrices) {
-    for (VistaMatriz vistaMatriz : vistaMatrices)
-      setEntradas(text, vistaMatriz.getEntradas());
+  public void setEntradas(String text, SquaredMatrixGridPanel... vistaMatrices) {
+    for (SquaredMatrixGridPanel vistaMatriz : vistaMatrices)
+      setEntradas(text, vistaMatriz.getInputFields());
   }
 
   public void setEntradas(String text, JTextField[][] entradas) {
@@ -107,8 +107,8 @@ public class DataManager {
         jTextField.setText(text);
   }
 
-  public int getOrden(VistaMatriz vistaMatriz) {
-    return vistaMatriz.getEntradas().length;
+  public int getOrden(SquaredMatrixGridPanel squaredMatrixGridPanel) {
+    return squaredMatrixGridPanel.getInputFields().length;
   }
 
   public int getOrden(String[][] matriz) {
