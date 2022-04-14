@@ -1,12 +1,11 @@
-package com.cherrysoft.model;
+package com.cherrysoft.core;
 
 public class Matrix2D {
-  private static Matrix2D instance;
 
   private Matrix2D() {
   }
 
-  public double[][] matrixAddition(double[][] matrixA, double[][] matrixB) {
+  public static double[][] matrixAddition(double[][] matrixA, double[][] matrixB) {
     double[][] resultMatrix = new double[matrixA.length][matrixA.length];
     for (int row = 0; row < resultMatrix.length; row++) {
       for (int col = 0; col < resultMatrix[row].length; col++) {
@@ -16,17 +15,17 @@ public class Matrix2D {
     return resultMatrix;
   }
 
-  public double[][] inverse(double[][] matrix) {
+  public static double[][] inverse(double[][] matrix) {
     double determinant = calculateDeterminant(0, matrix);
     double[][] adjugate = calculateAdjugate(matrix);
     return multipliedByScalar(1 / determinant, adjugate);
   }
 
-  public double calculateDeterminant(double[][] matrix) {
+  public static double calculateDeterminant(double[][] matrix) {
     return calculateDeterminant(0, matrix);
   }
 
-  private double calculateDeterminant(int i, double[][] matrix) {
+  private static double calculateDeterminant(int i, double[][] matrix) {
     if (matrix.length == 2) {
       return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
     } else {
@@ -40,7 +39,7 @@ public class Matrix2D {
     }
   }
 
-  public double[][] getSubMatrix(int row, int col, double[][] matrix) {
+  public static double[][] getSubMatrix(int row, int col, double[][] matrix) {
     double[][] subMatrix = new double[matrix.length - 1][matrix.length - 1];
     for (int i = 0, k = 0; i < matrix.length; i++) {
       for (int j = 0, l = 0; i != row && j < matrix.length; j++) {
@@ -52,7 +51,7 @@ public class Matrix2D {
     return subMatrix;
   }
 
-  public double[][] calculateAdjugate(double[][] matrix) {
+  public static double[][] calculateAdjugate(double[][] matrix) {
     double[][] cofactorMatrix = new double[matrix.length][matrix.length];
     for (int row = 0; row < matrix.length; row++) {
       for (int col = 0; col < matrix[row].length; col++) {
@@ -64,7 +63,7 @@ public class Matrix2D {
     return calculateTranspose(cofactorMatrix);
   }
 
-  public double[][] calculateTranspose(double[][] matrix) {
+  public static double[][] calculateTranspose(double[][] matrix) {
     double[][] transposeMatrix = new double[matrix.length][matrix.length];
     for (int row = 0; row < matrix.length; row++) {
       for (int col = 0; col < matrix[row].length; col++) {
@@ -74,7 +73,7 @@ public class Matrix2D {
     return transposeMatrix;
   }
 
-  public double[][] multipliedByScalar(double scalar, double[][] matrix) {
+  public static double[][] multipliedByScalar(double scalar, double[][] matrix) {
     for (int row = 0; row < matrix.length; row++) {
       for (int col = 0; col < matrix[row].length; col++) {
         matrix[row][col] *= scalar;
@@ -83,7 +82,7 @@ public class Matrix2D {
     return matrix;
   }
 
-  public double[][] calculateDotProduct(double[][] matrixA, double[][] matrixB) {
+  public static double[][] calculateDotProduct(double[][] matrixA, double[][] matrixB) {
     double[][] dotProduct = new double[matrixB.length][matrixB.length];
     for (int i = 0; i < dotProduct.length; i++) {
       for (int j = 0; j < dotProduct.length; j++) {
@@ -95,13 +94,6 @@ public class Matrix2D {
       }
     }
     return dotProduct;
-  }
-
-  public synchronized static Matrix2D getInstance() {
-    if (instance == null) {
-      instance = new Matrix2D();
-    }
-    return instance;
   }
 
 }

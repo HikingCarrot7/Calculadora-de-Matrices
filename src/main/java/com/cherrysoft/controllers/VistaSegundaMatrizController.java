@@ -1,17 +1,14 @@
-package com.cherrysoft.controller;
+package com.cherrysoft.controllers;
 
 import com.cherrysoft.persistence.DAO;
-import com.cherrysoft.view.MatrixPanelsRenderer;
-import com.cherrysoft.view.components.SquaredMatrixGridPanel;
-import com.cherrysoft.view.VistaSegundaMatriz;
+import com.cherrysoft.views.MatrixPanelsRenderer;
+import com.cherrysoft.views.imp.components.SquaredMatrixGridPanel;
+import com.cherrysoft.views.VistaSegundaMatriz;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- * @author Nicolás
- */
 public class VistaSegundaMatrizController {
   private final int INDEX_MATRIZ_SECUNDARIA = 0;
 
@@ -50,7 +47,7 @@ public class VistaSegundaMatrizController {
   }
 
   private SquaredMatrixGridPanel getVistaMatrizSecundaria() {
-    return matrixPanelsRenderer.getMatrixPanels()[INDEX_MATRIZ_SECUNDARIA];
+    return matrixPanelsRenderer.getMatrixGridPanels()[INDEX_MATRIZ_SECUNDARIA];
   }
 
   private void guardarMatriz() {

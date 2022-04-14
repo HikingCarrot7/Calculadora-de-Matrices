@@ -1,24 +1,24 @@
-package com.cherrysoft.view;
+package com.cherrysoft.views;
 
-import com.cherrysoft.view.components.SquaredMatrixGridPanel;
-import com.cherrysoft.view.components.MatrixGridPanelParent;
+import com.cherrysoft.views.imp.components.SquaredMatrixGridPanel;
+import com.cherrysoft.views.imp.components.MatrixGridPanelParent;
 
 public class MatrixPanelsRenderer {
-  private final SquaredMatrixGridPanel[] matrixPanels;
+  private final SquaredMatrixGridPanel[] matrixGridPanels;
   private final MatrixGridPanelParent[] matrixPanelParents;
 
   public MatrixPanelsRenderer(
       int matrixSideLength,
       MatrixGridPanelParent... matrixPanelParents
   ) {
-    this.matrixPanels = new SquaredMatrixGridPanel[matrixPanelParents.length];
+    this.matrixGridPanels = new SquaredMatrixGridPanel[matrixPanelParents.length];
     this.matrixPanelParents = matrixPanelParents;
     updateMatrixGridPanels(matrixSideLength);
   }
 
   private void createMatrixGridPanels(int matrixSideLength) {
     for (int i = 0; i < matrixPanelParents.length; i++) {
-      matrixPanels[i] = new SquaredMatrixGridPanel(matrixSideLength);
+      matrixGridPanels[i] = new SquaredMatrixGridPanel(matrixSideLength);
     }
   }
 
@@ -26,13 +26,13 @@ public class MatrixPanelsRenderer {
     createMatrixGridPanels(matrixSideLength);
     for (int i = 0; i < matrixPanelParents.length; i++) {
       MatrixGridPanelParent matrixPanelParent = matrixPanelParents[i];
-      SquaredMatrixGridPanel matrixPanel = matrixPanels[i];
+      SquaredMatrixGridPanel matrixPanel = matrixGridPanels[i];
       matrixPanelParent.renderMatrixGridPanelChild(matrixPanel);
     }
   }
 
-  public SquaredMatrixGridPanel[] getMatrixPanels() {
-    return matrixPanels;
+  public SquaredMatrixGridPanel[] getMatrixGridPanels() {
+    return matrixGridPanels;
   }
 
 }

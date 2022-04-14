@@ -1,12 +1,9 @@
-package com.cherrysoft.controller;
+package com.cherrysoft.controllers;
 
-import com.cherrysoft.view.components.SquaredMatrixGridPanel;
+import com.cherrysoft.views.imp.components.SquaredMatrixGridPanel;
 
 import javax.swing.*;
 
-/**
- * @author Nicolás
- */
 public class DataManager {
   private final String DOUBLE_REGEX = "^-?[0-9]+(.?[0-9]+)*$";
   private static DataManager instance;

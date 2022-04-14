@@ -1,38 +1,37 @@
-package com.cherrysoft.view;
+package com.cherrysoft.views.imp;
 
-import com.cherrysoft.view.components.MatrixGridPanelParent;
+import com.cherrysoft.core.CalculationResult;
+import com.cherrysoft.core.InputMatrix;
+import com.cherrysoft.views.HomeView;
+import com.cherrysoft.views.MatrixPanelsRenderer;
+import com.cherrysoft.views.imp.components.MatrixGridPanelParent;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-/**
- * @author Nicolás
- */
-public class VistaPrincipal extends javax.swing.JFrame {
+public class HomeViewImp extends JFrame implements HomeView {
+  public MatrixPanelsRenderer matrixPanelsRenderer;
+  private HomeView.Listener listener;
 
-  /**
-   * Creates new form VistaPrincipal
-   */
-  public VistaPrincipal() {
-    initLookAndFeel();
+  public HomeViewImp() {
     initComponents();
+    hookUpEvents();
+    initLookAndFeel();
   }
 
-  private void initLookAndFeel() {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-     */
-    try {
-      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-        if ("Windows".equals(info.getName())) {
-          UIManager.setLookAndFeel(info.getClassName());
-          break;
-        }
-    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-      System.out.println(ex.getMessage());
-    }
-    //</editor-fold>
+  private void hookUpEvents() {
+    btnCalculateResult.addActionListener(e -> listener.onCalculateResult());
+    btnSetOrderOfMatrix.addActionListener(e -> listener.onSetOrderOfMatrix());
+    btnShowSecondaryMatrix.addActionListener(e -> listener.onShowSecondaryMatrix());
+    btnClearAll.addActionListener(e -> listener.onClearAll());
+    ckbUseSecondaryMatrix.addActionListener(e -> btnShowSecondaryMatrix.setEnabled(useSecondaryMatrix()));
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e) {
+        listener.onSystemClosing();
+      }
+    });
   }
 
   /**
@@ -46,23 +45,23 @@ public class VistaPrincipal extends javax.swing.JFrame {
     jPanel1 = new javax.swing.JPanel();
     jLabel1 = new javax.swing.JLabel();
     jLabel2 = new javax.swing.JLabel();
-    btnDefinirOrden = new javax.swing.JButton();
+    btnSetOrderOfMatrix = new javax.swing.JButton();
     jLabel3 = new javax.swing.JLabel();
     jPanel7 = new javax.swing.JPanel();
     jPanel8 = new javax.swing.JPanel();
-    btnCalcular = new javax.swing.JButton();
+    btnCalculateResult = new javax.swing.JButton();
     jPanel9 = new javax.swing.JPanel();
-    btnLimpiar = new javax.swing.JButton();
-    btnSetSegundaMatriz = new javax.swing.JButton();
-    ckbHabilitarSegundaMatriz = new javax.swing.JCheckBox();
+    btnClearAll = new javax.swing.JButton();
+    btnShowSecondaryMatrix = new javax.swing.JButton();
+    ckbUseSecondaryMatrix = new javax.swing.JCheckBox();
     filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
     jLabel4 = new javax.swing.JLabel();
-    txtDeterminante = new javax.swing.JTextField();
-    spOrdenMatriz = new javax.swing.JSpinner();
-    spEscalar = new javax.swing.JSpinner();
+    txtDeterminant = new javax.swing.JTextField();
+    spOrderOfMatrix = new javax.swing.JSpinner();
+    spScalar = new javax.swing.JSpinner();
     inputMatrixPanel = new MatrixGridPanelParent();
     matrixSumResultPanel = new MatrixGridPanelParent();
-    matrixMultipliedByMatrixResultPanel = new MatrixGridPanelParent();
+    matrixDotProductResultPanel = new MatrixGridPanelParent();
     matrixMultipliedByScalarResultPanel = new MatrixGridPanelParent();
     matrixInverseResultPanel = new MatrixGridPanelParent();
 
@@ -95,13 +94,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
     jPanel1.add(jLabel2, gridBagConstraints);
 
-    btnDefinirOrden.setText("Definir");
+    btnSetOrderOfMatrix.setText("Definir");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
-    jPanel1.add(btnDefinirOrden, gridBagConstraints);
+    jPanel1.add(btnSetOrderOfMatrix, gridBagConstraints);
 
     jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
     jLabel3.setText("Define un escalar:");
@@ -116,35 +115,35 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     jPanel8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-    btnCalcular.setText("Calcular");
-    jPanel8.add(btnCalcular);
+    btnCalculateResult.setText("Calcular");
+    jPanel8.add(btnCalculateResult);
 
     jPanel7.add(jPanel8, java.awt.BorderLayout.SOUTH);
 
     jPanel9.setLayout(new java.awt.GridBagLayout());
 
-    btnLimpiar.setText("Limpiar todos los campos");
+    btnClearAll.setText("Limpiar todos los campos");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.insets = new java.awt.Insets(0, 1, 1, 1);
-    jPanel9.add(btnLimpiar, gridBagConstraints);
+    jPanel9.add(btnClearAll, gridBagConstraints);
 
-    btnSetSegundaMatriz.setText("Establecer una segunda matriz");
+    btnShowSecondaryMatrix.setText("Establecer una segunda matriz");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
     gridBagConstraints.insets = new java.awt.Insets(5, 1, 0, 1);
-    jPanel9.add(btnSetSegundaMatriz, gridBagConstraints);
+    jPanel9.add(btnShowSecondaryMatrix, gridBagConstraints);
 
-    ckbHabilitarSegundaMatriz.setSelected(true);
-    ckbHabilitarSegundaMatriz.setText("Habilitar segunda matriz");
+    ckbUseSecondaryMatrix.setSelected(true);
+    ckbUseSecondaryMatrix.setText("Habilitar segunda matriz");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 1;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    jPanel9.add(ckbHabilitarSegundaMatriz, gridBagConstraints);
+    jPanel9.add(ckbUseSecondaryMatrix, gridBagConstraints);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 3;
@@ -172,32 +171,32 @@ public class VistaPrincipal extends javax.swing.JFrame {
     gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
     jPanel1.add(jLabel4, gridBagConstraints);
 
-    txtDeterminante.setEditable(false);
+    txtDeterminant.setEditable(false);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 6;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.weightx = 0.1;
     gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
-    jPanel1.add(txtDeterminante, gridBagConstraints);
+    jPanel1.add(txtDeterminant, gridBagConstraints);
 
-    spOrdenMatriz.setModel(new javax.swing.SpinnerNumberModel(3, 3, 10, 1));
+    spOrderOfMatrix.setModel(new javax.swing.SpinnerNumberModel(3, 3, 10, 1));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 2;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.weightx = 0.1;
     gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
-    jPanel1.add(spOrdenMatriz, gridBagConstraints);
+    jPanel1.add(spOrderOfMatrix, gridBagConstraints);
 
-    spEscalar.setModel(new javax.swing.SpinnerNumberModel(1.0d, null, null, 1.0d));
+    spScalar.setModel(new javax.swing.SpinnerNumberModel(1.0d, null, null, 1.0d));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 1;
     gridBagConstraints.gridy = 4;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.weightx = 0.1;
     gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 1);
-    jPanel1.add(spEscalar, gridBagConstraints);
+    jPanel1.add(spScalar, gridBagConstraints);
 
     getContentPane().add(jPanel1);
 
@@ -209,9 +208,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     matrixSumResultPanel.setLayout(new java.awt.BorderLayout());
     getContentPane().add(matrixSumResultPanel);
 
-    matrixMultipliedByMatrixResultPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación con otra matriz"));
-    matrixMultipliedByMatrixResultPanel.setLayout(new java.awt.BorderLayout());
-    getContentPane().add(matrixMultipliedByMatrixResultPanel);
+    matrixDotProductResultPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación con otra matriz"));
+    matrixDotProductResultPanel.setLayout(new java.awt.BorderLayout());
+    getContentPane().add(matrixDotProductResultPanel);
 
     matrixMultipliedByScalarResultPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Multiplicación por escalar"));
     matrixMultipliedByScalarResultPanel.setLayout(new java.awt.BorderLayout());
@@ -224,64 +223,103 @@ public class VistaPrincipal extends javax.swing.JFrame {
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  public JButton getBtnCalcular() {
-    return btnCalcular;
+  private void initLookAndFeel() {
+    try {
+      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+        if ("Windows".equals(info.getName())) {
+          UIManager.setLookAndFeel(info.getClassName());
+          break;
+        }
+    } catch (ClassNotFoundException |
+      InstantiationException |
+      IllegalAccessException |
+      UnsupportedLookAndFeelException ex) {
+      System.out.println(ex.getMessage());
+    }
   }
 
-  public JButton getBtnDefinirOrden() {
-    return btnDefinirOrden;
+  public JTextField getTxtDeterminant() {
+    return txtDeterminant;
   }
 
-  public JButton getBtnLimpiar() {
-    return btnLimpiar;
+  @Override
+  public InputMatrix getInputMatrix() {
+    return new InputMatrix(inputMatrixPanel.getChildMatrixAsRawMatrix());
   }
 
-  public JButton getBtnSetSegundaMatriz() {
-    return btnSetSegundaMatriz;
+  @Override
+  public double getScalar() {
+    return (double) spScalar.getValue();
   }
 
-  public MatrixGridPanelParent getMatrixInverseResultPanel() {
-    return matrixInverseResultPanel;
+  @Override
+  public int getOrderOfMatrix() {
+    return (int) spOrderOfMatrix.getValue();
   }
 
-  public MatrixGridPanelParent getInputMatrixPanel() {
-    return inputMatrixPanel;
+  @Override
+  public void setOrderOfMatrix(int orderOfMatrix) {
+    spOrderOfMatrix.setValue(orderOfMatrix);
   }
 
-  public MatrixGridPanelParent getMatrixMultipliedByScalarResultPanel() {
-    return matrixMultipliedByScalarResultPanel;
+  @Override
+  public boolean useSecondaryMatrix() {
+    return ckbUseSecondaryMatrix.isSelected();
   }
 
-  public MatrixGridPanelParent getMatrixMultipliedByMatrixResultPanel() {
-    return matrixMultipliedByMatrixResultPanel;
+  @Override
+  public void setInitialInputMatrixState(InputMatrix inputMatrix) {
+    matrixPanelsRenderer = new MatrixPanelsRenderer(
+      inputMatrix.orderOfMatrix(),
+      matrixGridPanelParents()
+    );
+    inputMatrixPanel.fillChildInputFieldsWith(inputMatrix.getRawMatrix());
   }
 
-  public MatrixGridPanelParent getMatrixSumResultPanel() {
-    return matrixSumResultPanel;
+  @Override
+  public void showCalculatedDeterminant(double determinant) {
+
   }
 
-  public JSpinner getSpEscalar() {
-    return spEscalar;
+  @Override
+  public void showCalculationResult(CalculationResult calculationResult) {
+
   }
 
-  public JSpinner getSpOrdenMatriz() {
-    return spOrdenMatriz;
+  @Override
+  public void clearAll() {
+    for (MatrixGridPanelParent panelParent : matrixGridPanelParents()) {
+      panelParent.clearChildInputFields();
+    }
+    txtDeterminant.setText("");
   }
 
-  public JTextField getTxtDeterminante() {
-    return txtDeterminante;
+  @Override
+  public void showError(String message) {
+    System.out.println(message);
   }
 
-  public JCheckBox getCkbHabilitarSegundaMatriz() {
-    return ckbHabilitarSegundaMatriz;
+  @Override
+  public void setListener(Listener listener) {
+    this.listener = listener;
+  }
+
+  private MatrixGridPanelParent[] matrixGridPanelParents() {
+    return new MatrixGridPanelParent[]{
+      inputMatrixPanel,
+      matrixSumResultPanel,
+      matrixInverseResultPanel,
+      matrixDotProductResultPanel,
+      matrixMultipliedByScalarResultPanel
+    };
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton btnCalcular;
-  private javax.swing.JButton btnDefinirOrden;
-  private javax.swing.JButton btnLimpiar;
-  private javax.swing.JButton btnSetSegundaMatriz;
-  private javax.swing.JCheckBox ckbHabilitarSegundaMatriz;
+  private javax.swing.JButton btnCalculateResult;
+  private javax.swing.JButton btnSetOrderOfMatrix;
+  private javax.swing.JButton btnClearAll;
+  private javax.swing.JButton btnShowSecondaryMatrix;
+  private javax.swing.JCheckBox ckbUseSecondaryMatrix;
   private javax.swing.Box.Filler filler1;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel2;
@@ -294,10 +332,10 @@ public class VistaPrincipal extends javax.swing.JFrame {
   private MatrixGridPanelParent matrixInverseResultPanel;
   private MatrixGridPanelParent inputMatrixPanel;
   private MatrixGridPanelParent matrixMultipliedByScalarResultPanel;
-  private MatrixGridPanelParent matrixMultipliedByMatrixResultPanel;
+  private MatrixGridPanelParent matrixDotProductResultPanel;
   private MatrixGridPanelParent matrixSumResultPanel;
-  private javax.swing.JSpinner spEscalar;
-  private javax.swing.JSpinner spOrdenMatriz;
-  private javax.swing.JTextField txtDeterminante;
+  private javax.swing.JSpinner spScalar;
+  private javax.swing.JSpinner spOrderOfMatrix;
+  private javax.swing.JTextField txtDeterminant;
   // End of variables declaration//GEN-END:variables
 }

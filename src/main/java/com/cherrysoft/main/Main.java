@@ -1,7 +1,7 @@
 package com.cherrysoft.main;
 
-import com.cherrysoft.controller.VistaPrincipalController;
-import com.cherrysoft.view.VistaPrincipal;
+import com.cherrysoft.controllers.HomeController;
+import com.cherrysoft.views.imp.HomeViewImp;
 
 import java.awt.*;
 
@@ -12,10 +12,10 @@ public class Main {
 
   public static void main(String[] args) {
     EventQueue.invokeLater(() -> {
-      VistaPrincipal view = new VistaPrincipal();
+      HomeViewImp view = new HomeViewImp();
       view.setVisible(true);
       view.setLocationRelativeTo(null);
-      new VistaPrincipalController(view);
+      new HomeController(view);
     });
   }
 }

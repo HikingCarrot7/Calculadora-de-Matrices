@@ -1,4 +1,4 @@
-package com.cherrysoft.model;
+package com.cherrysoft.core;
 
 import org.junit.jupiter.api.Test;
 
