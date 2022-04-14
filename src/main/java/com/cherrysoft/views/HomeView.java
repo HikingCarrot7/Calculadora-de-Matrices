@@ -5,11 +5,11 @@ import com.cherrysoft.core.InputMatrix;
 
 public interface HomeView {
 
-  InputMatrix getInputMatrix();
+  InputMatrix getPrimaryInputMatrix();
 
   double getScalar();
 
-  int getOrderOfMatrix();
+  int getOrderOfPrimaryMatrix();
 
   void setOrderOfMatrix(int orderOfMatrix);
 
@@ -17,9 +17,13 @@ public interface HomeView {
 
   void setInitialInputMatrixState(InputMatrix inputMatrix);
 
+  void setInputMatrixState(InputMatrix inputMatrix);
+
   void showCalculatedDeterminant(double determinant);
 
   void showCalculationResult(CalculationResult calculationResult);
+
+  SecondaryMatrixView createSecondaryMatrixView();
 
   void clearAll();
 

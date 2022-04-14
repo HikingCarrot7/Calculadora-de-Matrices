@@ -4,9 +4,11 @@ import com.cherrysoft.core.CalculationResult;
 import com.cherrysoft.core.InputMatrix;
 import com.cherrysoft.views.HomeView;
 import com.cherrysoft.views.MatrixPanelsRenderer;
+import com.cherrysoft.views.SecondaryMatrixView;
 import com.cherrysoft.views.imp.components.MatrixGridPanelParent;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -238,12 +240,8 @@ public class HomeViewImp extends JFrame implements HomeView {
     }
   }
 
-  public JTextField getTxtDeterminant() {
-    return txtDeterminant;
-  }
-
   @Override
-  public InputMatrix getInputMatrix() {
+  public InputMatrix getPrimaryInputMatrix() {
     return new InputMatrix(inputMatrixPanel.getChildMatrixAsRawMatrix());
   }
 
@@ -253,7 +251,7 @@ public class HomeViewImp extends JFrame implements HomeView {
   }
 
   @Override
-  public int getOrderOfMatrix() {
+  public int getOrderOfPrimaryMatrix() {
     return (int) spOrderOfMatrix.getValue();
   }
 
@@ -270,20 +268,37 @@ public class HomeViewImp extends JFrame implements HomeView {
   @Override
   public void setInitialInputMatrixState(InputMatrix inputMatrix) {
     matrixPanelsRenderer = new MatrixPanelsRenderer(
-      inputMatrix.orderOfMatrix(),
+      inputMatrix.rawMatrixLength(),
       matrixGridPanelParents()
     );
-    inputMatrixPanel.fillChildInputFieldsWith(inputMatrix.getRawMatrix());
+    setInputMatrixState(inputMatrix);
+  }
+
+  @Override
+  public void setInputMatrixState(InputMatrix inputMatrix) {
+    inputMatrixPanel.fillChildInputFieldsWith(inputMatrix);
+  }
+
+  @Override
+  public void showCalculationResult(CalculationResult result) {
+    matrixSumResultPanel.fillChildInputFieldsWith(result.getMatrixSum());
+    matrixMultipliedByScalarResultPanel.fillChildInputFieldsWith(result.getMatrixMultipliedByScalar());
+    matrixDotProductResultPanel.fillChildInputFieldsWith(result.getMatrixDotProduct());
+    matrixInverseResultPanel.fillChildInputFieldsWith(result.getMatrixInverse());
+    showCalculatedDeterminant(result.getDeterminant());
+  }
+
+  @Override
+  public SecondaryMatrixView createSecondaryMatrixView() {
+    SecondaryMatrixViewImp secondaryMatrixView = new SecondaryMatrixViewImp(this);
+    secondaryMatrixView.setLocationRelativeTo(this);
+    secondaryMatrixView.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+    return secondaryMatrixView;
   }
 
   @Override
   public void showCalculatedDeterminant(double determinant) {
-
-  }
-
-  @Override
-  public void showCalculationResult(CalculationResult calculationResult) {
-
+    txtDeterminant.setText(String.format("%,.2f", determinant));
   }
 
   @Override
@@ -308,9 +323,9 @@ public class HomeViewImp extends JFrame implements HomeView {
     return new MatrixGridPanelParent[]{
       inputMatrixPanel,
       matrixSumResultPanel,
-      matrixInverseResultPanel,
+      matrixMultipliedByScalarResultPanel,
       matrixDotProductResultPanel,
-      matrixMultipliedByScalarResultPanel
+      matrixInverseResultPanel,
     };
   }
 

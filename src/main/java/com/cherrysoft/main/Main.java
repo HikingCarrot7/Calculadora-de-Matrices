@@ -1,13 +1,12 @@
 package com.cherrysoft.main;
 
-import com.cherrysoft.controllers.HomeController;
+import com.cherrysoft.controllers.AppController;
+import com.cherrysoft.core.MatrixValidator;
+import com.cherrysoft.services.imp.MatrixServiceImp;
 import com.cherrysoft.views.imp.HomeViewImp;
 
 import java.awt.*;
 
-/**
- * @author Nicolás
- */
 public class Main {
 
   public static void main(String[] args) {
@@ -15,7 +14,7 @@ public class Main {
       HomeViewImp view = new HomeViewImp();
       view.setVisible(true);
       view.setLocationRelativeTo(null);
-      new HomeController(view);
+      new AppController(view, new MatrixServiceImp(new MatrixValidator()));
     });
   }
 }

@@ -58,8 +58,9 @@ public class SquaredMatrixGridPanel extends JPanel {
   }
 
   public void fillInputFieldsWith(String[][] items) {
-    for (int i = 0; i < items.length; i++) {
-      for (int j = 0; j < items[i].length; j++) {
+    int minLength = Math.min(items.length, inputFields.length);
+    for (int i = 0; i < minLength; i++) {
+      for (int j = 0; j < minLength; j++) {
         inputFields[i][j].setText(items[i][j]);
       }
     }
@@ -78,5 +79,4 @@ public class SquaredMatrixGridPanel extends JPanel {
     }
     return items;
   }
-
 }

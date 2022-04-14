@@ -1,7 +1,7 @@
 package com.cherrysoft.core;
 
 import static com.cherrysoft.core.utils.MatrixUtils.cutTopLeftSquareSubMatrix;
-import static com.cherrysoft.core.utils.MatrixUtils.calculateSquareSideLength;
+import static com.cherrysoft.core.utils.MatrixUtils.calculateActualSideLength;
 
 public class MatrixValidator {
   private final String DOUBLE_REGEX = "^-?[0-9]+(.?[0-9]+)*$";
@@ -18,7 +18,7 @@ public class MatrixValidator {
   }
 
   private boolean isValidMatrix() {
-    if (calculateSquareSideLength(rawMatrix) < MIN_MATRIX_ORDER) {
+    if (calculateActualSideLength(rawMatrix) < MIN_MATRIX_ORDER) {
       return false;
     }
     return inputFieldsValid();

@@ -8,7 +8,7 @@ import lombok.Data;
 public class InputMatrix {
   private String[][] rawMatrix;
 
-  public int orderOfMatrix() {
+  public int rawMatrixLength() {
     return rawMatrix.length;
   }
 }
