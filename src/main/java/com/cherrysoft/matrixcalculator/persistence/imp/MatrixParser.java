@@ -1,0 +1,26 @@
+package com.cherrysoft.matrixcalculator.persistence.imp;
+
+import com.cherrysoft.matrixcalculator.core.InputMatrix;
+import com.sun.security.jgss.GSSUtil;
+
+import java.util.Arrays;
+
+import static com.cherrysoft.matrixcalculator.persistence.imp.MatrixRepositoryImp.SEPARATOR;
+
+class MatrixParser {
+  private String[] matrix;
+
+  public InputMatrix parseMatrix() {
+    String[][] parsedMatrix = new String[matrix.length][];
+    for (int i = 0; i < matrix.length; i++) {
+      String[] cols = matrix[i].split(SEPARATOR);
+      parsedMatrix[i] = cols;
+    }
+    return new InputMatrix(parsedMatrix);
+  }
+
+  public void setMatrix(String[] matrix) {
+    this.matrix = matrix;
+  }
+
+}
