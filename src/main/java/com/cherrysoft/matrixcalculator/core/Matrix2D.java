@@ -39,7 +39,7 @@ public class Matrix2D {
     }
   }
 
-  public static double[][] getSubMatrix(int row, int col, double[][] matrix) {
+  private static double[][] getSubMatrix(int row, int col, double[][] matrix) {
     double[][] subMatrix = new double[matrix.length - 1][matrix.length - 1];
     for (int i = 0, k = 0; i < matrix.length; i++) {
       for (int j = 0, l = 0; i != row && j < matrix.length; j++) {
@@ -95,5 +95,4 @@ public class Matrix2D {
     }
     return dotProduct;
   }
-
 }

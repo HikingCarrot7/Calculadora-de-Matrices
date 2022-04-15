@@ -17,9 +17,9 @@ public class HomeViewImp extends JFrame implements HomeView {
   private HomeView.Listener listener;
 
   public HomeViewImp() {
+    initLookAndFeel();
     initComponents();
     hookUpEvents();
-    initLookAndFeel();
   }
 
   private void hookUpEvents() {

@@ -8,7 +8,8 @@ import com.cherrysoft.matrixcalculator.core.exceptions.InvalidPrimaryMatrixExcep
 import com.cherrysoft.matrixcalculator.services.MatrixCalculatorService;
 
 import static com.cherrysoft.matrixcalculator.core.Matrix2D.*;
-import static com.cherrysoft.matrixcalculator.core.utils.MatrixUtils.tryToCastToDouble;
+import static com.cherrysoft.matrixcalculator.core.utils.MatrixUtils.subSquaredMatrixFromTopLeft;
+import static com.cherrysoft.matrixcalculator.core.utils.MatrixUtils.tryToTrimAndCastToDouble;
 
 public class MatrixCalculatorServiceImp implements MatrixCalculatorService {
   private final MatrixValidator validator;
@@ -22,14 +23,25 @@ public class MatrixCalculatorServiceImp implements MatrixCalculatorService {
   public CalculationResult calculateResult(CalculationRequest request) {
     this.request = request;
     if (isPrimaryMatrixValid()) {
-      double[][] primaryMatrix = tryToCastToDouble(request.getPrimaryMatrix());
+      InputMatrix primaryInputMatrix = request.getPrimaryMatrix();
+      double[][] primaryMatrix = tryToTrimAndCastToDouble(primaryInputMatrix);
       if (!isSecondaryMatrixValid()) {
         return doMatrixOperations(primaryMatrix, primaryMatrix);
       }
-      double[][] secondaryMatrix = tryToCastToDouble(request.getSecondaryMatrix());
+      double[][] secondaryMatrix = prepareSecondaryMatrix(primaryMatrix.length);
       return doMatrixOperations(primaryMatrix, secondaryMatrix);
     }
     throw new InvalidPrimaryMatrixException();
+  }
+
+  private double[][] prepareSecondaryMatrix(int primaryMatrixLength) {
+    InputMatrix primaryInputMatrix = request.getPrimaryMatrix();
+    InputMatrix secondaryInputMatrix = request.getSecondaryMatrix();
+    double[][] secondaryMatrix = tryToTrimAndCastToDouble(secondaryInputMatrix);
+    if (secondaryInputMatrix.sideLengthGreaterThan(primaryInputMatrix)) {
+      secondaryMatrix = subSquaredMatrixFromTopLeft(secondaryMatrix, primaryMatrixLength);
+    }
+    return secondaryMatrix;
   }
 
   private boolean isPrimaryMatrixValid() {

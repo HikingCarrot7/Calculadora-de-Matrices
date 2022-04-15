@@ -4,11 +4,11 @@ import com.cherrysoft.matrixcalculator.core.InputMatrix;
 
 public class MatrixUtils {
 
-  public static double[][] tryToCastToDouble(InputMatrix inputMatrix) {
-    return tryToCastToDouble(inputMatrix.getRawMatrix());
+  public static double[][] tryToTrimAndCastToDouble(InputMatrix inputMatrix) {
+    return tryToTrimAndCastToDouble(inputMatrix.getRawMatrix());
   }
 
-  public static double[][] tryToCastToDouble(String[][] rawMatrix) {
+  public static double[][] tryToTrimAndCastToDouble(String[][] rawMatrix) {
     int actualSideLength = calculateActualSideLength(rawMatrix);
     double[][] result = new double[actualSideLength][actualSideLength];
     for (int i = 0; i < actualSideLength; i++) {
@@ -39,5 +39,13 @@ public class MatrixUtils {
       sideLength++;
     }
     return sideLength;
+  }
+
+  public static double[][] subSquaredMatrixFromTopLeft(double[][] source, int length) {
+    double[][] subMatrix = new double[length][length];
+    for (int i = 0; i < length; i++) {
+      System.arraycopy(source[i], 0, subMatrix[i], 0, length);
+    }
+    return subMatrix;
   }
 }
