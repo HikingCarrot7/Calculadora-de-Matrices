@@ -3,58 +3,60 @@ package com.cherrysoft.controllers;
 import com.cherrysoft.core.CalculationRequest;
 import com.cherrysoft.core.CalculationResult;
 import com.cherrysoft.core.InputMatrix;
-import com.cherrysoft.core.exceptions.InvalidMatrixException;
-import com.cherrysoft.persistence.DAO;
-import com.cherrysoft.services.MatrixService;
+import com.cherrysoft.core.exceptions.InvalidPrimaryMatrixException;
+import com.cherrysoft.persistence.MatrixDAO;
+import com.cherrysoft.services.MatrixCalculatorService;
 import com.cherrysoft.views.HomeView;
 import com.cherrysoft.views.SecondaryMatrixView;
 import com.cherrysoft.views.imp.HomeViewImp;
-import com.cherrysoft.views.imp.components.SquaredMatrixGridPanel;
 
 public class AppController implements HomeView.Listener, SecondaryMatrixView.Listener {
-  private final int INDEX_MATRIZ_ENTRADA = 0;
-
   public static final int ORDEN_INICIAL_MATRIZ;
 
   static {
-    DAO dao = new DAO(DAO.RUTA_MATRIZ_PRIMARIA);
-    ORDEN_INICIAL_MATRIZ = dao.getOrdenMatriz();
+    MatrixDAO matrixDao = new MatrixDAO(MatrixDAO.RUTA_MATRIZ_PRIMARIA);
+    ORDEN_INICIAL_MATRIZ = matrixDao.getOrdenMatriz();
   }
 
   private final HomeViewImp homeView;
-  private final MatrixService matrixService;
+  private final MatrixCalculatorService calculatorService;
   private SecondaryMatrixView secondaryMatrixView;
 
-  private final DataManager dataManager;
+  private final MatrixDAO daoMatrizPrimaria;
+  private final MatrixDAO daoMatrizSecundaria;
 
-  private final DAO daoMatrizPrimaria;
-  private final DAO daoMatrizSecundaria;
-
-  public AppController(HomeViewImp homeView, MatrixService matrixService) {
+  public AppController(HomeViewImp homeView, MatrixCalculatorService calculatorService) {
     this.homeView = homeView;
-    this.matrixService = matrixService;
+    this.calculatorService = calculatorService;
 
-    this.daoMatrizPrimaria = new DAO(DAO.RUTA_MATRIZ_PRIMARIA);
-    this.daoMatrizSecundaria = new DAO(DAO.RUTA_MATRIZ_SECUNDARIA);
-    InputMatrix inputMatrix = new InputMatrix(daoMatrizPrimaria.getMatriz());
+    this.daoMatrizPrimaria = new MatrixDAO(MatrixDAO.RUTA_MATRIZ_PRIMARIA);
+    this.daoMatrizSecundaria = new MatrixDAO(MatrixDAO.RUTA_MATRIZ_SECUNDARIA);
+    InputMatrix inputMatrix = new InputMatrix(daoMatrizPrimaria.getMatrix());
 
     this.homeView.setListener(this);
     homeView.setOrderOfMatrix(inputMatrix.rawMatrixLength());
     homeView.setInitialInputMatrixState(inputMatrix);
-    this.dataManager = DataManager.getInstance();
   }
 
   @Override
   public void onCalculateResult() {
     try {
-      InputMatrix primaryInputMatrix = homeView.getPrimaryInputMatrix();
-      double scalar = homeView.getScalar();
-      CalculationRequest request = new CalculationRequest(primaryInputMatrix, scalar);
-      CalculationResult result = matrixService.calculateResult(request);
+      CalculationRequest request = createCalculationRequest();
+      CalculationResult result = calculatorService.calculateResult(request);
       homeView.showCalculationResult(result);
-    } catch (InvalidMatrixException e) {
+    } catch (InvalidPrimaryMatrixException e) {
       homeView.showError(e.getMessage());
     }
+  }
+
+  private CalculationRequest createCalculationRequest() {
+    InputMatrix primaryInputMatrix = homeView.getPrimaryInputMatrix();
+    InputMatrix secondaryInputMatrix = new InputMatrix(daoMatrizSecundaria.getMatrix());
+    return CalculationRequest.builder()
+      .primaryMatrix(primaryInputMatrix)
+      .secondaryMatrix(homeView.useSecondaryMatrix() ? secondaryInputMatrix : null)
+      .scalar(homeView.getScalar())
+      .build();
   }
 
   @Override
@@ -62,12 +64,12 @@ public class AppController implements HomeView.Listener, SecondaryMatrixView.Lis
     InputMatrix primaryInputMatrix = homeView.getPrimaryInputMatrix();
     daoMatrizPrimaria.guardarMatriz(primaryInputMatrix.getRawMatrix());
     homeView.matrixPanelsRenderer.updateMatrixGridPanels(homeView.getOrderOfPrimaryMatrix());
-    homeView.setInputMatrixState(new InputMatrix(daoMatrizPrimaria.getMatriz()));
+    homeView.setInputMatrixState(new InputMatrix(daoMatrizPrimaria.getMatrix()));
   }
 
   @Override
   public void onShowSecondaryMatrix() {
-    InputMatrix secondaryInputMatrix = new InputMatrix(daoMatrizSecundaria.getMatriz());
+    InputMatrix secondaryInputMatrix = new InputMatrix(daoMatrizSecundaria.getMatrix());
     int orderOfPrimaryMatrix = homeView.getOrderOfPrimaryMatrix();
     secondaryMatrixView = homeView.createSecondaryMatrixView();
     secondaryMatrixView.setListener(this);
@@ -100,19 +102,7 @@ public class AppController implements HomeView.Listener, SecondaryMatrixView.Lis
 
   @Override
   public void onClosingSecondaryMatrixView() {
-    InputMatrix inputMatrix = secondaryMatrixView.getSecondaryInputMatrix();
-    daoMatrizSecundaria.guardarMatriz(inputMatrix.getRawMatrix());
-  }
-
-  private double[][] getMatrizSecundaria() {
-    if (!homeView.useSecondaryMatrix())
-      return dataManager.getEntradas(getVistaMatrizEntrada());
-    if (dataManager.matrizValida(daoMatrizSecundaria.getMatriz()))
-      return dataManager.getEntradas(daoMatrizSecundaria.getMatriz());
-    return dataManager.getEntradas(getVistaMatrizEntrada());
-  }
-
-  private SquaredMatrixGridPanel getVistaMatrizEntrada() {
-    return homeView.matrixPanelsRenderer.getMatrixGridPanels()[INDEX_MATRIZ_ENTRADA];
+    InputMatrix secondaryInputMatrix = secondaryMatrixView.getSecondaryInputMatrix();
+    daoMatrizSecundaria.guardarMatriz(secondaryInputMatrix.getRawMatrix());
   }
 }

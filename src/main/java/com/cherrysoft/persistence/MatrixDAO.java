@@ -7,7 +7,7 @@ import java.util.Formatter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class DAO {
+public class MatrixDAO {
   public static final String RUTA_MATRIZ_PRIMARIA = "res//Matriz1.txt";
   public static final String RUTA_MATRIZ_SECUNDARIA = "res//Matriz2.txt";
 
@@ -17,7 +17,7 @@ public class DAO {
 
   private File file;
 
-  public DAO(String ruta) {
+  public MatrixDAO(String ruta) {
     file = new File(ruta);
     if (!file.exists())
       try {
@@ -39,7 +39,7 @@ public class DAO {
     }
   }
 
-  public String[][] getMatriz() {
+  public String[][] getMatrix() {
     int ordenMatrizGuardada = getOrdenMatriz();
     String[][] matriz = new String[ordenMatrizGuardada][];
     int index = 0;

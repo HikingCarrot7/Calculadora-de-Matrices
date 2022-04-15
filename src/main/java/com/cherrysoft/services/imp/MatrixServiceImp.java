@@ -1,14 +1,15 @@
 package com.cherrysoft.services.imp;
 
 import com.cherrysoft.core.*;
-import com.cherrysoft.core.exceptions.InvalidMatrixException;
-import com.cherrysoft.services.MatrixService;
+import com.cherrysoft.core.exceptions.InvalidPrimaryMatrixException;
+import com.cherrysoft.services.MatrixCalculatorService;
 
 import static com.cherrysoft.core.Matrix2D.*;
 import static com.cherrysoft.core.utils.MatrixUtils.tryToCastToDouble;
 
-public class MatrixServiceImp implements MatrixService {
+public class MatrixServiceImp implements MatrixCalculatorService {
   private final MatrixValidator validator;
+  private CalculationRequest request;
 
   public MatrixServiceImp(MatrixValidator validator) {
     this.validator = validator;
@@ -16,20 +17,35 @@ public class MatrixServiceImp implements MatrixService {
 
   @Override
   public CalculationResult calculateResult(CalculationRequest request) {
-    InputMatrix primaryMatrix = request.getPrimaryMatrix();
-    if (validator.isValidMatrix(primaryMatrix)) {
-      return doMatrixOperations(request);
+    this.request = request;
+    if (isPrimaryMatrixValid()) {
+      double[][] primaryMatrix = tryToCastToDouble(request.getPrimaryMatrix());
+      if (!isSecondaryMatrixValid()) {
+        return doMatrixOperations(primaryMatrix, primaryMatrix);
+      }
+      double[][] secondaryMatrix = tryToCastToDouble(request.getSecondaryMatrix());
+      return doMatrixOperations(primaryMatrix, secondaryMatrix);
     }
-    throw new InvalidMatrixException();
+    throw new InvalidPrimaryMatrixException();
   }
 
-  private CalculationResult doMatrixOperations(CalculationRequest request) {
-    double[][] primaryMatrix = tryToCastToDouble(request.getPrimaryMatrix());
-    double[][] secondaryMatrix = tryToCastToDouble(request.getSecondaryMatrix());
+  private boolean isPrimaryMatrixValid() {
+    InputMatrix primaryInputMatrix = request.getPrimaryMatrix();
+    return validator.isValidMatrix(primaryInputMatrix);
+  }
+
+  private boolean isSecondaryMatrixValid() {
+    InputMatrix secondaryInputMatrix = request.getSecondaryMatrix();
+    return validator.isValidMatrix(secondaryInputMatrix);
+  }
+
+  private CalculationResult doMatrixOperations(
+    double[][] primaryMatrix, double[][] secondaryMatrix
+  ) {
     double scalar = request.getScalar();
 
     return CalculationResult.builder()
-      .matrixSum(matrixAddition(primaryMatrix, primaryMatrix))
+      .matrixSum(matrixAddition(primaryMatrix, secondaryMatrix))
       .matrixDotProduct(calculateDotProduct(primaryMatrix, secondaryMatrix))
       .matrixMultipliedByScalar(multipliedByScalar(scalar, primaryMatrix))
       .matrixInverse(inverse(primaryMatrix))

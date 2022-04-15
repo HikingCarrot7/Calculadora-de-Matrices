@@ -1,19 +1,19 @@
 package com.cherrysoft.core;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Objects;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class CalculationRequest {
   private InputMatrix primaryMatrix;
   private InputMatrix secondaryMatrix;
   private double scalar;
 
-  public CalculationRequest(InputMatrix primaryMatrix, double scalar) {
-    this(primaryMatrix, null, scalar);
+  public boolean providedSecondaryMatrix() {
+    return Objects.nonNull(secondaryMatrix);
   }
 
   public InputMatrix getSecondaryMatrix() {
@@ -22,5 +22,4 @@ public class CalculationRequest {
     }
     return secondaryMatrix;
   }
-
 }
