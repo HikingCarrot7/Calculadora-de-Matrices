@@ -42,7 +42,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>com.cherrysoft.main.Main</mainClass>
+              <mainClass>com.cherrysoft.matrixcalculator.main.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
