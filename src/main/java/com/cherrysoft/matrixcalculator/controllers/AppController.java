@@ -4,45 +4,33 @@ import com.cherrysoft.matrixcalculator.core.CalculationRequest;
 import com.cherrysoft.matrixcalculator.core.CalculationResult;
 import com.cherrysoft.matrixcalculator.core.InputMatrix;
 import com.cherrysoft.matrixcalculator.core.exceptions.InvalidPrimaryMatrixException;
-import com.cherrysoft.matrixcalculator.persistence.MatrixDAO;
-import com.cherrysoft.matrixcalculator.services.MatrixCalculatorService;
+import com.cherrysoft.matrixcalculator.services.MatrixServiceFacade;
 import com.cherrysoft.matrixcalculator.views.HomeView;
 import com.cherrysoft.matrixcalculator.views.SecondaryMatrixView;
-import com.cherrysoft.matrixcalculator.views.imp.HomeViewImp;
 
 public class AppController implements HomeView.Listener, SecondaryMatrixView.Listener {
-  public static final int ORDEN_INICIAL_MATRIZ;
+  private final HomeView homeView;
+  private SecondaryMatrixView secondaryMatrixView;
+  private final MatrixServiceFacade facade;
 
-  static {
-    MatrixDAO matrixDao = new MatrixDAO(MatrixDAO.RUTA_MATRIZ_PRIMARIA);
-    ORDEN_INICIAL_MATRIZ = matrixDao.getOrdenMatriz();
+  public AppController(HomeView homeView, MatrixServiceFacade facade) {
+    this.homeView = homeView;
+    this.facade = facade;
+    initHomeView();
   }
 
-  private final HomeViewImp homeView;
-  private final MatrixCalculatorService calculatorService;
-  private SecondaryMatrixView secondaryMatrixView;
-
-  private final MatrixDAO daoMatrizPrimaria;
-  private final MatrixDAO daoMatrizSecundaria;
-
-  public AppController(HomeViewImp homeView, MatrixCalculatorService calculatorService) {
-    this.homeView = homeView;
-    this.calculatorService = calculatorService;
-
-    this.daoMatrizPrimaria = new MatrixDAO(MatrixDAO.RUTA_MATRIZ_PRIMARIA);
-    this.daoMatrizSecundaria = new MatrixDAO(MatrixDAO.RUTA_MATRIZ_SECUNDARIA);
-    InputMatrix inputMatrix = new InputMatrix(daoMatrizPrimaria.getMatrix());
-
-    this.homeView.setListener(this);
-    homeView.setOrderOfMatrix(inputMatrix.rawMatrixLength());
-    homeView.setInitialInputMatrixState(inputMatrix);
+  private void initHomeView() {
+    InputMatrix primaryInputMatrix = facade.getPrimaryMatrix();
+    homeView.setListener(this);
+    homeView.setOrderOfMatrix(primaryInputMatrix.rawMatrixLength());
+    homeView.setInitialInputMatrixState(primaryInputMatrix);
   }
 
   @Override
   public void onCalculateResult() {
     try {
       CalculationRequest request = createCalculationRequest();
-      CalculationResult result = calculatorService.calculateResult(request);
+      CalculationResult result = facade.calculateResult(request);
       homeView.showCalculationResult(result);
     } catch (InvalidPrimaryMatrixException e) {
       homeView.showError(e.getMessage());
@@ -51,7 +39,7 @@ public class AppController implements HomeView.Listener, SecondaryMatrixView.Lis
 
   private CalculationRequest createCalculationRequest() {
     InputMatrix primaryInputMatrix = homeView.getPrimaryInputMatrix();
-    InputMatrix secondaryInputMatrix = new InputMatrix(daoMatrizSecundaria.getMatrix());
+    InputMatrix secondaryInputMatrix = facade.getSecondaryMatrix();
     return CalculationRequest.builder()
       .primaryMatrix(primaryInputMatrix)
       .secondaryMatrix(homeView.useSecondaryMatrix() ? secondaryInputMatrix : null)
@@ -62,14 +50,14 @@ public class AppController implements HomeView.Listener, SecondaryMatrixView.Lis
   @Override
   public void onSetOrderOfMatrix() {
     InputMatrix primaryInputMatrix = homeView.getPrimaryInputMatrix();
-    daoMatrizPrimaria.guardarMatriz(primaryInputMatrix.getRawMatrix());
-    homeView.matrixPanelsRenderer.updateMatrixGridPanels(homeView.getOrderOfPrimaryMatrix());
-    homeView.setInputMatrixState(new InputMatrix(daoMatrizPrimaria.getMatrix()));
+    facade.saveAsPrimaryMatrix(primaryInputMatrix);
+    homeView.updatePanelsToMatchOrderOfMatrix();
+    homeView.setPrimaryInputMatrixState(primaryInputMatrix);
   }
 
   @Override
   public void onShowSecondaryMatrix() {
-    InputMatrix secondaryInputMatrix = new InputMatrix(daoMatrizSecundaria.getMatrix());
+    InputMatrix secondaryInputMatrix = facade.getSecondaryMatrix();
     int orderOfPrimaryMatrix = homeView.getOrderOfPrimaryMatrix();
     secondaryMatrixView = homeView.createSecondaryMatrixView();
     secondaryMatrixView.setListener(this);
@@ -85,7 +73,7 @@ public class AppController implements HomeView.Listener, SecondaryMatrixView.Lis
   @Override
   public void onSystemClosing() {
     InputMatrix primaryInputMatrix = homeView.getPrimaryInputMatrix();
-    daoMatrizPrimaria.guardarMatriz(primaryInputMatrix.getRawMatrix());
+    facade.saveAsPrimaryMatrix(primaryInputMatrix);
   }
 
   @Override
@@ -95,14 +83,14 @@ public class AppController implements HomeView.Listener, SecondaryMatrixView.Lis
 
   @Override
   public void onDoneFillingSecondaryMatrix() {
-    InputMatrix inputMatrix = secondaryMatrixView.getSecondaryInputMatrix();
-    daoMatrizSecundaria.guardarMatriz(inputMatrix.getRawMatrix());
+    InputMatrix secondaryInputMatrix = secondaryMatrixView.getSecondaryInputMatrix();
+    facade.saveAsSecondaryMatrix(secondaryInputMatrix);
     secondaryMatrixView.closeWindow();
   }
 
   @Override
   public void onClosingSecondaryMatrixView() {
     InputMatrix secondaryInputMatrix = secondaryMatrixView.getSecondaryInputMatrix();
-    daoMatrizSecundaria.guardarMatriz(secondaryInputMatrix.getRawMatrix());
+    facade.saveAsSecondaryMatrix(secondaryInputMatrix);
   }
 }

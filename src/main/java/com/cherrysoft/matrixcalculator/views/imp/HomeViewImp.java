@@ -13,7 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class HomeViewImp extends JFrame implements HomeView {
-  public MatrixPanelsRenderer matrixPanelsRenderer;
+  private MatrixPanelsRenderer matrixPanelsRenderer;
   private HomeView.Listener listener;
 
   public HomeViewImp() {
@@ -271,12 +271,17 @@ public class HomeViewImp extends JFrame implements HomeView {
       inputMatrix.rawMatrixLength(),
       matrixGridPanelParents()
     );
-    setInputMatrixState(inputMatrix);
+    setPrimaryInputMatrixState(inputMatrix);
   }
 
   @Override
-  public void setInputMatrixState(InputMatrix inputMatrix) {
+  public void setPrimaryInputMatrixState(InputMatrix inputMatrix) {
     inputMatrixPanel.fillChildInputFieldsWith(inputMatrix);
+  }
+
+  @Override
+  public void updatePanelsToMatchOrderOfMatrix() {
+    matrixPanelsRenderer.updateMatrixGridPanels(getOrderOfPrimaryMatrix());
   }
 
   @Override

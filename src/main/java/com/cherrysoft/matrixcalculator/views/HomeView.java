@@ -17,7 +17,9 @@ public interface HomeView {
 
   void setInitialInputMatrixState(InputMatrix inputMatrix);
 
-  void setInputMatrixState(InputMatrix inputMatrix);
+  void setPrimaryInputMatrixState(InputMatrix inputMatrix);
+
+  void updatePanelsToMatchOrderOfMatrix();
 
   void showCalculatedDeterminant(double determinant);
 

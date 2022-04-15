@@ -5,16 +5,16 @@ import com.cherrysoft.matrixcalculator.core.CalculationResult;
 import com.cherrysoft.matrixcalculator.core.InputMatrix;
 import com.cherrysoft.matrixcalculator.core.MatrixValidator;
 import com.cherrysoft.matrixcalculator.core.exceptions.InvalidPrimaryMatrixException;
-import com.cherrysoft.matrixcalculator.core.utils.MatrixUtils;
 import com.cherrysoft.matrixcalculator.services.MatrixCalculatorService;
 
 import static com.cherrysoft.matrixcalculator.core.Matrix2D.*;
+import static com.cherrysoft.matrixcalculator.core.utils.MatrixUtils.tryToCastToDouble;
 
-public class MatrixServiceImp implements MatrixCalculatorService {
+public class MatrixCalculatorServiceImp implements MatrixCalculatorService {
   private final MatrixValidator validator;
   private CalculationRequest request;
 
-  public MatrixServiceImp(MatrixValidator validator) {
+  public MatrixCalculatorServiceImp(MatrixValidator validator) {
     this.validator = validator;
   }
 
@@ -22,11 +22,11 @@ public class MatrixServiceImp implements MatrixCalculatorService {
   public CalculationResult calculateResult(CalculationRequest request) {
     this.request = request;
     if (isPrimaryMatrixValid()) {
-      double[][] primaryMatrix = MatrixUtils.tryToCastToDouble(request.getPrimaryMatrix());
+      double[][] primaryMatrix = tryToCastToDouble(request.getPrimaryMatrix());
       if (!isSecondaryMatrixValid()) {
         return doMatrixOperations(primaryMatrix, primaryMatrix);
       }
-      double[][] secondaryMatrix = MatrixUtils.tryToCastToDouble(request.getSecondaryMatrix());
+      double[][] secondaryMatrix = tryToCastToDouble(request.getSecondaryMatrix());
       return doMatrixOperations(primaryMatrix, secondaryMatrix);
     }
     throw new InvalidPrimaryMatrixException();

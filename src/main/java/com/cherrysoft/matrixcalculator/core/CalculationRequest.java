@@ -12,10 +12,6 @@ public class CalculationRequest {
   private InputMatrix secondaryMatrix;
   private double scalar;
 
-  public boolean providedSecondaryMatrix() {
-    return Objects.nonNull(secondaryMatrix);
-  }
-
   public InputMatrix getSecondaryMatrix() {
     if (Objects.isNull(secondaryMatrix)) {
       return primaryMatrix;

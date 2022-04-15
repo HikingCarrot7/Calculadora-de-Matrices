@@ -29,11 +29,13 @@ public class MatrixUtils {
   }
 
   public static int calculateActualSideLength(String[][] rawMatrix) {
-    int sideLength = 0;
-    int col = 0;
-    while (col < rawMatrix.length && !rawMatrix[0][col++].isEmpty()) {
-      sideLength++;
+    String[] firstRow = rawMatrix[0];
+    for (int i = 0; i < firstRow.length; i++) {
+      String input = firstRow[i].trim();
+      if (input.isEmpty()) {
+        return i;
+      }
     }
-    return sideLength;
+    return 0;
   }
 }
