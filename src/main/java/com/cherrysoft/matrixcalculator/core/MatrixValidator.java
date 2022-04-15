@@ -1,7 +1,5 @@
 package com.cherrysoft.matrixcalculator.core;
 
-import com.cherrysoft.matrixcalculator.core.utils.MatrixUtils;
-
 import static com.cherrysoft.matrixcalculator.core.utils.MatrixUtils.calculateActualSideLength;
 import static com.cherrysoft.matrixcalculator.core.utils.MatrixUtils.cutTopLeftSquareSubMatrix;
 

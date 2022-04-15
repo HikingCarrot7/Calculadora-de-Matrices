@@ -1,5 +1,7 @@
 package com.cherrysoft.matrixcalculator.persistence.imp;
 
+import com.cherrysoft.matrixcalculator.persistence.exceptions.MatrixFileNotFoundException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -9,16 +11,11 @@ import static com.cherrysoft.matrixcalculator.persistence.imp.MatrixRepositoryIm
 class MatrixReader {
   private File file;
 
-  public MatrixReader(String matrixPath) {
-    this.file = new File(matrixPath);
-  }
-
   public String[] readMatrix() {
-    // TODO(Create and set default matrix if file does not exist)
     try {
       return tryToReadMatrix();
     } catch (FileNotFoundException e) {
-      throw new RuntimeException("");
+      throw new MatrixFileNotFoundException(file.getPath());
     }
   }
 
@@ -26,8 +23,7 @@ class MatrixReader {
     try (Scanner scanner = new Scanner(file)) {
       String firstRow = scanner.nextLine();
       String[] cols = firstRow.split(SEPARATOR);
-      int matrixLength = cols.length;
-      String[] matrix = new String[matrixLength];
+      String[] matrix = new String[cols.length];
       matrix[0] = firstRow;
       int index = 1;
       while (scanner.hasNextLine()) {
@@ -37,4 +33,9 @@ class MatrixReader {
       return matrix;
     }
   }
+
+  public void setMatrixPath(String matrixPath) {
+    this.file = new File(matrixPath);
+  }
+
 }

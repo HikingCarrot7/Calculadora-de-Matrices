@@ -8,11 +8,7 @@ import java.util.Arrays;
 import static com.cherrysoft.matrixcalculator.persistence.imp.MatrixRepositoryImp.SEPARATOR;
 
 class MatrixParser {
-  private final String[] matrix;
-
-  public MatrixParser(String[] matrix) {
-    this.matrix = matrix;
-  }
+  private String[] matrix;
 
   public InputMatrix parseMatrix() {
     String[][] parsedMatrix = new String[matrix.length][];
@@ -22,4 +18,9 @@ class MatrixParser {
     }
     return new InputMatrix(parsedMatrix);
   }
+
+  public void setMatrix(String[] matrix) {
+    this.matrix = matrix;
+  }
+
 }

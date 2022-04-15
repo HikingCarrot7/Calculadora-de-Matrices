@@ -30,12 +30,14 @@ public class MatrixUtils {
 
   public static int calculateActualSideLength(String[][] rawMatrix) {
     String[] firstRow = rawMatrix[0];
+    int sideLength = 0;
     for (int i = 0; i < firstRow.length; i++) {
       String input = firstRow[i].trim();
       if (input.isEmpty()) {
-        return i;
+        return sideLength;
       }
+      sideLength++;
     }
-    return 0;
+    return sideLength;
   }
 }

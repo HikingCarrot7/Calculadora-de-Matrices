@@ -10,14 +10,10 @@ import java.util.Formatter;
 class MatrixWriter {
   public static final String LINE_BREAK = System.getProperty("line.separator");
   public static final String SPACE = " ";
-  private final File file;
-
-  public MatrixWriter(String matrixPath) {
-    this.file = new File(matrixPath);
-  }
+  private File file;
 
   public void saveInputMatrix(InputMatrix inputMatrix) {
-    FileUtils.createFileIfDoesNotExist(file);
+    FileUtils.createFileAndParentsIfFileDoesNotExist(file);
     try {
       String[][] rawMatrix = inputMatrix.getRawMatrix();
       tryToSaveMatrix(rawMatrix);
@@ -35,6 +31,10 @@ class MatrixWriter {
         formatter.format("%s", LINE_BREAK);
       }
     }
+  }
+
+  public void setMatrixPath(String matrixPath) {
+    this.file = new File(matrixPath);
   }
 
 }
