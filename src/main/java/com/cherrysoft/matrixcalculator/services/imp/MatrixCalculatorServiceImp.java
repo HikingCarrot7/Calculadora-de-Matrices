@@ -25,11 +25,12 @@ public class MatrixCalculatorServiceImp implements MatrixCalculatorService {
     if (isPrimaryMatrixValid()) {
       InputMatrix primaryInputMatrix = request.getPrimaryMatrix();
       double[][] primaryMatrix = tryToTrimAndCastToDouble(primaryInputMatrix);
-      if (!isSecondaryMatrixValid()) {
+      if (isSecondaryMatrixValid()) {
+        double[][] secondaryMatrix = prepareSecondaryMatrix(primaryMatrix.length);
+        return doMatrixOperations(primaryMatrix, secondaryMatrix);
+      } else {
         return doMatrixOperations(primaryMatrix, primaryMatrix);
       }
-      double[][] secondaryMatrix = prepareSecondaryMatrix(primaryMatrix.length);
-      return doMatrixOperations(primaryMatrix, secondaryMatrix);
     }
     throw new InvalidPrimaryMatrixException();
   }
