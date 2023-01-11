@@ -77,7 +77,7 @@ public class SecondaryMatrixViewImp extends JDialog implements SecondaryMatrixVi
 
   @Override
   public InputMatrix getSecondaryInputMatrix() {
-    return new InputMatrix(secondaryMatrixPanelParent.getChildMatrixAsRawMatrix());
+    return new InputMatrix(secondaryMatrixPanelParent.getChildMatrixAsString());
   }
 
   @Override

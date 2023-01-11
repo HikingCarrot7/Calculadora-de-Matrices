@@ -18,12 +18,13 @@ public class Main {
       HomeViewImp view = new HomeViewImp();
       view.setVisible(true);
       view.setLocationRelativeTo(null);
+      view.setTitle("Calculadora de matrices");
       MatrixCalculatorService calculatorService = new MatrixCalculatorServiceImp(new MatrixValidator());
       MatrixRepository matrixRepository = new MatrixRepositoryImp();
       new AppController(view, MatrixServiceFacade.builder()
-        .matrixCalculatorService(calculatorService)
-        .matrixRepository(matrixRepository)
-        .build()
+          .matrixCalculatorService(calculatorService)
+          .matrixRepository(matrixRepository)
+          .build()
       );
     });
   }
