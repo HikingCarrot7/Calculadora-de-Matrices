@@ -1,13 +1,14 @@
 package com.cherrysoft.matrixcalculator.views.utils;
 
+import javax.swing.*;
 import java.text.ParseException;
-import javax.swing.JFormattedTextField;
 
 public class DoubleFormatterFactory extends JFormattedTextField.AbstractFormatterFactory {
 
   @Override
   public JFormattedTextField.AbstractFormatter getFormatter(JFormattedTextField tf) {
     return new JFormattedTextField.AbstractFormatter() {
+
       @Override
       public Object stringToValue(String text) throws ParseException {
         try {
@@ -18,9 +19,12 @@ public class DoubleFormatterFactory extends JFormattedTextField.AbstractFormatte
       }
 
       @Override
-      public String valueToString(Object value) throws ParseException {
+      public String valueToString(Object value) {
         return String.valueOf(value == null ? "" : value);
       }
+
     };
+
   }
+
 }

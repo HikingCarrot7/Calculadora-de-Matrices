@@ -4,20 +4,16 @@ import com.cherrysoft.matrixcalculator.views.utils.DoubleFormatterFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class SquaredMatrixGridPanel extends JPanel {
+  public static final DecimalFormat DOUBLE_2_DECIMAL_PLACES_FORMAT = new DecimalFormat("0.00");
+  public static final DecimalFormat DOUBLE_6_DECIMAL_PLACES_FORMAT = new DecimalFormat("0.000000");
   private final JTextField[][] inputFields;
-  private final JFormattedTextField.AbstractFormatterFactory formatterFactory;
+  private final DecimalFormat df;
 
-  public SquaredMatrixGridPanel(int sideLength) {
-    this(sideLength, new DoubleFormatterFactory());
-  }
-
-  public SquaredMatrixGridPanel(
-    int sideLength,
-    JFormattedTextField.AbstractFormatterFactory formatterFactory
-  ) {
-    this.formatterFactory = formatterFactory;
+  public SquaredMatrixGridPanel(int sideLength, DecimalFormat decimalFormat) {
+    this.df = decimalFormat;
     this.inputFields = new JTextField[sideLength][sideLength];
     setLayout(new GridLayout(sideLength, sideLength, 5, 5));
     renderEmptyMatrix();
@@ -42,7 +38,7 @@ public class SquaredMatrixGridPanel extends JPanel {
   }
 
   private JTextField createInputField() {
-    return new JFormattedTextField(formatterFactory);
+    return new JFormattedTextField(new DoubleFormatterFactory());
   }
 
   private void addInputFieldToPanel(JTextField inputField) {
@@ -61,16 +57,18 @@ public class SquaredMatrixGridPanel extends JPanel {
     int minLength = Math.min(items.length, inputFields.length);
     for (int i = 0; i < minLength; i++) {
       for (int j = 0; j < minLength; j++) {
-        inputFields[i][j].setText(items[i][j]);
+        String item = items[i][j];
+        JTextField inputField = inputFields[i][j];
+        if (item.trim().isEmpty()) {
+          inputField.setText(item);
+        } else {
+          inputField.setText(df.format(Double.parseDouble(item)));
+        }
       }
     }
   }
 
-  public JTextField[][] getInputFields() {
-    return inputFields;
-  }
-
-  public String[][] getAsRawMatrix() {
+  public String[][] getMatrixAsString() {
     String[][] items = new String[inputFields.length][inputFields[0].length];
     for (int i = 0; i < items.length; i++) {
       for (int j = 0; j < items[i].length; j++) {
@@ -79,4 +77,5 @@ public class SquaredMatrixGridPanel extends JPanel {
     }
     return items;
   }
+
 }

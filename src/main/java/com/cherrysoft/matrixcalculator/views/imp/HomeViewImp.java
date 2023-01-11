@@ -2,10 +2,11 @@ package com.cherrysoft.matrixcalculator.views.imp;
 
 import com.cherrysoft.matrixcalculator.core.CalculationResult;
 import com.cherrysoft.matrixcalculator.core.InputMatrix;
-import com.cherrysoft.matrixcalculator.views.MatrixPanelsRenderer;
 import com.cherrysoft.matrixcalculator.views.HomeView;
+import com.cherrysoft.matrixcalculator.views.MatrixPanelsRenderer;
 import com.cherrysoft.matrixcalculator.views.SecondaryMatrixView;
 import com.cherrysoft.matrixcalculator.views.imp.components.MatrixGridPanelParent;
+import com.cherrysoft.matrixcalculator.views.imp.components.SquaredMatrixGridPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -65,7 +66,7 @@ public class HomeViewImp extends JFrame implements HomeView {
     matrixSumResultPanel = new MatrixGridPanelParent();
     matrixDotProductResultPanel = new MatrixGridPanelParent();
     matrixMultipliedByScalarResultPanel = new MatrixGridPanelParent();
-    matrixInverseResultPanel = new MatrixGridPanelParent();
+    matrixInverseResultPanel = new MatrixGridPanelParent(SquaredMatrixGridPanel.DOUBLE_6_DECIMAL_PLACES_FORMAT);
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setMinimumSize(new java.awt.Dimension(800, 710));
@@ -227,22 +228,23 @@ public class HomeViewImp extends JFrame implements HomeView {
 
   private void initLookAndFeel() {
     try {
-      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+      for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
         if ("Windows".equals(info.getName())) {
           UIManager.setLookAndFeel(info.getClassName());
           break;
         }
+      }
     } catch (ClassNotFoundException |
-      InstantiationException |
-      IllegalAccessException |
-      UnsupportedLookAndFeelException ex) {
+             InstantiationException |
+             IllegalAccessException |
+             UnsupportedLookAndFeelException ex) {
       System.out.println(ex.getMessage());
     }
   }
 
   @Override
   public InputMatrix getPrimaryInputMatrix() {
-    return new InputMatrix(inputMatrixPanel.getChildMatrixAsRawMatrix());
+    return new InputMatrix(inputMatrixPanel.getChildMatrixAsString());
   }
 
   @Override
@@ -268,8 +270,8 @@ public class HomeViewImp extends JFrame implements HomeView {
   @Override
   public void setInitialInputMatrixState(InputMatrix inputMatrix) {
     matrixPanelsRenderer = new MatrixPanelsRenderer(
-      inputMatrix.rawMatrixLength(),
-      matrixGridPanelParents()
+        inputMatrix.rawMatrixLength(),
+        matrixGridPanelParents()
     );
     setPrimaryInputMatrixState(inputMatrix);
   }
@@ -326,11 +328,11 @@ public class HomeViewImp extends JFrame implements HomeView {
 
   private MatrixGridPanelParent[] matrixGridPanelParents() {
     return new MatrixGridPanelParent[]{
-      inputMatrixPanel,
-      matrixSumResultPanel,
-      matrixMultipliedByScalarResultPanel,
-      matrixDotProductResultPanel,
-      matrixInverseResultPanel,
+        inputMatrixPanel,
+        matrixSumResultPanel,
+        matrixMultipliedByScalarResultPanel,
+        matrixDotProductResultPanel,
+        matrixInverseResultPanel,
     };
   }
 
